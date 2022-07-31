@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es2016",
+        "lib": ["dom", "dom.iterable", "ESNext"],
+        "module": "commonjs",
+        "resolveJsonModule": true,
+        "allowJs": false,
+        "noEmit": true,
+        "isolatedModules": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true
+    },
+    "include": ["src"]
+}
