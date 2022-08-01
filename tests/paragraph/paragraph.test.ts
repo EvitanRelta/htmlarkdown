@@ -27,3 +27,15 @@ test('Paragraph - empty', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Paragraph - only linebreaks', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./onlyLinebreaks')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
+
+test('Paragraph - linebreak with text', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./linebreakWithText')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})

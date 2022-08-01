@@ -1,13 +1,16 @@
-import type { Filter, HTMLarkdownOptions, Rule, TagName } from '../types'
+import type { Filter, HTMLarkdownOptions, Preprocess, Rule, TagName } from '../types'
 import { isElement, isTextNode, stringToDom } from '../utilities'
 import { isRuleWithHtml } from './helpers'
+import { preprocesses } from './preprocesses'
 import { rules } from './rules'
 
 export class HTMLarkdown {
     readonly defaultRules: readonly Rule[] = rules
+    readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
 
     options: HTMLarkdownOptions
     rules: Rule[] = this.defaultRules.slice()
+    preprocesses: Preprocess[] = this.defaultPreprocesses.slice()
 
     constructor(options?: HTMLarkdownOptions) {
         this.options = options ?? {}
@@ -15,6 +18,17 @@ export class HTMLarkdown {
 
     addRule(rule: Rule): void {
         this.rules.push(rule)
+    }
+
+    addPreprocess(preprocess: Preprocess): void {
+        this.preprocesses.push(preprocess)
+    }
+
+    preprocess(container: Element): Element {
+        return this.preprocesses.reduce(
+            (container, process) => process(container, this.options),
+            container
+        )
     }
 
     findRule(element: Element): Rule | null {
@@ -44,6 +58,7 @@ export class HTMLarkdown {
         let containerElement: Element
         if (typeof container === 'string') containerElement = stringToDom(container)
         else containerElement = container.cloneNode(true) as Element
+        containerElement = this.preprocess(containerElement)
 
         const childElements = Array.from(containerElement.children)
         return childElements

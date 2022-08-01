@@ -1,4 +1,5 @@
 export type { HTMLarkdownOptions } from './HTMLarkdownOptions'
+export type { Preprocess } from './processes'
 export type {
     ContentAddonFunction,
     Filter,
