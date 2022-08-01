@@ -1,5 +1,5 @@
 import type { Rule } from '../../types'
-import { hasAnyOfAttributes, isHeading, toSanitizedHtmlHOF } from '../../utilities'
+import { hasAnyOfAttributes, isHeading, toSanitisedHtmlHOF } from '../../utilities'
 
 export const heading: Rule = {
     filter: isHeading,
@@ -9,5 +9,5 @@ export const heading: Rule = {
         const prefix = '#'.repeat(headingLevel)
         return `${prefix} ${innerContent}\n\n`
     },
-    htmlReplacement: (element) => toSanitizedHtmlHOF(element, ['align']),
+    htmlReplacement: (element) => toSanitisedHtmlHOF(element, ['align']),
 }

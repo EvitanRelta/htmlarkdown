@@ -1,7 +1,7 @@
 import { isBlock } from './elementPredicates/isBlock'
 import { indent } from './indent'
 
-export const toSanitizedHtmlHOF = (
+export const toSanitisedHtmlHOF = (
     element: Element,
     allowedAttributes: string[],
     addIndent = true
