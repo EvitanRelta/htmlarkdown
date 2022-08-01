@@ -1,4 +1,5 @@
 export { hasAnyOfAttributes } from './hasAnyOfAttributes'
+export { hasJustOneLinebreak } from './hasJustOneLinebreak'
 export { hasOnlyLinebreaks } from './hasOnlyLinebreaks'
 export { isBlock } from './isBlock'
 export { isEmpty } from './isEmpty'
