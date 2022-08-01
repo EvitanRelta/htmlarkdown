@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "scripts": {
         "test": "jest",
-        "test-watch": "jest --watch"
+        "test-watch": "jest --watch",
+        "pretty": "npx prettier --write ."
     },
     "devDependencies": {
         "@types/jest": "^28.1.6",
