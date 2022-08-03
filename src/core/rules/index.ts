@@ -5,6 +5,8 @@ import { italic } from './italic'
 import { linebreak } from './linebreak'
 import { paragraph } from './paragraph'
 import { strikethrough } from './strikethrough'
+import { subscript } from './subscript'
+import { superscript } from './superscript'
 import { underline } from './underline'
 
 export const rules = [
@@ -16,4 +18,6 @@ export const rules = [
     italic,
     underline,
     strikethrough,
+    superscript,
+    subscript,
 ]

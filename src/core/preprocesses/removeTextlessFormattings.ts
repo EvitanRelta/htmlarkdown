@@ -8,7 +8,9 @@ import { hasNoText } from '../../utilities'
  */
 export const removeTextlessFormattings: Preprocess = (container: Element) => {
     const removeElement = (element: Element) => element.remove()
-    const textFormattings = Array.from(container.querySelectorAll('b,strong,i,em,u,ins,s,del'))
+    const textFormattings = Array.from(
+        container.querySelectorAll('b,strong,i,em,u,ins,s,del,sup,sub')
+    )
     textFormattings.filter(hasNoText).forEach(removeElement)
     return container
 }

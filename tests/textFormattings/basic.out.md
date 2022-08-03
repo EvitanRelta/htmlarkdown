@@ -13,3 +13,7 @@
 ~~Strikethrough 1~~
 
 ~~Strikethrough 2~~
+
+<sup>Superscript</sup>
+
+<sub>Subscript</sub>
