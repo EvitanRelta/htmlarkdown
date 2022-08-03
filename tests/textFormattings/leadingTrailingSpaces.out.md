@@ -9,3 +9,9 @@ START<em> Italic leading space</em>END
 START<em>Italic trailing space </em>END
 
 START<em> Italic leading and trailing spaces </em>END
+
+START<s> Strikethrough leading space</s>END
+
+START<s>Strikethrough trailing space </s>END
+
+START<s> Strikethrough leading and trailing spaces </s>END
