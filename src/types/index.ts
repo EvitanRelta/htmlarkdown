@@ -10,3 +10,4 @@ export type {
     RuleWOHTML,
     TagName,
 } from './Rule'
+export type { TextNode } from './TextNode'

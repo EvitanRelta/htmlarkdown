@@ -1,1 +1,3 @@
-export const isTextNode = (node: Node) => node.nodeType === Node.TEXT_NODE
+import type { TextNode } from '../../types'
+
+export const isTextNode = (node: Node): node is TextNode => node.nodeType === Node.TEXT_NODE

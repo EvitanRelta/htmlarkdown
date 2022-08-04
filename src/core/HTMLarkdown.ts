@@ -68,7 +68,7 @@ export class HTMLarkdown {
     }
 
     private _convert(node: Node): string {
-        if (isTextNode(node)) return node.nodeValue ?? ''
+        if (isTextNode(node)) return node.nodeValue
         if (!isElement(node)) return ''
 
         const rule = this.findRule(node)
