@@ -13,7 +13,8 @@
         "strict": true,
         "noFallthroughCasesInSwitch": true,
         "skipLibCheck": true,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "include": ["src", "tests"]
 }

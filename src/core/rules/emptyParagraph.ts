@@ -5,5 +5,5 @@ import { hasJustOneLinebreak } from '../../utilities'
 // linebreak instead of being empty.
 export const emptyParagraph: Rule = {
     filter: ['p', hasJustOneLinebreak],
-    replacement: (element) => '<p><br></p>\n\n',
+    replacement: () => '<p><br></p>\n\n',
 }

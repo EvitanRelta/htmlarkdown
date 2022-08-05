@@ -4,6 +4,6 @@ import { hasAnyOfAttributes, hasJustOneLinebreak, toSanitisedHtmlHOF } from '../
 export const paragraph: Rule = {
     filter: ['p', (ele) => !hasJustOneLinebreak(ele)],
     toUseHtmlPredicate: (element) => hasAnyOfAttributes(element, ['align']),
-    replacement: (element) => (innerContent) => innerContent + '\n\n',
+    replacement: () => (innerContent) => innerContent + '\n\n',
     htmlReplacement: (element) => toSanitisedHtmlHOF(element, ['align']),
 }
