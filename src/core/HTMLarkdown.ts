@@ -1,16 +1,27 @@
-import type { Filter, HTMLarkdownOptions, Preprocess, Rule, TagName } from '../types'
+import type {
+    Filter,
+    HTMLarkdownOptions,
+    Preprocess,
+    Rule,
+    TagName,
+    TextNode,
+    TextProcess,
+} from '../types'
 import { isElement, isTextNode, stringToDom } from '../utilities'
 import { isRuleWithHtml } from './helpers'
 import { preprocesses } from './preprocesses'
 import { rules } from './rules'
+import { textProcesses } from './textProcesses'
 
 export class HTMLarkdown {
     readonly defaultRules: readonly Rule[] = rules
     readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
+    readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
 
     options: HTMLarkdownOptions
     rules: Rule[] = this.defaultRules.slice()
     preprocesses: Preprocess[] = this.defaultPreprocesses.slice()
+    textProcesses: TextProcess[] = this.defaultTextProcesses.slice()
 
     constructor(options?: HTMLarkdownOptions) {
         this.options = options ?? {}
@@ -28,6 +39,13 @@ export class HTMLarkdown {
         return this.preprocesses.reduce(
             (container, process) => process(container, this.options),
             container
+        )
+    }
+
+    processText(text: string, textNode: TextNode): string {
+        return this.textProcesses.reduce(
+            (text, process) => process(text, textNode, this.options),
+            text
         )
     }
 
@@ -68,7 +86,7 @@ export class HTMLarkdown {
     }
 
     private _convert(node: Node): string {
-        if (isTextNode(node)) return node.nodeValue
+        if (isTextNode(node)) return this.processText(node.nodeValue, node)
         if (!isElement(node)) return ''
 
         const rule = this.findRule(node)
