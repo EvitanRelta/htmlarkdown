@@ -1,0 +1,1 @@
+export { isTextNodeInCode } from './isTextNodeInCode'
