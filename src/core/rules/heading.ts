@@ -3,7 +3,7 @@ import { hasAnyOfAttributes, isHeading, toSanitisedHtmlHOF } from '../../utiliti
 
 export const heading: Rule = {
     filter: isHeading,
-    toUseHtmlPredicate: (element) => hasAnyOfAttributes(element, ['align']),
+    toUseHtmlPredicate: hasAnyOfAttributes(['align']),
     replacement: (element) => (innerContent) => {
         const headingLevel = Number(element.tagName[1])
         const prefix = '#'.repeat(headingLevel)
