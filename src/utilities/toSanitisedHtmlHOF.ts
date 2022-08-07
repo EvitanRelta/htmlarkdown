@@ -1,4 +1,4 @@
-import { isBlock } from './elementPredicates/isBlock'
+import { isBlock, isEmpty } from './elementPredicates'
 import { indent } from './indent'
 
 export const toSanitisedHtmlHOF = (
@@ -13,10 +13,9 @@ export const toSanitisedHtmlHOF = (
         .map((attribute) => ` ${attribute.name}="${attribute.value}"`)
         .join('')
     const tag = element.tagName.toLowerCase()
-    const hasChildNodes = element.hasChildNodes()
 
     return (content: string = '') =>
-        !hasChildNodes
+        isEmpty(element)
             ? `<${tag}${attributesStr} />`
             : isBlock(element)
             ? `<${tag}${attributesStr}>\n` +
