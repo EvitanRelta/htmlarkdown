@@ -1,3 +1,4 @@
+import { not } from 'predicate-hof'
 import { isNotEmpty } from './isNotEmpty'
 
-export const isEmpty = (element: Element) => !isNotEmpty(element)
+export const isEmpty = not(isNotEmpty)
