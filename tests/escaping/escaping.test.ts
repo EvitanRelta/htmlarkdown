@@ -15,3 +15,9 @@ test('Escaping - advanced markdown escapings', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Escaping - space HTML escapings', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./spaceHtml')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
