@@ -82,7 +82,7 @@ export class HTMLarkdown {
         return childElements
             .map((ele) => this._convert(ele))
             .join('')
-            .trim()
+            .replaceAll(/^[ \n]*\n|\n[ \n]*$/g, '')
     }
 
     private _convert(node: Node): string {
