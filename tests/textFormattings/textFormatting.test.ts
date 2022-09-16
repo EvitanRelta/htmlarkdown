@@ -15,3 +15,9 @@ test('Text Formatting - empty', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Text Formatting - (Bug) Issue #1', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./bug-1')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
