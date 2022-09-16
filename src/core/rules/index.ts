@@ -1,4 +1,5 @@
 import { bold } from './bold'
+import { code } from './code'
 import { emptyParagraph } from './emptyParagraph'
 import { heading } from './heading'
 import { horizontalRule } from './horizontalRule'
@@ -22,4 +23,5 @@ export const rules = [
     superscript,
     subscript,
     horizontalRule,
+    code,
 ]

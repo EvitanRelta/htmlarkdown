@@ -1,4 +1,5 @@
 export { hasAnyOfAttributes } from './hasAnyOfAttributes'
+export { hasChildElements } from './hasChildElements'
 export { hasJustOneLinebreak } from './hasJustOneLinebreak'
 export { hasLeadingTrailingSpaces } from './hasLeadingTrailingSpaces'
 export { hasNoText } from './hasNoText'
