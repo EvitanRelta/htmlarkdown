@@ -1,6 +1,7 @@
 import { bold } from './bold'
 import { emptyParagraph } from './emptyParagraph'
 import { heading } from './heading'
+import { horizontalRule } from './horizontalRule'
 import { italic } from './italic'
 import { linebreak } from './linebreak'
 import { paragraph } from './paragraph'
@@ -20,4 +21,5 @@ export const rules = [
     strikethrough,
     superscript,
     subscript,
+    horizontalRule,
 ]
