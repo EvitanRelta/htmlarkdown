@@ -21,3 +21,9 @@ test('Escaping - space HTML escapings', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Escaping - whitespace escapings', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./whitespace')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
