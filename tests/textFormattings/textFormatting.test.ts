@@ -16,8 +16,8 @@ test('Text Formatting - empty', () => {
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Text Formatting - leading trailing spaces', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./leadingTrailingSpaces')
+test('Text Formatting - (Bug) Issue #1', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./bug-1')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
