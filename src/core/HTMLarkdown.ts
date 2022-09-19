@@ -1,6 +1,7 @@
 import type {
     Filter,
     HTMLarkdownOptions,
+    PassDownOptions,
     Preprocess,
     Rule,
     TagName,
@@ -80,12 +81,16 @@ export class HTMLarkdown {
 
         const childElements = Array.from(containerElement.children)
         return childElements
-            .map((ele) => this._convert(ele))
+            .map((ele) => this._convert(ele, this._getDefaultParentOptions()))
             .join('')
             .replaceAll(/^[ \n]*\n|\n[ \n]*$/g, '')
     }
 
-    private _convert(node: Node): string {
+    private _getDefaultParentOptions(): PassDownOptions {
+        return { forceHtml: false }
+    }
+
+    private _convert(node: Node, parentOptions: PassDownOptions): string {
         if (isTextNode(node)) return this.processText(node.nodeValue, node)
         if (!isElement(node)) return ''
 
@@ -93,16 +98,29 @@ export class HTMLarkdown {
         if (!rule) return ''
 
         let replacementFunc
-        if (isRuleWithHtml(rule) && rule.toUseHtmlPredicate(node, this.options))
+        if (isRuleWithHtml(rule) && rule.toUseHtmlPredicate(node, this.options, parentOptions))
             replacementFunc = rule.htmlReplacement
         else replacementFunc = rule.replacement
 
-        const replacement = replacementFunc(node, this.options)
-        if (typeof replacement === 'string') return replacement
+        let value
+        let childOptions = parentOptions
+        const replacement = replacementFunc(node, this.options, parentOptions)
+
+        if (typeof replacement === 'object') {
+            value = replacement.value
+            childOptions = {
+                ...parentOptions,
+                ...replacement.childOptions,
+            }
+        } else {
+            value = replacement
+        }
+
+        if (typeof value === 'string') return value
 
         const innerContent = Array.from(node.childNodes)
-            .map((node) => this._convert(node))
+            .map((node) => this._convert(node, childOptions))
             .join('')
-        return replacement(innerContent)
+        return value(innerContent)
     }
 }
