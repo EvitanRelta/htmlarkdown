@@ -1,4 +1,4 @@
-import { Preprocess } from '../../types'
+import type { Preprocess } from '../../types'
 import { hasNoText } from '../../utilities'
 
 /**

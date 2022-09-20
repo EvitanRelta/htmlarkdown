@@ -1,5 +1,5 @@
 import { any } from 'predicate-hof'
-import { Rule } from '../../types'
+import type { Rule } from '../../types'
 import { hasAnyOfAttributes, isHeading, obeyForceHtml, toSanitisedHtmlHOF } from '../../utilities'
 
 export const heading: Rule = {
