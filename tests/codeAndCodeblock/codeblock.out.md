@@ -18,6 +18,22 @@ const x = 1;
 <div>innerText</div>
 ```
 
+````
+```bash
+git commit -m "Message"
+```
+````
+
+`````
+```
+
+````java
+```
+public static void main(String[] args) {}
+```
+````
+`````
+
 <pre><code>
 unbolded <b>bolded</b>
 </code></pre>

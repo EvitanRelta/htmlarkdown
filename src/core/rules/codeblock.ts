@@ -30,7 +30,17 @@ export const codeblock: Rule = {
     toUseHtmlPredicate: any(obeyForceHtml, innerCodeHasChildElement),
     replacement: (element) => {
         const language = element.getAttribute('lang') || ''
-        return '```' + `${language}\n` + element.textContent! + '\n```\n\n'
+
+        const allBackticksText = Array.from(element.textContent!.matchAll(/^`{3,}/gm)).map(
+            (x) => x[0]
+        )
+        const longestBacktick = allBackticksText.reduce(
+            (x, acc) => (x.length > acc.length ? x : acc),
+            '``'
+        )
+        const fence = longestBacktick + '`'
+
+        return `${fence}${language}\n` + element.textContent! + `\n${fence}\n\n`
     },
     htmlReplacement: (element) => ({
         childOptions: { forceHtml: true, escapeWhitespace: false },
