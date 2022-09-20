@@ -18,6 +18,6 @@
         "typescript": "^4.7.4"
     },
     "dependencies": {
-        "predicate-hof": "^1.0.2"
+        "predicate-hof": "^2.0.1"
     }
 }
