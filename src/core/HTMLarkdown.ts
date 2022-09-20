@@ -43,9 +43,9 @@ export class HTMLarkdown {
         )
     }
 
-    processText(text: string, textNode: TextNode): string {
+    processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
         return this.textProcesses.reduce(
-            (text, process) => process(text, textNode, this.options),
+            (text, process) => process(text, textNode, this.options, parentOptions),
             text
         )
     }
@@ -91,7 +91,7 @@ export class HTMLarkdown {
     }
 
     private _convert(node: Node, parentOptions: PassDownOptions): string {
-        if (isTextNode(node)) return this.processText(node.nodeValue, node)
+        if (isTextNode(node)) return this.processText(node.nodeValue, node, parentOptions)
         if (!isElement(node)) return ''
 
         const rule = this.findRule(node)
