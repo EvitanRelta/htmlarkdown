@@ -2,7 +2,7 @@
     "name": "htmlarkdown",
     "version": "0.1.0",
     "scripts": {
-        "test": "jest",
+        "test": "jest --silent",
         "test-watch": "jest --watch",
         "pretty": "prettier --write ."
     },
