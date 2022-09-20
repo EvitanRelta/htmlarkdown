@@ -1,0 +1,41 @@
+
+<!-- ============================== Markdown-Syntax ============================== -->
+
+<!-- Check for text being NOT escaped AT ALL, when using Markdown-syntax -->
+<pre><code>&lt;tag&gt;</code></pre>
+<pre><code>&amp;nbsp;</code></pre>
+<pre><code>**</code></pre>
+
+
+<!-- Check for inclusion of language in Markdown-syntax --->
+<pre lang="javascript"><code>const x = 1;</code></pre>
+<pre lang="html"><code>&lt;div&gt;innerText&lt;/div&gt;</code></pre>
+
+
+<!-- ============================== HTML-Syntax ============================== -->
+
+<!-- Check for correct switching to HTML-syntax --->
+<pre><code>unbolded <b>bolded</b></code></pre>
+
+
+<!-- Check for inclusion of language in HTML-syntax --->
+<pre lang="javascript"><code><b>const</b> x = 1;</code></pre>
+
+
+<!-- Check for text being processed (except whitespaces which is tested below) in HTML-syntax --->
+<pre><code>&lt;tag&gt;
+&amp;nbsp;
+**
+<b>bolded</b></code></pre>
+
+
+<!-- Check for NO whitespace-escaping HTML-syntax --->
+<pre><code>unbolded
+&nbsp; &nbsp; indented&nbsp;<b>bold</b></code></pre>
+
+
+<!-- Check for all the above HTML-syntax tests combined --->
+<pre lang="html"><code>&lt;div&gt;
+    innerText
+&lt;/div&gt;
+<b>bolded</b></code></pre>

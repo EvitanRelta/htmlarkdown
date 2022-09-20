@@ -9,3 +9,9 @@ test('Code & Codeblock - code', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Code & Codeblock - codeblock', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./codeblock')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
