@@ -1,5 +1,7 @@
 import { bold } from './bold'
 import { code } from './code'
+import { codeblock } from './codeblock'
+import { codeblockInner } from './codeblockInner'
 import { emptyParagraph } from './emptyParagraph'
 import { heading } from './heading'
 import { horizontalRule } from './horizontalRule'
@@ -24,4 +26,6 @@ export const rules = [
     subscript,
     horizontalRule,
     code,
+    codeblock,
+    codeblockInner,
 ]
