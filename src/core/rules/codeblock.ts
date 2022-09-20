@@ -37,6 +37,16 @@ export const codeblock: Rule = {
         value: (innerContent) => {
             const language = element.getAttribute('lang') || ''
             const language_attr = language ? ` lang="${language}"` : ''
+
+            // Warns users that if language is specified in HTML-syntax,
+            // the inner HTML elements might not render properly.
+            if (language)
+                console.warn(
+                    'Codeblocks containing elements and has a specified syntax-highlighting language, might not render properly.' +
+                        "\nFor Github's markdown renderer, when a codeblock has a language specifed, " +
+                        'the syntax highlighting overrides and removes any elements (eg. bold/italics) in the codeblock.'
+                )
+
             return `<pre${language_attr}><code>\n${innerContent}\n</code></pre>\n\n`
         },
     }),
