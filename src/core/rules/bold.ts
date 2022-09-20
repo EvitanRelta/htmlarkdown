@@ -4,5 +4,5 @@ export const bold: Rule = {
     filter: ['b', 'strong'],
     toUseHtmlPredicate: () => false,
     replacement: () => (innerContent) => `**${innerContent}**`,
-    htmlReplacement: () => (innerContent) => `<strong>${innerContent}</strong>`,
+    htmlReplacement: () => (innerContent) => `<b>${innerContent}</b>`,
 }

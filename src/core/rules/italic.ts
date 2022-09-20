@@ -4,5 +4,5 @@ export const italic: Rule = {
     filter: ['i', 'em'],
     toUseHtmlPredicate: () => false,
     replacement: () => (innerContent) => `*${innerContent}*`,
-    htmlReplacement: () => (innerContent) => `<em>${innerContent}</em>`,
+    htmlReplacement: () => (innerContent) => `<i>${innerContent}</i>`,
 }
