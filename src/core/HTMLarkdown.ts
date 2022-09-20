@@ -87,7 +87,10 @@ export class HTMLarkdown {
     }
 
     private _getDefaultParentOptions(): PassDownOptions {
-        return { forceHtml: false }
+        return {
+            forceHtml: false,
+            escapeWhitespace: true,
+        }
     }
 
     private _convert(node: Node, parentOptions: PassDownOptions): string {
