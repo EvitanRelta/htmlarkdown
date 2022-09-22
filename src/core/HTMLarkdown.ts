@@ -24,8 +24,11 @@ export class HTMLarkdown {
     preprocesses: Preprocess[] = this.defaultPreprocesses.slice()
     textProcesses: TextProcess[] = this.defaultTextProcesses.slice()
 
-    constructor(options?: HTMLarkdownOptions) {
-        this.options = options ?? {}
+    constructor(options?: Partial<HTMLarkdownOptions>) {
+        this.options = {
+            ...this._getDefaultHTMLarkdownOptions(),
+            ...options,
+        }
     }
 
     addRule(rule: Rule): void {
@@ -84,6 +87,12 @@ export class HTMLarkdown {
             .map((ele) => this._convert(ele, this._getDefaultParentOptions()))
             .join('')
             .replaceAll(/^[ \n]*\n|\n[ \n]*$/g, '')
+    }
+
+    private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
+        return {
+            urlTransformer: null,
+        }
     }
 
     private _getDefaultParentOptions(): PassDownOptions {
