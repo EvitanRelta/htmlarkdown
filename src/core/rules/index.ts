@@ -7,6 +7,7 @@ import { heading } from './heading'
 import { horizontalRule } from './horizontalRule'
 import { italic } from './italic'
 import { linebreak } from './linebreak'
+import { link } from './link'
 import { paragraph } from './paragraph'
 import { strikethrough } from './strikethrough'
 import { subscript } from './subscript'
@@ -28,4 +29,5 @@ export const rules = [
     code,
     codeblock,
     codeblockInner,
+    link,
 ]

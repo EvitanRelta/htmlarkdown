@@ -14,3 +14,4 @@ export type {
     ToUseHtmlPredicate,
 } from './Rule'
 export type { TextNode } from './TextNode'
+export type { UrlTransformer } from './UrlTransformer'

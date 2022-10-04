@@ -9,6 +9,7 @@
     "devDependencies": {
         "@types/jest": "^28.1.6",
         "@types/node": "^18.6.3",
+        "@types/relateurl": "^0.2.29",
         "jest": "^28.1.3",
         "jest-environment-jsdom": "^28.1.3",
         "prettier": "^2.7.1",
@@ -18,6 +19,7 @@
         "typescript": "^4.7.4"
     },
     "dependencies": {
-        "predicate-hof": "^2.0.1"
+        "predicate-hof": "^2.0.1",
+        "relateurl": "^0.2.7"
     }
 }
