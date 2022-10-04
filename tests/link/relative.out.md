@@ -4,6 +4,8 @@ Go to [C](/C)
 
 Go to [ABC](/A/B/C)
 
+Go to [ABC with param & hash](/A/B/C?param=1#hash)
+
 Go to [Unrelated HTTPS AB](https://unrelated-https.url/A/B)
 
 Go to [Unrelated HTTP AB](http://unrelated-http.url/A/B)
@@ -20,6 +22,10 @@ Go to <a href="/C">C</a>
 
 <pre><code>
 Go to <a href="/A/B/C">ABC</a>
+</code></pre>
+
+<pre><code>
+Go to <a href="/A/B/C?param=1#hash">ABC with param & hash</a>
 </code></pre>
 
 <pre><code>

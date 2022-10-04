@@ -12,6 +12,10 @@ Go to [Path-relative ABC](https://base.url/A/B/C)
 
 Go to [Absolute ABC](https://base.url/A/B/C)
 
+Go to [Root-relative ABC with param & hash](https://base.url/A/B/C?param=1#hash)
+
+Go to [Path-relative ABC with param & hash](https://base.url/A/B/C?param=1#hash)
+
 Go to [Unrelated HTTPS AB](https://unrelated-https.url/A/B)
 
 Go to [Unrelated HTTP AB](http://unrelated-http.url/A/B)
@@ -44,6 +48,14 @@ Go to <a href="https://base.url/A/B/C">Path-relative ABC</a>
 
 <pre><code>
 Go to <a href="https://base.url/A/B/C">Absolute ABC</a>
+</code></pre>
+
+<pre><code>
+Go to <a href="https://base.url/A/B/C?param=1#hash">Root-relative ABC with param & hash</a>
+</code></pre>
+
+<pre><code>
+Go to <a href="https://base.url/A/B/C?param=1#hash">Path-relative ABC with param & hash</a>
 </code></pre>
 
 <pre><code>
