@@ -5,6 +5,7 @@ import { codeblockInner } from './codeblockInner'
 import { emptyParagraph } from './emptyParagraph'
 import { heading } from './heading'
 import { horizontalRule } from './horizontalRule'
+import { image } from './image'
 import { italic } from './italic'
 import { linebreak } from './linebreak'
 import { link } from './link'
@@ -30,4 +31,5 @@ export const rules = [
     codeblock,
     codeblockInner,
     link,
+    image,
 ]
