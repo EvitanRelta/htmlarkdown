@@ -30,7 +30,7 @@ test('Escaping - whitespace w/o collapse', () => {
 })
 
 test('Escaping - whitespace collapse', () => {
-    const htmlarkdown = new HTMLarkdown({ elementsNoWhitespaceCollapse: ['pre'] })
+    const htmlarkdown = new HTMLarkdown({ elementsNoWhitespaceCollapse: ['pre', 'h1'] })
     const [htmlInput, expectedMarkdownOutput] = getTestPair('./whitespaceCollapse')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)

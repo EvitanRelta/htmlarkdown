@@ -1,3 +1,11 @@
+```
+   Shouldn't   collapse   
+```
+
+# &nbsp;&nbsp; Shouldn't &nbsp; collapse &nbsp;&nbsp;
+
+## Should collapse
+
 <p><br></p>
 
 <p><br></p>
