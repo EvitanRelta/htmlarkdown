@@ -1,12 +1,74 @@
 import type { TextProcess } from '../../types'
-import { isInside } from '../../utilities'
-import { applyReplacement, ReplacementArray } from './helpers/applyReplacement'
+import { isBlock, isElement, isInside, isVoid } from '../../utilities'
 
-const whitespaceCollapsing: ReplacementArray = [[/[ \t\r\n]+/g, ' ']]
 const isPre = (element: Element) => element.tagName === 'PRE'
 const isInsidePre = isInside(isPre)
 
-export const collapseWhitespace: TextProcess = (text, textNode, options) =>
-    options.collapseWhitespace && !isInsidePre(textNode.parentElement!)
-        ? applyReplacement(whitespaceCollapsing, text)
-        : text
+const hasText = (node: Node) => Boolean(node.textContent)
+const startsWithWhitespace = (text: string) => Boolean(/^[ \t\r\n]/.exec(text))
+const endsWithWhitespace = (text: string) => Boolean(/[ \t\r\n]$/.exec(text))
+const hasNonWhitespaceText = (node: Node) =>
+    node.textContent !== null && Boolean(/[^ \t\r\n]/.exec(node.textContent))
+
+/**
+ * Checks if leading-whitespace should be collapsed into a space, or removed
+ * completely (ie. for whitespaces at the ends).
+ *
+ * Trailing space takes precedence (eg. `<p>TRAILING <b> LEADING</b></p>`
+ * collapses to `<p>TRAILING <b>LEADING</b></p>`).
+ */
+const toRemoveLeadingSpace = (node: Node): boolean => {
+    // Stop checking once it hits a block element.
+    if (isElement(node) && isBlock(node)) return true
+
+    // Check incase it's a nested element (eg. `<p>SIBLING <em><b> NESTED_TARGET</b></em></p>`).
+    if (!node.previousSibling) return toRemoveLeadingSpace(node.parentElement!)
+
+    // Don't remove if it's after a void element (eg. `<img />`).
+    if (isElement(node.previousSibling) && isVoid(node.previousSibling)) return false
+
+    // Ignore sibling if its empty.
+    if (!hasText(node.previousSibling)) return toRemoveLeadingSpace(node.previousSibling)
+
+    // Else, remove if prev. sibling has trailing space (eg. `<p>SIBLING <b> TARGET</b></p>`).
+    return endsWithWhitespace(node.previousSibling.textContent!)
+}
+
+/**
+ * Checks if trailing-whitespace should be collapsed into a space, or removed
+ * completely (ie. for whitespaces at the ends).
+ *
+ * Trailing space takes precedence (eg. `<p>TRAILING <b> LEADING</b></p>`
+ * collapses to `<p>TRAILING <b>LEADING</b></p>`).
+ */
+const toRemoveTrailingSpace = (node: Node): boolean => {
+    // Stop checking once it hits a block element.
+    if (isElement(node) && isBlock(node)) return true
+
+    // Check incase it's a nested element (eg. `<p><em><b>NESTED_TARGET </b></em> SIBLING</p>`).
+    if (!node.nextSibling) return toRemoveTrailingSpace(node.parentElement!)
+
+    // Don't remove if it's before a void element (eg. `<img />`).
+    if (isElement(node.nextSibling) && isVoid(node.nextSibling)) return false
+
+    // Ignore sibling if its empty or only has whitespaces.
+    if (!hasNonWhitespaceText(node.nextSibling)) return toRemoveTrailingSpace(node.nextSibling)
+
+    // Don't remove if sibling isn't empty.
+    return false
+}
+
+export const collapseWhitespace: TextProcess = (text, textNode, options) => {
+    if (!options.collapseWhitespace || isInsidePre(textNode.parentElement!)) return text
+
+    let escaped = text
+
+    if (startsWithWhitespace(text))
+        escaped = escaped.replaceAll(/^[ \t\r\n]+/g, toRemoveLeadingSpace(textNode) ? '' : ' ')
+
+    if (endsWithWhitespace(text))
+        escaped = escaped.replaceAll(/[ \t\r\n]+$/g, toRemoveTrailingSpace(textNode) ? '' : ' ')
+
+    escaped = escaped.replaceAll(/[ \t\r\n]+/g, ' ')
+    return escaped
+}
