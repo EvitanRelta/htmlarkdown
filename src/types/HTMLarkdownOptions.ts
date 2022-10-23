@@ -1,3 +1,4 @@
+import type { TagName } from './Rule'
 import type { UrlTransformer } from './UrlTransformer'
 
 export interface HTMLarkdownOptions {
@@ -7,9 +8,11 @@ export interface HTMLarkdownOptions {
      */
     urlTransformer: null | UrlTransformer
     /**
-     * Whether to collapse whitespaces. Set this to `false` if you want to
-     * preserve whitespaces.
-     * @default true
+     * The elements to avoid collapsing whitespaces in.
+     *
+     * Set this to `"all"` to completely preserve whitespaces, or `[]` to
+     * completely collapse whitespaces.
+     * @default ["pre"]
      */
-    collapseWhitespace: boolean
+    elementsNoWhitespaceCollapse: 'all' | TagName[]
 }

@@ -1,8 +1,6 @@
-import type { TextProcess } from '../../types'
+import { any } from 'predicate-hof'
+import type { TagName, TextProcess } from '../../types'
 import { isBlock, isElement, isInside, isVoid } from '../../utilities'
-
-const isPre = (element: Element) => element.tagName === 'PRE'
-const isInsidePre = isInside(isPre)
 
 const hasText = (node: Node) => Boolean(node.textContent)
 const startsWithWhitespace = (text: string) => Boolean(/^[ \t\r\n]/.exec(text))
@@ -59,7 +57,13 @@ const toRemoveTrailingSpace = (node: Node): boolean => {
 }
 
 export const collapseWhitespace: TextProcess = (text, textNode, options) => {
-    if (!options.collapseWhitespace || isInsidePre(textNode.parentElement!)) return text
+    if (options.elementsNoWhitespaceCollapse === 'all') return text
+
+    const isTag = (tag: TagName) => (element: Element) => element.tagName === tag.toUpperCase()
+    const isInsideAnyNoCollapseElement = any(
+        ...options.elementsNoWhitespaceCollapse.map((tag) => isInside(isTag(tag)))
+    )
+    if (isInsideAnyNoCollapseElement(textNode.parentElement!)) return text
 
     let escaped = text
 

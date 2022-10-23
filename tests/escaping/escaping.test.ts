@@ -23,14 +23,14 @@ test('Escaping - HTML-escaped spaces', () => {
 })
 
 test('Escaping - whitespace w/o collapse', () => {
-    const htmlarkdown = new HTMLarkdown({ collapseWhitespace: false })
+    const htmlarkdown = new HTMLarkdown({ elementsNoWhitespaceCollapse: 'all' })
     const [htmlInput, expectedMarkdownOutput] = getTestPair('./whitespaceWithoutCollapse')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
 test('Escaping - whitespace collapse', () => {
-    const htmlarkdown = new HTMLarkdown({ collapseWhitespace: true })
+    const htmlarkdown = new HTMLarkdown({ elementsNoWhitespaceCollapse: ['pre'] })
     const [htmlInput, expectedMarkdownOutput] = getTestPair('./whitespaceCollapse')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)

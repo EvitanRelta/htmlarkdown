@@ -92,7 +92,7 @@ export class HTMLarkdown {
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
         return {
             urlTransformer: null,
-            collapseWhitespace: true,
+            elementsNoWhitespaceCollapse: ['pre'],
         }
     }
 
