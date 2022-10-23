@@ -22,8 +22,9 @@ test('Escaping - HTML-escaped spaces', () => {
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Escaping - whitespace', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./whitespace')
+test('Escaping - whitespace w/o collapse', () => {
+    const htmlarkdown = new HTMLarkdown({ collapseWhitespace: false })
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./whitespaceWithoutCollapse')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
