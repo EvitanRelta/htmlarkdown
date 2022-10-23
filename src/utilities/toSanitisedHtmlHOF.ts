@@ -6,9 +6,8 @@ export const toSanitisedHtmlHOF = (
     allowedAttributes: string[],
     addIndent = true
 ) => {
-    const sanitisedAttributes = Array.from(element.attributes).filter((attribute) =>
-        allowedAttributes.includes(attribute.name)
-    )
+    const isAllowed = (attr: Attr) => allowedAttributes.includes(attr.name)
+    const sanitisedAttributes = Array.from(element.attributes).filter(isAllowed)
     const attributesStr = sanitisedAttributes
         .map((attribute) => ` ${attribute.name}="${attribute.value}"`)
         .join('')
