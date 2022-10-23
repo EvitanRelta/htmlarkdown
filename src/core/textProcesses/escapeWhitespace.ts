@@ -11,7 +11,7 @@ const endOfLineEscapings: ReplacementArray = [[/ $/g, '&nbsp;']]
 /** Escapings that's applied to every text-node _(except in `code` elements)_. */
 const anywhereEscapings: ReplacementArray = [
     ['  ', ' &nbsp;'],
-    [/ &nbsp;(\S)/g, '&nbsp; $1'],
+    [/; &nbsp;(\S)/g, ';&nbsp; $1'],
 ]
 
 export const escapeWhitespace: TextProcess = (text, textNode, _, parentOptions) => {
