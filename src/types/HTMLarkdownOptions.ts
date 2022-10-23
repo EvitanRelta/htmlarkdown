@@ -6,4 +6,10 @@ export interface HTMLarkdownOptions {
      * @default null
      */
     urlTransformer: null | UrlTransformer
+    /**
+     * Whether to collapse whitespaces. Set this to `false` if you want to
+     * preserve whitespaces.
+     * @default true
+     */
+    collapseWhitespace: boolean
 }
