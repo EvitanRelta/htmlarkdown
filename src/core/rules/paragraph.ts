@@ -1,15 +1,13 @@
-import { any, not } from 'predicate-hof'
+import { any } from 'predicate-hof'
 import type { Rule } from '../../types'
-import {
-    hasAnyOfAttributes,
-    hasJustOneLinebreak,
-    obeyForceHtml,
-    toSanitisedHtmlHOF,
-} from '../../utilities'
+import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../utilities'
+import { BR_TAG_STR } from './linebreak'
 
 export const paragraph: Rule = {
-    filter: ['p', not(hasJustOneLinebreak)],
+    filter: ['p'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
-    replacement: () => (innerContent) => innerContent + '\n\n',
-    htmlReplacement: (element) => toSanitisedHtmlHOF(element, ['align']),
+    replacement: () => (innerContent) =>
+        (['', BR_TAG_STR].includes(innerContent) ? `<p>${BR_TAG_STR}</p>` : innerContent) + '\n\n',
+    htmlReplacement: (element) => (innerContent) =>
+        toSanitisedHtmlHOF(element, ['align'])(innerContent || BR_TAG_STR),
 }

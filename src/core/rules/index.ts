@@ -2,7 +2,6 @@ import { bold } from './bold'
 import { code } from './code'
 import { codeblock } from './codeblock'
 import { codeblockInner } from './codeblockInner'
-import { emptyParagraph } from './emptyParagraph'
 import { heading } from './heading'
 import { horizontalRule } from './horizontalRule'
 import { image } from './image'
@@ -17,7 +16,6 @@ import { underline } from './underline'
 
 export const rules = [
     paragraph,
-    emptyParagraph,
     linebreak,
     heading,
     bold,
