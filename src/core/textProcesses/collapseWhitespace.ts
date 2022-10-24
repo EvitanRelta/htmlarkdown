@@ -1,13 +1,39 @@
 import { any } from 'predicate-hof'
 import type { TagName, TextProcess } from '../../types'
-import { isBlock, isElement, isInside, isVoid } from '../../utilities'
+import { isBlock, isInside, isTextNode, isVoid } from '../../utilities'
 
 const isBr = (node: Node) => node.nodeName === 'BR'
-const hasText = (node: Node) => Boolean(node.textContent)
 const startsWithWhitespace = (text: string) => Boolean(/^[ \t\r\n]/.exec(text))
 const endsWithWhitespace = (text: string) => Boolean(/[ \t\r\n]$/.exec(text))
-const hasNonWhitespaceText = (node: Node) =>
-    node.textContent !== null && Boolean(/[^ \t\r\n]/.exec(node.textContent))
+const hasNonWhitespace = (text: string) => Boolean(/[^ \t\r\n]/.exec(text))
+
+/** Gets the most deeply-nested last-child. */
+const getNestedLastChild = (node: Node): Node =>
+    node.lastChild === null ? node : getNestedLastChild(node.lastChild)
+/**
+ * Gets the predecessor text-node/child-less-element in the DOM tree.
+ * Only checks within the block-element ancestor.
+ */
+const getPredecessor = (node: Node): Node | null =>
+    node.previousSibling !== null
+        ? getNestedLastChild(node.previousSibling)
+        : node.parentElement === null || isBlock(node.parentElement)
+        ? null
+        : getPredecessor(node.parentElement)
+
+/** Gets the most deeply-nested first-child. */
+const getNestedFirstChild = (node: Node): Node =>
+    node.firstChild === null ? node : getNestedFirstChild(node.firstChild)
+/**
+ * Gets the successor text-node/child-less-element in the DOM tree.
+ * Only checks within the block-element ancestor.
+ */
+const getSuccessor = (node: Node): Node | null =>
+    node.nextSibling !== null
+        ? getNestedFirstChild(node.nextSibling)
+        : node.parentElement === null || isBlock(node.parentElement)
+        ? null
+        : getSuccessor(node.parentElement)
 
 /**
  * Checks if leading-whitespace should be collapsed into a space, or removed
@@ -16,23 +42,27 @@ const hasNonWhitespaceText = (node: Node) =>
  * Trailing space takes precedence (eg. `<p>TRAILING <b> LEADING</b></p>`
  * collapses to `<p>TRAILING <b>LEADING</b></p>`).
  */
-const toRemoveLeadingSpace = (node: Node): boolean => {
-    // Stop checking once it hits a block element.
-    if (isElement(node) && isBlock(node)) return true
+const toRemoveLeadingSpace = (node: Node | null): boolean => {
+    // ie. No parent element or parent is a block element.
+    if (node === null) return true
 
-    // Check incase it's a nested element (eg. `<p>SIBLING <em><b> NESTED_TARGET</b></em></p>`).
-    if (!node.previousSibling) return toRemoveLeadingSpace(node.parentElement!)
+    if (isTextNode(node))
+        return hasNonWhitespace(node.nodeValue)
+            ? // Remove if its before a text-node ending with whitespace.
+              endsWithWhitespace(node.nodeValue)
+            : // Since the text-node doesn't have non-whitespace, it'll be
+              // fully removed. Thus, recurse on its predecessor.
+              toRemoveLeadingSpace(getPredecessor(node))
 
-    // Don't remove if it's after a non-BR void element (eg. `<img />`).
-    // Remove if its a BR (eg. `<p>SHOULDN'T HAVE SPACES <br> AROUND BR</p>`).
-    if (isElement(node.previousSibling) && isVoid(node.previousSibling))
-        return isBr(node.previousSibling)
-
-    // Ignore sibling if its empty.
-    if (!hasText(node.previousSibling)) return toRemoveLeadingSpace(node.previousSibling)
-
-    // Else, remove if prev. sibling has trailing space (eg. `<p>SIBLING <b> TARGET</b></p>`).
-    return endsWithWhitespace(node.previousSibling.textContent!)
+    // If it's not a text-node, assume it's an element.
+    const element = node as Element
+    return isVoid(element)
+        ? // Don't remove if it's before a non-BR void element (eg. `<img />`).
+          // Remove if its a BR (eg. `<p>SHOULDN'T HAVE SPACES <br> AROUND BR</p>`).
+          isBr(element)
+        : // Since it's not a void element, it must be a child-less element.
+          // Thus, ignore it and recurse on its predecessor.
+          toRemoveLeadingSpace(getPredecessor(node))
 }
 
 /**
@@ -42,22 +72,27 @@ const toRemoveLeadingSpace = (node: Node): boolean => {
  * Trailing space takes precedence (eg. `<p>TRAILING <b> LEADING</b></p>`
  * collapses to `<p>TRAILING <b>LEADING</b></p>`).
  */
-const toRemoveTrailingSpace = (node: Node): boolean => {
-    // Stop checking once it hits a block element.
-    if (isElement(node) && isBlock(node)) return true
+const toRemoveTrailingSpace = (node: Node | null): boolean => {
+    // ie. No parent element.
+    if (node === null) return true
 
-    // Check incase it's a nested element (eg. `<p><em><b>NESTED_TARGET </b></em> SIBLING</p>`).
-    if (!node.nextSibling) return toRemoveTrailingSpace(node.parentElement!)
+    if (isTextNode(node))
+        return hasNonWhitespace(node.nodeValue)
+            ? // As long as it's after a text-node with non-whitespace, don't remove.
+              false
+            : // Since the text-node doesn't have non-whitespace, it'll be
+              // fully removed. Thus, recurse on its successor.
+              toRemoveTrailingSpace(getSuccessor(node))
 
-    // Don't remove if it's before a non-BR void element (eg. `<img />`).
-    // Remove if its a BR (eg. `<p>SHOULDN'T HAVE SPACES <br> AROUND BR</p>`).
-    if (isElement(node.nextSibling) && isVoid(node.nextSibling)) return isBr(node.nextSibling)
-
-    // Ignore sibling if its empty or only has whitespaces.
-    if (!hasNonWhitespaceText(node.nextSibling)) return toRemoveTrailingSpace(node.nextSibling)
-
-    // Don't remove if sibling isn't empty.
-    return false
+    // If it's not a text-node, assume it's an element.
+    const element = node as Element
+    return isVoid(element)
+        ? // Don't remove if it's after a non-BR void element (eg. `<img />`).
+          // Remove if its a BR (eg. `<p>SHOULDN'T HAVE SPACES <br> AROUND BR</p>`).
+          isBr(element)
+        : // Since it's not a void element, it must be a child-less element.
+          // Thus, ignore it and recurse on its successor.
+          toRemoveTrailingSpace(getSuccessor(node))
 }
 
 export const collapseWhitespace: TextProcess = (text, textNode, options) => {
@@ -71,11 +106,15 @@ export const collapseWhitespace: TextProcess = (text, textNode, options) => {
 
     let escaped = text
 
-    if (startsWithWhitespace(text))
-        escaped = escaped.replaceAll(/^[ \t\r\n]+/g, toRemoveLeadingSpace(textNode) ? '' : ' ')
+    if (startsWithWhitespace(text)) {
+        const toRemove = toRemoveLeadingSpace(getPredecessor(textNode))
+        escaped = escaped.replaceAll(/^[ \t\r\n]+/g, toRemove ? '' : ' ')
+    }
 
-    if (endsWithWhitespace(text))
-        escaped = escaped.replaceAll(/[ \t\r\n]+$/g, toRemoveTrailingSpace(textNode) ? '' : ' ')
+    if (endsWithWhitespace(text)) {
+        const toRemove = toRemoveTrailingSpace(getSuccessor(textNode))
+        escaped = escaped.replaceAll(/[ \t\r\n]+$/g, toRemove ? '' : ' ')
+    }
 
     escaped = escaped.replaceAll(/[ \t\r\n]+/g, ' ')
     return escaped

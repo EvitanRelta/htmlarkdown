@@ -8,6 +8,8 @@
 
 Should have ![](https://image.src) spaces
 
+Should have [![](https://image.src)](https://link.href) spaces
+
 Shouldn't have
 <br>spaces
 
