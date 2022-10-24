@@ -28,3 +28,9 @@ test('Link - absolute link', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Link - reverse autolink', () => {
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./reverseAutolink')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
