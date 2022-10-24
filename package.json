@@ -8,6 +8,7 @@
     },
     "devDependencies": {
         "@types/jest": "^28.1.6",
+        "@types/lodash": "^4.14.186",
         "@types/node": "^18.6.3",
         "@types/relateurl": "^0.2.29",
         "jest": "^28.1.3",
@@ -16,9 +17,11 @@
         "prettier-plugin-organize-imports": "^3.0.0",
         "ts-jest": "^28.0.7",
         "ts-node": "^10.9.1",
+        "type-fest": "^3.1.0",
         "typescript": "^4.7.4"
     },
     "dependencies": {
+        "lodash": "^4.17.21",
         "predicate-hof": "^2.0.1",
         "relateurl": "^0.2.7"
     }

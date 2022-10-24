@@ -1,3 +1,5 @@
+import _ from 'lodash'
+import type { PartialDeep } from 'type-fest'
 import type {
     Filter,
     HTMLarkdownOptions,
@@ -24,11 +26,9 @@ export class HTMLarkdown {
     preprocesses: Preprocess[] = this.defaultPreprocesses.slice()
     textProcesses: TextProcess[] = this.defaultTextProcesses.slice()
 
-    constructor(options?: Partial<HTMLarkdownOptions>) {
-        this.options = {
-            ...this._getDefaultHTMLarkdownOptions(),
-            ...options,
-        }
+    constructor(options?: PartialDeep<HTMLarkdownOptions>) {
+        const defaultOptions = this._getDefaultHTMLarkdownOptions()
+        this.options = _.merge(defaultOptions, options)
     }
 
     addRule(rule: Rule): void {
@@ -93,6 +93,10 @@ export class HTMLarkdown {
         return {
             urlTransformer: null,
             elementsNoWhitespaceCollapse: ['pre'],
+            reverseAutolinks: {
+                textUrls: true,
+                images: true,
+            },
         }
     }
 
