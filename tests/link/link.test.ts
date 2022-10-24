@@ -34,3 +34,10 @@ test('Link - reverse autolink', () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test('Link - disabled reverse-autolink', () => {
+    const htmlarkdown = new HTMLarkdown({ reverseAutolinks: { textUrls: false, images: false } })
+    const [htmlInput, expectedMarkdownOutput] = getTestPair('./disabledReverseAutolink')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
