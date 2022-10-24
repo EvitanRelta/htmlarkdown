@@ -6,6 +6,11 @@
 
 ## Should collapse
 
+Should have ![](https://image.src) spaces
+
+Shouldn't have
+<br>spaces
+
 <p><br></p>
 
 <p><br></p>

@@ -2,6 +2,7 @@ import { any } from 'predicate-hof'
 import type { TagName, TextProcess } from '../../types'
 import { isBlock, isElement, isInside, isVoid } from '../../utilities'
 
+const isBr = (node: Node) => node.nodeName === 'BR'
 const hasText = (node: Node) => Boolean(node.textContent)
 const startsWithWhitespace = (text: string) => Boolean(/^[ \t\r\n]/.exec(text))
 const endsWithWhitespace = (text: string) => Boolean(/[ \t\r\n]$/.exec(text))
@@ -22,8 +23,10 @@ const toRemoveLeadingSpace = (node: Node): boolean => {
     // Check incase it's a nested element (eg. `<p>SIBLING <em><b> NESTED_TARGET</b></em></p>`).
     if (!node.previousSibling) return toRemoveLeadingSpace(node.parentElement!)
 
-    // Don't remove if it's after a void element (eg. `<img />`).
-    if (isElement(node.previousSibling) && isVoid(node.previousSibling)) return false
+    // Don't remove if it's after a non-BR void element (eg. `<img />`).
+    // Remove if its a BR (eg. `<p>SHOULDN'T HAVE SPACES <br> AROUND BR</p>`).
+    if (isElement(node.previousSibling) && isVoid(node.previousSibling))
+        return isBr(node.previousSibling)
 
     // Ignore sibling if its empty.
     if (!hasText(node.previousSibling)) return toRemoveLeadingSpace(node.previousSibling)
@@ -46,8 +49,9 @@ const toRemoveTrailingSpace = (node: Node): boolean => {
     // Check incase it's a nested element (eg. `<p><em><b>NESTED_TARGET </b></em> SIBLING</p>`).
     if (!node.nextSibling) return toRemoveTrailingSpace(node.parentElement!)
 
-    // Don't remove if it's before a void element (eg. `<img />`).
-    if (isElement(node.nextSibling) && isVoid(node.nextSibling)) return false
+    // Don't remove if it's before a non-BR void element (eg. `<img />`).
+    // Remove if its a BR (eg. `<p>SHOULDN'T HAVE SPACES <br> AROUND BR</p>`).
+    if (isElement(node.nextSibling) && isVoid(node.nextSibling)) return isBr(node.nextSibling)
 
     // Ignore sibling if its empty or only has whitespaces.
     if (!hasNonWhitespaceText(node.nextSibling)) return toRemoveTrailingSpace(node.nextSibling)
