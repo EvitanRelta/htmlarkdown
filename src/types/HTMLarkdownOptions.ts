@@ -1,3 +1,4 @@
+import type { Plugin } from './Plugin'
 import type { TagName } from './Rule'
 import type { UrlTransformer } from './UrlTransformer'
 
@@ -46,4 +47,21 @@ export interface HTMLarkdownOptions {
          */
         images: boolean
     }
+    /**
+     * Array of plugins that configures the `HTMLarkdown` instance.
+     *
+     * Plugins are loaded after the `HTMLarkdownOptions` are set.  \
+     * Meaning, plugins may overwrite the given `HTMLarkdownOptions`.
+     *
+     * _(use `preloadPlugins` option instead if you don't want plugins overwriting your configs)_
+     * @default []
+     */
+    plugins: Plugin[]
+    /**
+     * Similar to `plugins` option, but loads the plugins first _(with the `HTMLarkdown`
+     * instance having default `HTMLarkdownOptions` values)_, before setting
+     * the `HTMLarkdownOptions`.
+     * @default []
+     */
+    preloadPlugins: Plugin[]
 }
