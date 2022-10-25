@@ -1,5 +1,6 @@
 export type { HTMLarkdownOptions } from './HTMLarkdownOptions'
 export type { PassDownOptions } from './PassDownOptions'
+export type { Plugin } from './Plugin'
 export type { Preprocess, TextProcess } from './processes'
 export type {
     ContentAddonFunction,

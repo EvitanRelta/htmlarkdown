@@ -4,6 +4,7 @@ import type {
     Filter,
     HTMLarkdownOptions,
     PassDownOptions,
+    Plugin,
     Preprocess,
     Rule,
     TagName,
@@ -27,8 +28,14 @@ export class HTMLarkdown {
     textProcesses: TextProcess[] = this.defaultTextProcesses.slice()
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
-        const defaultOptions = this._getDefaultHTMLarkdownOptions()
-        this.options = _.merge(defaultOptions, options)
+        this.options = this._getDefaultHTMLarkdownOptions()
+        if (options?.preloadPlugins) this.loadPlugins(options.preloadPlugins)
+        this.options = _.merge(this.options, options)
+        this.loadPlugins(this.options.plugins)
+    }
+
+    loadPlugins(plugins: Plugin[]): void {
+        plugins.forEach((plugin) => plugin(this))
     }
 
     addRule(rule: Rule): void {
@@ -97,6 +104,8 @@ export class HTMLarkdown {
                 textUrls: true,
                 images: true,
             },
+            plugins: [],
+            preloadPlugins: [],
         }
     }
 
