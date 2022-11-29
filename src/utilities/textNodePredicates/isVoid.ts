@@ -4,4 +4,4 @@ const voidTagNames = [
     'KEYGEN', 'LINK', 'META', 'PARAM', 'SOURCE', 'TRACK', 'WBR'
 ]
 
-export const isVoid = (element: Element) => voidTagNames.includes(element.tagName)
+export const isVoid = (node: Node) => voidTagNames.includes(node.nodeName)
