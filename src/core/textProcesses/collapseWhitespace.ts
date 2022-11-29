@@ -13,10 +13,13 @@ const getNestedLastChild = (node: Node): Node =>
 /**
  * Gets the predecessor text-node/child-less-element in the DOM tree.
  * Only checks within the block-element ancestor.
+ * Also, stops when the previous-sibling node is a block element.
  */
 const getPredecessor = (node: Node): Node | null =>
     node.previousSibling !== null
-        ? getNestedLastChild(node.previousSibling)
+        ? isBlock(node.previousSibling)
+            ? null
+            : getNestedLastChild(node.previousSibling)
         : node.parentElement === null || isBlock(node.parentElement)
         ? null
         : getPredecessor(node.parentElement)
@@ -27,10 +30,13 @@ const getNestedFirstChild = (node: Node): Node =>
 /**
  * Gets the successor text-node/child-less-element in the DOM tree.
  * Only checks within the block-element ancestor.
+ * Also, stops when the next-sibling node is a block element.
  */
 const getSuccessor = (node: Node): Node | null =>
     node.nextSibling !== null
-        ? getNestedFirstChild(node.nextSibling)
+        ? isBlock(node.nextSibling)
+            ? null
+            : getNestedFirstChild(node.nextSibling)
         : node.parentElement === null || isBlock(node.parentElement)
         ? null
         : getSuccessor(node.parentElement)
