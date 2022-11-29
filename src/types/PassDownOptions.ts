@@ -20,10 +20,23 @@ export interface PassDownOptions {
      */
     containerElement: Element
     /**
-     * Whether an element is inside a block-element.
+     * Whether the element is inside a block-element.
      *
      * Mainly used to determine if a HTML-in-markdown conversion should
      * add extra trailing-newlines.
      */
     isInsideBlockElement: boolean
+    /**
+     * Whether the element is part of an ordered-list.
+     *
+     * Used to control the conversion of `<li>` elements.  \
+     * _(eg. list-items can be either: `- unordered` or `1. ordered`)_
+     */
+    isOrderedList: boolean
+    /**
+     * Whether the element is inside a list.
+     *
+     * Mainly used to control the leading/trailing newlines of list conversions.
+     */
+    isInsideList: boolean
 }

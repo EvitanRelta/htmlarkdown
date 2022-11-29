@@ -152,6 +152,8 @@ export class HTMLarkdown {
             escapeWhitespace: true,
             containerElement,
             isInsideBlockElement: false,
+            isOrderedList: false,
+            isInsideList: false,
         }
     }
 
