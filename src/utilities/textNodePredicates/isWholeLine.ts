@@ -1,5 +1,5 @@
 import type { TextNode } from '../../types'
-import { isBlock } from '../elementPredicates'
+import { isBlock } from '../nodePredicates'
 
 /**
  * Checks whether the text-node encompasses an entire block-element.

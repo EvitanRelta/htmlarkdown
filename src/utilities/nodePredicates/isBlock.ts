@@ -7,4 +7,4 @@ const blockTagNames = [
     'TABLE', 'TBODY', 'TD', 'TFOOT', 'TH', 'THEAD', 'TR', 'UL'
 ]
 
-export const isBlock = (element: Element) => blockTagNames.includes(element.tagName)
+export const isBlock = (node: Node) => blockTagNames.includes(node.nodeName)

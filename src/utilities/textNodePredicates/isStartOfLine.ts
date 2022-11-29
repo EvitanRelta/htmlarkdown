@@ -1,5 +1,5 @@
 import type { TextNode } from '../../types'
-import { isBlock } from '../elementPredicates'
+import { isBlock } from '../nodePredicates'
 
 /**
  * Checks whether the text-node is at the start of a block-element.

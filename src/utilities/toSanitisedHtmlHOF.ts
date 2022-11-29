@@ -1,5 +1,6 @@
-import { isBlock, isEmpty } from './elementPredicates'
+import { isEmpty } from './elementPredicates'
 import { indent } from './indent'
+import { isBlock } from './nodePredicates'
 
 export const toSanitisedHtmlHOF = (
     element: Element,
