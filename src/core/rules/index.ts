@@ -8,6 +8,7 @@ import { image } from './image'
 import { italic } from './italic'
 import { linebreak } from './linebreak'
 import { link } from './link'
+import { noop } from './noop'
 import { paragraph } from './paragraph'
 import { strikethrough } from './strikethrough'
 import { subscript } from './subscript'
@@ -30,4 +31,5 @@ export const rules = [
     codeblockInner,
     link,
     image,
+    noop,
 ]
