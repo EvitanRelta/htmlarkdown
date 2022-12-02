@@ -1,12 +1,21 @@
 import type { Rule } from '../../types'
-import { obeyForceHtml } from '../../utilities'
+import { isTextNode, obeyForceHtml } from '../../utilities'
 
+const urlWOProtocol = (url: string) => url.replace(/^https?:\/\//, '')
 const isTextAutolink = (linkElement: Element) => {
     const href = linkElement.getAttribute('href')
     if (!href) return false
-    return linkElement.textContent === href || linkElement.textContent === urlWOProtocol(href)
+
+    const hrefWOProtocol = urlWOProtocol(href)
+    const hasTextNodeWithHref = (node: Node) =>
+        isTextNode(node)
+            ? node.nodeValue === href || node.nodeValue === hrefWOProtocol
+            : node.nodeName === 'CODE' // If URL is in code element, it won't be autolinked in Github
+            ? false
+            : Array.from(node.childNodes).some(hasTextNodeWithHref)
+
+    return hasTextNodeWithHref(linkElement)
 }
-const urlWOProtocol = (url: string) => url.replace(/^https?:\/\//, '')
 const isImageAutolink = (linkElement: Element) => {
     if (linkElement.childNodes.length !== 1) return false
     const href = linkElement.getAttribute('href')
