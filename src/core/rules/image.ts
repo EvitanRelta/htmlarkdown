@@ -10,7 +10,7 @@ export const image: Rule = {
         let src = element.getAttribute('src') || ''
         if (options.urlTransformer !== null)
             src = options.urlTransformer(src, element, options, parentOptions)
-        return `![${alt}](${src})`
+        return alt || src ? `![${alt}](${src})` : ''
     },
     htmlReplacement: (element, options, parentOptions) => {
         const allowedAttributes = ['alt', 'height', 'width']
