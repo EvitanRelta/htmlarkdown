@@ -10,5 +10,8 @@ export const heading: Rule = {
         const prefix = '#'.repeat(headingLevel)
         return `${prefix} ${innerContent}\n\n`
     },
-    htmlReplacement: (element) => toSanitisedHtmlHOF(element, ['align']),
+    htmlReplacement: (element) => ({
+        childOptions: { forceHtml: true },
+        value: toSanitisedHtmlHOF(element, ['align']),
+    }),
 }

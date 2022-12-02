@@ -8,6 +8,8 @@ export const paragraph: Rule = {
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: () => (innerContent) =>
         (['', BR_TAG_STR].includes(innerContent) ? `<p>${BR_TAG_STR}</p>` : innerContent) + '\n\n',
-    htmlReplacement: (element) => (innerContent) =>
-        toSanitisedHtmlHOF(element, ['align'])(innerContent || BR_TAG_STR),
+    htmlReplacement: (element) => ({
+        childOptions: { forceHtml: true },
+        value: (innerContent) => toSanitisedHtmlHOF(element, ['align'])(innerContent || BR_TAG_STR),
+    }),
 }
