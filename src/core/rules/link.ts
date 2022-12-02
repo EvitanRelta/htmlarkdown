@@ -25,7 +25,7 @@ export const link: Rule = {
         let url = element.getAttribute('href') || ''
         if (options.urlTransformer !== null)
             url = options.urlTransformer(url, element, options, parentOptions)
-        return `[${innerContent}](${url})`
+        return innerContent ? `[${innerContent}](${url})` : ''
     },
     htmlReplacement: (element, options, parentOptions) => (innerContent) => {
         if (options.reverseAutolinks.textUrls && isTextAutolink(element)) return innerContent
