@@ -1,10 +1,14 @@
 import { any } from 'predicate-hof'
 import type { Rule } from '../../types'
-import { hasChildElements, obeyForceHtml } from '../../utilities'
+import { obeyForceHtml } from '../../utilities'
+import { noopTags } from './noop'
 
 const hasOnlyCodeChild = (element: Element) =>
     element.childNodes.length === 1 && element.firstChild!.nodeName === 'CODE'
-const innerCodeHasChildElement = (element: Element) => hasChildElements(element.firstElementChild!)
+const innerCodeHasElements = (element: Element) => {
+    const innerCodeElement = element.firstElementChild!
+    return innerCodeElement.querySelector(noopTags.map((x) => `:not(${x})`).join('')) !== null
+}
 
 /**
  * Expects codeblocks to be in the form:
@@ -27,7 +31,7 @@ const innerCodeHasChildElement = (element: Element) => hasChildElements(element.
  */
 export const codeblock: Rule = {
     filter: ['pre', hasOnlyCodeChild],
-    toUseHtmlPredicate: any(obeyForceHtml, innerCodeHasChildElement),
+    toUseHtmlPredicate: any(obeyForceHtml, innerCodeHasElements),
     replacement: (element) => {
         const language = element.getAttribute('lang') || ''
 
