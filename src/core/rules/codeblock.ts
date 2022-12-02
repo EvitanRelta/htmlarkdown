@@ -5,9 +5,9 @@ import { noopTags } from './noop'
 
 const hasOnlyCodeChild = (element: Element) =>
     element.childNodes.length === 1 && element.firstChild!.nodeName === 'CODE'
-const innerCodeHasElements = (element: Element) => {
-    const innerCodeElement = element.firstElementChild!
-    return innerCodeElement.querySelector(noopTags.map((x) => `:not(${x})`).join('')) !== null
+const hasNonNoopElements = (element: Element) => {
+    if (hasOnlyCodeChild(element)) element = element.firstElementChild!
+    return element.querySelector(noopTags.map((x) => `:not(${x})`).join('')) !== null
 }
 
 /**
@@ -30,8 +30,8 @@ const innerCodeHasElements = (element: Element) => {
  * ````
  */
 export const codeblock: Rule = {
-    filter: ['pre', hasOnlyCodeChild],
-    toUseHtmlPredicate: any(obeyForceHtml, innerCodeHasElements),
+    filter: ['pre'],
+    toUseHtmlPredicate: any(obeyForceHtml, hasNonNoopElements),
     replacement: (element) => {
         const language = element.getAttribute('lang') || ''
 
