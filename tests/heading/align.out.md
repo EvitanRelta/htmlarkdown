@@ -29,3 +29,7 @@
 <h6 align="justify">
   Justify aligned
 </h6>
+
+<h6 align="center">
+  <b>Nested bold</b>
+</h6>

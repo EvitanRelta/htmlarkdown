@@ -13,3 +13,7 @@
 <p align="justify">
   Justify aligned
 </p>
+
+<p align="center">
+  <b>Nested bold</b>
+</p>
