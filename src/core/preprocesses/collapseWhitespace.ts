@@ -1,5 +1,5 @@
 import { any } from 'predicate-hof'
-import type { TagName, TextProcess } from '../../types'
+import type { HTMLarkdownOptions, Preprocess, TagName, TextNode } from '../../types'
 import { isBlock, isInside, isTextNode, isVoid } from '../../utilities'
 
 const isBr = (node: Node) => node.nodeName === 'BR'
@@ -101,7 +101,12 @@ const toRemoveTrailingSpace = (node: Node | null): boolean => {
           toRemoveTrailingSpace(getSuccessor(node))
 }
 
-export const collapseWhitespace: TextProcess = (text, textNode, options) => {
+/** Previous collapse-whitespace implementation, which was a text-process. */
+const collapseWhitespaceTextProcess = (
+    text: string,
+    textNode: TextNode,
+    options: HTMLarkdownOptions
+) => {
     if (options.elementsNoWhitespaceCollapse === 'all') return text
 
     const isTag = (tag: TagName) => (element: Element) => element.tagName === tag.toUpperCase()
@@ -124,4 +129,36 @@ export const collapseWhitespace: TextProcess = (text, textNode, options) => {
 
     escaped = escaped.replaceAll(/[ \t\r\n]+/g, ' ')
     return escaped
+}
+
+const getNextTextNode = (node: Node): TextNode | null => {
+    if (node.nextSibling !== null) {
+        const nestedFirstChild = getNestedFirstChild(node.nextSibling)
+        return isTextNode(nestedFirstChild) ? nestedFirstChild : getNextTextNode(nestedFirstChild)
+    }
+    if (node.parentElement === null) return null
+    return getNextTextNode(node.parentElement)
+}
+
+/**
+ * Collapses whitespaces in text-nodes in all elements except those defined in
+ * `HTMLarkdownOptions.elementsNoWhitespaceCollapse`
+ *
+ * _**Warning:** This mutates the original 'container' element._
+ */
+export const collapseWhitespace: Preprocess = (container, options) => {
+    if (options.elementsNoWhitespaceCollapse === 'all') return container
+
+    const startNode = getNestedFirstChild(container)
+    let textNode = isTextNode(startNode) ? startNode : getNextTextNode(startNode)
+    while (textNode !== null) {
+        const nextTextNode = getNextTextNode(textNode)
+        const collapsedValue = collapseWhitespaceTextProcess(textNode.nodeValue, textNode, options)
+
+        if (collapsedValue === '') textNode.remove()
+        else textNode.nodeValue = collapsedValue
+
+        textNode = nextTextNode
+    }
+    return container
 }
