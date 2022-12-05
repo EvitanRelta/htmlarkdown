@@ -6,7 +6,7 @@ import { hasNoText } from '../../utilities'
  *
  * _**Warning:** This mutates the original 'container' element._
  */
-export const removeTextlessFormattings: Preprocess = (container: Element) => {
+export const removeTextlessFormattings: Preprocess = (container) => {
     const removeElement = (element: Element) => element.remove()
     const textFormattings = Array.from(
         container.querySelectorAll('b,strong,i,em,u,ins,s,del,sup,sub')
