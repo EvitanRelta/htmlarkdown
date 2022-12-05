@@ -13,9 +13,9 @@ Should have [![](https://image.src)](https://link.href) spaces
 Shouldn't have
 <br>spaces
 
-<p><br></p>
+<br>
 
-<p><br></p>
+<br>
 
 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 
