@@ -4,7 +4,7 @@ const config: Config.InitialOptions = {
     testEnvironment: 'jsdom',
     // transformIgnorePatterns: ['node_modules/(?!(lowlight|fault))'],
     transform: {
-        '\\.(t|j)s$': 'ts-jest',
+        '\\.(t|j)s$': '@swc/jest',
     },
     // moduleNameMapper: {
     //     '\\.(css|less|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',

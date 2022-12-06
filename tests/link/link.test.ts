@@ -3,41 +3,42 @@ import { absoluteFrom, relativeTo } from '../../src/utilities'
 import { getTestPairHOF } from '../helpers'
 
 const getTestPair = getTestPairHOF(__dirname)
-const htmlarkdown = new HTMLarkdown()
 
-test('Link - basic', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./basic')
+test.concurrent('Link - basic', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./basic')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Link - relative link', () => {
+test.concurrent('Link - relative link', async () => {
     const htmlarkdown = new HTMLarkdown({
         urlTransformer: relativeTo('https://base.url/A/'),
     })
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./relative')
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./relative')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Link - absolute link', () => {
+test.concurrent('Link - absolute link', async () => {
     const htmlarkdown = new HTMLarkdown({
         urlTransformer: absoluteFrom('https://base.url/A/'),
     })
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./absolute')
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./absolute')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Link - reverse autolink', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./reverseAutolink')
+test.concurrent('Link - reverse autolink', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./reverseAutolink')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Link - disabled reverse-autolink', () => {
+test.concurrent('Link - disabled reverse-autolink', async () => {
     const htmlarkdown = new HTMLarkdown({ reverseAutolinks: { textUrls: false, images: false } })
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./disabledReverseAutolink')
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./disabledReverseAutolink')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })

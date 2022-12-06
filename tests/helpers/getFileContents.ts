@@ -1,3 +1,4 @@
-import { readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
 
-export const getFileContents = (filePath: string) => readFileSync(filePath).toString()
+export const getFileContents = async (filePath: string): Promise<string> =>
+    readFile(filePath, { encoding: 'utf8' })

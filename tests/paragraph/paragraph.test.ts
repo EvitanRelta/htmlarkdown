@@ -2,40 +2,45 @@ import { HTMLarkdown } from '../../src'
 import { getTestPairHOF } from '../helpers'
 
 const getTestPair = getTestPairHOF(__dirname)
-const htmlarkdown = new HTMLarkdown()
 
-test('Paragraph - basic', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./basic')
+test.concurrent('Paragraph - basic', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./basic')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Paragraph - align', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./align')
+test.concurrent('Paragraph - align', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./align')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Paragraph - attribute sanitisation', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./attributeSanitisation')
+test.concurrent('Paragraph - attribute sanitisation', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./attributeSanitisation')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Paragraph - empty', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./empty')
+test.concurrent('Paragraph - empty', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./empty')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Paragraph - only linebreaks', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./onlyLinebreaks')
+test.concurrent('Paragraph - only linebreaks', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./onlyLinebreaks')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Paragraph - linebreak with text', () => {
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./linebreakWithText')
+test.concurrent('Paragraph - linebreak with text', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./linebreakWithText')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })

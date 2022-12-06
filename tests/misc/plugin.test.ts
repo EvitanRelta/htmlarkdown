@@ -6,14 +6,14 @@ const setIdentityUrlTransformer: Plugin = (htmlarkdown) => {
     htmlarkdown.options.urlTransformer = identityFn
 }
 
-test('Plugin - plugin', () => {
+test.concurrent('Plugin - plugin', async () => {
     const htmlarkdown = new HTMLarkdown({
         plugins: [setIdentityUrlTransformer],
     })
     expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
 })
 
-test('Plugin - plugin overwrite', () => {
+test.concurrent('Plugin - plugin overwrite', async () => {
     const htmlarkdown = new HTMLarkdown({
         plugins: [setIdentityUrlTransformer],
         urlTransformer: dummyUrl,
@@ -21,14 +21,14 @@ test('Plugin - plugin overwrite', () => {
     expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
 })
 
-test('Plugin - preload-plugin', () => {
+test.concurrent('Plugin - preload-plugin', async () => {
     const htmlarkdown = new HTMLarkdown({
         preloadPlugins: [setIdentityUrlTransformer],
     })
     expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
 })
 
-test('Plugin - preload-plugin overwrite', () => {
+test.concurrent('Plugin - preload-plugin overwrite', async () => {
     const htmlarkdown = new HTMLarkdown({
         preloadPlugins: [setIdentityUrlTransformer],
         urlTransformer: dummyUrl,
