@@ -15,7 +15,7 @@ const isEmptyParagraphMutated = (htmlarkdown: HTMLarkdown) => {
 }
 
 /** Test whether the input element is mutated by preprocessing. */
-test('Immutability - preprocess', () => {
+test.concurrent('Immutability - preprocess', async () => {
     const insertLinebreak: Preprocess = (container) =>
         container.firstChild!.appendChild(document.createElement('br'))
 
@@ -27,7 +27,7 @@ test('Immutability - preprocess', () => {
 })
 
 /** Test whether the input element is mutated by rules. */
-test('Immutability - preprocess', () => {
+test.concurrent('Immutability - preprocess', async () => {
     const insertLinebreak: Rule = {
         filter: 'p',
         replacement: (element) => {

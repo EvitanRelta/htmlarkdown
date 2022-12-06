@@ -2,21 +2,23 @@ import { HTMLarkdown } from '../../src'
 import { getTestPairHOF } from '../helpers'
 
 const getTestPair = getTestPairHOF(__dirname)
-const htmlarkdown = new HTMLarkdown()
 
-test('Text Formatting - basic', () => {
+test.concurrent('Text Formatting - basic', async () => {
+    const htmlarkdown = new HTMLarkdown()
     const [htmlInput, expectedMarkdownOutput] = getTestPair('./basic')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Text Formatting - empty', () => {
+test.concurrent('Text Formatting - empty', async () => {
+    const htmlarkdown = new HTMLarkdown()
     const [htmlInput, expectedMarkdownOutput] = getTestPair('./empty')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test('Text Formatting - (Bug) Issue #1', () => {
+test.concurrent('Text Formatting - (Bug) Issue #1', async () => {
+    const htmlarkdown = new HTMLarkdown()
     const [htmlInput, expectedMarkdownOutput] = getTestPair('./bug-1')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
