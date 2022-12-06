@@ -37,3 +37,15 @@ test.concurrent('Escaping - whitespace collapse', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Escaping - whitespace collapse (trailing linebreak)', async () => {
+    const htmlarkdown = new HTMLarkdown({
+        elementsNoWhitespaceCollapse: ['pre', 'h1'],
+        addTrailingLinebreak: true,
+    })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair(
+        './whitespaceCollapseTrailingLinebreak'
+    )
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})

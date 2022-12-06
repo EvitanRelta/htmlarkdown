@@ -31,16 +31,9 @@ test.concurrent('Heading - empty', async () => {
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
-test.concurrent('Heading - only linebreaks', async () => {
-    const htmlarkdown = new HTMLarkdown()
-    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./onlyLinebreaks')
-    const outputMarkdown = htmlarkdown.convert(htmlInput)
-    expect(outputMarkdown).toBe(expectedMarkdownOutput)
-})
-
-test.concurrent('Heading - linebreak with text', async () => {
-    const htmlarkdown = new HTMLarkdown()
-    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./linebreakWithText')
+test.concurrent('Heading - empty (trailing linebreak)', async () => {
+    const htmlarkdown = new HTMLarkdown({ addTrailingLinebreak: true })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./emptyTrailingLinebreak')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })

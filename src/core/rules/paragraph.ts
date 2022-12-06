@@ -6,8 +6,7 @@ import { BR_TAG_STR } from './linebreak'
 export const paragraph: Rule = {
     filter: ['p'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
-    replacement: () => (innerContent) =>
-        (['', BR_TAG_STR].includes(innerContent) ? `<p>${BR_TAG_STR}</p>` : innerContent) + '\n\n',
+    replacement: () => (innerContent) => innerContent ? innerContent + '\n\n' : '',
     htmlReplacement: (element) => ({
         childOptions: { forceHtml: true },
         value: (innerContent) => toSanitisedHtmlHOF(element, ['align'])(innerContent || BR_TAG_STR),
