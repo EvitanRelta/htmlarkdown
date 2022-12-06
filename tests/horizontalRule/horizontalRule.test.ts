@@ -5,7 +5,7 @@ const getTestPair = getTestPairHOF(__dirname)
 
 test.concurrent('Horizontal Rule', async () => {
     const htmlarkdown = new HTMLarkdown()
-    const [htmlInput, expectedMarkdownOutput] = getTestPair('./horizontalRule')
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./horizontalRule')
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
