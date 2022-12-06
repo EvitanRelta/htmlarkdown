@@ -13,9 +13,13 @@ const hasTrailingLinebreak = (element: Element) => element.lastChild?.nodeName =
  * and paragraphs/headings ending with a linebreak might not render the last
  * linebreak.
  *
+ * Controlled by `HTMLarkdownOptions.addTrailingLinebreak`.
+ *
  * _**Warning:** This mutates the original 'container' element._
  */
-export const addTrailingLinebreaks: Preprocess = (container) => {
+export const addTrailingLinebreaks: Preprocess = (container, options) => {
+    if (!options.addTrailingLinebreak) return container
+
     const insertLineBreak = (element: Element) => element.append(document.createElement('br'))
     const allBlockElements = Array.from(container.querySelectorAll('*')).filter(isBlock)
     allBlockElements.filter(any(isEmpty, hasTrailingLinebreak)).forEach(insertLineBreak)

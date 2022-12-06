@@ -64,4 +64,15 @@ export interface HTMLarkdownOptions {
      * @default []
      */
     preloadPlugins: Plugin[]
+    /**
+     * Whether to inserts a linebreak inside block-elements that are either
+     * empty or end with a linebreak.
+     *
+     * For example, if this is set to `false`, the HTML-rendering of empty
+     * paragraphs/headings might have `0` height _(as it's empty)_;  \
+     * and paragraphs/headings ending with a linebreak might not render the last
+     * linebreak.
+     * @default false
+     */
+    addTrailingLinebreak: boolean
 }
