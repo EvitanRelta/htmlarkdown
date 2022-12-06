@@ -13,10 +13,6 @@ Should have [![](https://image.src)](https://link.href) spaces
 Shouldn't have
 <br>spaces
 
-<br>
-
-<br>
-
 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 
 TEXT TEXT

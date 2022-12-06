@@ -1,13 +1,13 @@
 <br>
+
+<br>
 <br>
 
 <br>
 <br>
 <br>
 
-<br>
-<br>
-<br>
+TEXT
 <br>
 
 TEXT
@@ -15,12 +15,6 @@ TEXT
 <br>
 
 TEXT
-<br>
-<br>
-<br>
-
-TEXT
-<br>
 <br>
 <br>
 <br>
