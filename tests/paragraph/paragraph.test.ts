@@ -30,3 +30,10 @@ test.concurrent('Paragraph - empty', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Paragraph - empty (trailing linebreak)', async () => {
+    const htmlarkdown = new HTMLarkdown({ addTrailingLinebreak: true })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./emptyTrailingLinebreak')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})

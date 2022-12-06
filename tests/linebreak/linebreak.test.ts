@@ -16,3 +16,17 @@ test.concurrent('Linebreak - heading', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Linebreak - paragraph (trailing linebreak)', async () => {
+    const htmlarkdown = new HTMLarkdown({ addTrailingLinebreak: true })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./paragraphTrailingLinebreak')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
+
+test.concurrent('Linebreak - heading (trailing linebreak)', async () => {
+    const htmlarkdown = new HTMLarkdown({ addTrailingLinebreak: true })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./headingTrailingLinebreak')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
