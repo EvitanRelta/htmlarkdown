@@ -34,28 +34,23 @@ public static void main(String[] args) {}
 ````
 `````
 
-<pre><code>
-unbolded <b>bolded</b>
+<pre><code>unbolded <b>bolded</b>
 </code></pre>
 
-<pre lang="javascript"><code>
-<b>const</b> x = 1;
+<pre lang="javascript"><code><b>const</b> x = 1;
 </code></pre>
 
-<pre><code>
-\<tag>
+<pre><code>\<tag>
 \&nbsp;
 \*\*
 <b>bolded</b>
 </code></pre>
 
-<pre><code>
-unbolded
+<pre><code>unbolded
     indented <b>bold</b>
 </code></pre>
 
-<pre lang="html"><code>
-\<div>
+<pre lang="html"><code>\<div>
     innerText
 \</div>
 <b>bolded</b>
