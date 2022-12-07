@@ -5,6 +5,7 @@ import type {
     HTMLarkdownOptions,
     PassDownOptions,
     Plugin,
+    Postprocess,
     Preprocess,
     Rule,
     TagName,
@@ -13,6 +14,7 @@ import type {
 } from '../types'
 import { isElement, isTextNode, stringToDom } from '../utilities'
 import { isRuleWithHtml } from './helpers'
+import { postprocesses } from './postprocesses'
 import { preprocesses } from './preprocesses'
 import { rules } from './rules'
 import { textProcesses } from './textProcesses'
@@ -21,11 +23,13 @@ export class HTMLarkdown {
     readonly defaultRules: readonly Rule[] = rules
     readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
     readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
+    readonly defaultPostprocesses: readonly Postprocess[] = postprocesses
 
     options: HTMLarkdownOptions
     rules: Rule[] = this.defaultRules.slice()
     preprocesses: Preprocess[] = this.defaultPreprocesses.slice()
     textProcesses: TextProcess[] = this.defaultTextProcesses.slice()
+    postprocesses: Postprocess[] = this.defaultPostprocesses.slice()
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = this._getDefaultHTMLarkdownOptions()
@@ -79,6 +83,26 @@ export class HTMLarkdown {
     }
 
     /**
+     * Adds a new postprocess to the conversion.
+     *
+     * By default, the added postprocess evaluated **AFTER** all the other postprocesses.
+     * @param postprocess The postprocess to add
+     * @param runFirst Whether to run the postprocess first or last among the postprocesses \
+     * _(default: `false`)_
+     */
+    addPostprocess(postprocess: Postprocess, runFirst: boolean = false): void {
+        if (runFirst) this.postprocesses.unshift(postprocess)
+        else this.postprocesses.push(postprocess)
+    }
+
+    postprocess(rawMarkdown: string): string {
+        return this.postprocesses.reduce(
+            (rawMarkdown, process) => process(rawMarkdown, this.options),
+            rawMarkdown
+        )
+    }
+
+    /**
      * Adds a new rule to the conversion.
      *
      * By default, the added rule is prioritised and evaluated **BEFORE** all the other rules.
@@ -124,8 +148,7 @@ export class HTMLarkdown {
         const rawMarkdown = childElements
             .map((ele) => this._convert(ele, this._getDefaultParentOptions()))
             .join('')
-        const trimNewlines = (str: string) => str.replaceAll(/^\n+|\n+$/g, '')
-        return trimNewlines(rawMarkdown)
+        return this.postprocess(rawMarkdown)
     }
 
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
