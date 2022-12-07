@@ -1,4 +1,4 @@
-import type { Rule } from '../../types'
+import type { RuleWOHTML } from '../../types'
 
 export const isChildOfPre = (element: Element) => element.parentElement?.tagName === 'PRE'
 
@@ -8,7 +8,7 @@ export const isChildOfPre = (element: Element) => element.parentElement?.tagName
  *
  * Used to ensure the inner `<code>` isn't ignored and filtered out.
  */
-export const codeblockInner: Rule = {
+export const codeblockInner: RuleWOHTML = {
     filter: ['code', isChildOfPre],
     replacement: () => (innerContent) => innerContent,
 }

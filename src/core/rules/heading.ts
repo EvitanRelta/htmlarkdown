@@ -1,8 +1,8 @@
 import { any } from 'predicate-hof'
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { hasAnyOfAttributes, isHeading, obeyForceHtml, toSanitisedHtmlHOF } from '../../utilities'
 
-export const heading: Rule = {
+export const heading: RuleWithHTML = {
     filter: isHeading,
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: (element) => (innerContent) => {

@@ -1,9 +1,9 @@
 import { any } from 'predicate-hof'
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../utilities'
 import { BR_TAG_STR } from './linebreak'
 
-export const paragraph: Rule = {
+export const paragraph: RuleWithHTML = {
     filter: ['p'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: () => (innerContent) => innerContent ? innerContent + '\n\n' : '',

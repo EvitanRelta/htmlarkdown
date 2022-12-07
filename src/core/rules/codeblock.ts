@@ -1,5 +1,5 @@
 import { any } from 'predicate-hof'
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { obeyForceHtml } from '../../utilities'
 import { noopTags } from './noop'
 
@@ -29,7 +29,7 @@ const hasNonNoopElements = (element: Element) => {
  * ```
  * ````
  */
-export const codeblock: Rule = {
+export const codeblock: RuleWithHTML = {
     filter: ['pre'],
     toUseHtmlPredicate: any(obeyForceHtml, hasNonNoopElements),
     replacement: (element) => {

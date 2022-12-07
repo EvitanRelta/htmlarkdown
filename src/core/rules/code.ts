@@ -1,9 +1,9 @@
 import { any, not } from 'predicate-hof'
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { hasChildElements, obeyForceHtml } from '../../utilities'
 import { isChildOfPre } from './codeblockInner'
 
-export const code: Rule = {
+export const code: RuleWithHTML = {
     filter: ['code', not(isChildOfPre)],
     toUseHtmlPredicate: any(obeyForceHtml, hasChildElements),
     replacement: (element) => `\`${element.textContent!}\``,
