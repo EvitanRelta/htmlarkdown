@@ -75,4 +75,56 @@ export interface HTMLarkdownOptions {
      * @default false
      */
     addTrailingLinebreak: boolean
+    /**
+     * A trailing-newline is often added by markdown-to-HTML renderers *(like
+     * GitHub)* as shown below:
+     * ````html
+     * ```
+     * TEXT  (renders as)  <pre><code>TEXT
+     * ```                 </code></pre>
+     * ````
+     *
+     * - `remove` – removes it from the input HTML
+     * - `add` – adds it to output markdown (in the case where the codeblock is
+     * converted to HTML-syntax)
+     * - `both` – adds and removes
+     * - `none` – uses the inner-text of the `<pre><code>` element as-is
+     *
+     * ---
+     *
+     * Given this input HTML:
+     * ```html
+     * <pre><code>TEXT
+     * </code></pre>
+     * ```
+     * \
+     * The output will be:
+     * ````md
+     * with "remove":   w/o "remove":
+     * ```              ```
+     * TEXT             TEXT
+     * ```
+     *                  ```
+     * ````
+     *
+     * ---
+     *
+     * Given this input HTML
+     * ```html
+     * <pre forcehtml><code>TEXT</code></pre>
+     * ```
+     * \
+     * The output will be:
+     * ```html
+     * with "add":
+     * <pre><code>TEXT
+     * </code></pre>
+     * ```
+     * ```html
+     * w/o "add":
+     * <pre><code>TEXT</code></pre>
+     * ```
+     * @default 'both'
+     */
+    codeblockTrailingLinebreak: 'remove' | 'add' | 'both' | 'none'
 }

@@ -162,6 +162,7 @@ export class HTMLarkdown {
             plugins: [],
             preloadPlugins: [],
             addTrailingLinebreak: false,
+            codeblockTrailingLinebreak: 'both',
         }
     }
 

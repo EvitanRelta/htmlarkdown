@@ -32,7 +32,7 @@ const hasNonNoopElements = (element: Element) => {
 export const codeblock: RuleWithHTML = {
     filter: ['pre'],
     toUseHtmlPredicate: any(obeyForceHtml, hasNonNoopElements),
-    replacement: (element) => {
+    replacement: (element, options) => {
         const language = element.getAttribute('lang') || ''
 
         const allBackticksText = Array.from(element.textContent!.matchAll(/^`{3,}/gm)).map(
@@ -43,10 +43,12 @@ export const codeblock: RuleWithHTML = {
             '``'
         )
         const fence = longestBacktick + '`'
-
-        return `${fence}${language}\n` + element.textContent! + `\n${fence}\n\n`
+        const removeLastNewline = (str: string) => str.replace(/\n$/, '')
+        if (['add', 'none'].includes(options.codeblockTrailingLinebreak))
+            return `${fence}${language}\n` + element.textContent! + `\n${fence}\n\n`
+        return `${fence}${language}\n` + removeLastNewline(element.textContent!) + `\n${fence}\n\n`
     },
-    htmlReplacement: (element) => ({
+    htmlReplacement: (element, options) => ({
         childOptions: { forceHtml: true, escapeWhitespace: false },
         value: (innerContent) => {
             const language = element.getAttribute('lang') || ''
@@ -61,7 +63,13 @@ export const codeblock: RuleWithHTML = {
                         'the syntax highlighting overrides and removes any elements (eg. bold/italics) in the codeblock.'
                 )
 
-            return `<pre${language_attr}><code>\n${innerContent}\n</code></pre>\n\n`
+            const removeLastNewline = (str: string) => str.replace(/\n$/, '')
+            if (['remove', 'both'].includes(options.codeblockTrailingLinebreak))
+                innerContent = removeLastNewline(innerContent)
+
+            if (['add', 'both'].includes(options.codeblockTrailingLinebreak))
+                return `<pre${language_attr}><code>${innerContent}\n</code></pre>\n\n`
+            return `<pre${language_attr}><code>${innerContent}</code></pre>\n\n`
         },
     }),
 }
