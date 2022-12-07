@@ -124,7 +124,7 @@ export class HTMLarkdown {
         const rawMarkdown = childElements
             .map((ele) => this._convert(ele, this._getDefaultParentOptions()))
             .join('')
-        const trimNewlines = (str: string) => str.replaceAll(/^[ \n]*\n|\n[ \n]*$/g, '')
+        const trimNewlines = (str: string) => str.replaceAll(/^\n+|\n+$/g, '')
         return trimNewlines(rawMarkdown)
     }
 
