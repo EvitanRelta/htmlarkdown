@@ -1,6 +1,7 @@
 import { isEmpty } from './elementPredicates'
 import { indent } from './indent'
 import { isBlock } from './nodePredicates'
+import { trimTrailingNewlines } from './trimTrailingNewlines'
 
 export const toSanitisedHtmlHOF = (
     element: Element,
@@ -19,7 +20,7 @@ export const toSanitisedHtmlHOF = (
             ? `<${tag}${attributesStr} />`
             : isBlock(element)
             ? `<${tag}${attributesStr}>\n` +
-              (addIndent ? indent(content) : content) +
+              (addIndent ? indent(trimTrailingNewlines(content)) : content) +
               `\n</${tag}>\n\n`
             : `<${tag}${attributesStr}>${content}</${tag}>`
 }
