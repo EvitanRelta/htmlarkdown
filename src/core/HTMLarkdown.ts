@@ -49,6 +49,10 @@ export class HTMLarkdown {
         )
     }
 
+    addTextProcess(textProcess: TextProcess): void {
+        this.textProcesses.push(textProcess)
+    }
+
     processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
         return this.textProcesses.reduce(
             (text, process) => process(text, textNode, this.options, parentOptions),
