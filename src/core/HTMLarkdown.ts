@@ -38,8 +38,17 @@ export class HTMLarkdown {
         plugins.forEach((plugin) => plugin(this))
     }
 
-    addPreprocess(preprocess: Preprocess): void {
-        this.preprocesses.push(preprocess)
+    /**
+     * Adds a new preprocess to the conversion.
+     *
+     * By default, the added preprocess evaluated **AFTER** all the other preprocesses.
+     * @param preprocess The preprocess to add
+     * @param runFirst Whether to run the preprocess first or last among the preprocesses \
+     * _(default: `false`)_
+     */
+    addPreprocess(preprocess: Preprocess, runFirst: boolean = false): void {
+        if (runFirst) this.preprocesses.unshift(preprocess)
+        else this.preprocesses.push(preprocess)
     }
 
     preprocess(container: Element): Element {
@@ -49,8 +58,17 @@ export class HTMLarkdown {
         )
     }
 
-    addTextProcess(textProcess: TextProcess): void {
-        this.textProcesses.push(textProcess)
+    /**
+     * Adds a new text-process to the conversion.
+     *
+     * By default, the added text-process evaluated **AFTER** all the other text-processes.
+     * @param textProcess The text-process to add
+     * @param runFirst Whether to run the text-process first or last among the text-processes \
+     * _(default: `false`)_
+     */
+    addTextProcess(textProcess: TextProcess, runFirst: boolean = false): void {
+        if (runFirst) this.textProcesses.unshift(textProcess)
+        else this.textProcesses.push(textProcess)
     }
 
     processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
@@ -60,8 +78,17 @@ export class HTMLarkdown {
         )
     }
 
-    addRule(rule: Rule): void {
-        this.rules.push(rule)
+    /**
+     * Adds a new rule to the conversion.
+     *
+     * By default, the added rule is prioritised and evaluated **BEFORE** all the other rules.
+     * @param rule The rule to add
+     * @param runFirst Whether to run the rule first or last among the rules \
+     * _(default: `true`)_
+     */
+    addRule(rule: Rule, runFirst: boolean = true): void {
+        if (runFirst) this.rules.push(rule)
+        else this.rules.unshift(rule)
     }
 
     findRule(element: Element): Rule | null {
