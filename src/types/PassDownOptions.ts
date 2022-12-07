@@ -39,4 +39,10 @@ export interface PassDownOptions {
      * Mainly used to control the leading/trailing newlines of list conversions.
      */
     isInsideList: boolean
+    /**
+     * The starting number of the current ordered-list.
+     *
+     * Used to control the counter-prefix of ordered-lists' list-items.
+     */
+    olStartingNum: number
 }

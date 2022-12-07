@@ -154,6 +154,7 @@ export class HTMLarkdown {
             isInsideBlockElement: false,
             isOrderedList: false,
             isInsideList: false,
+            olStartingNum: -1,
         }
     }
 
