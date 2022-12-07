@@ -12,30 +12,30 @@ Go to [Unrelated HTTP AB](http://unrelated-http.url/A/B)
 
 Here's [No URL]()
 
-<pre><code>
-Go to <a href="B">AB</a>
-</code></pre>
+<p>
+  Go to <a href="B">AB</a>
+</p>
 
-<pre><code>
-Go to <a href="../C">C</a>
-</code></pre>
+<p>
+  Go to <a href="../C">C</a>
+</p>
 
-<pre><code>
-Go to <a href="B/C">ABC</a>
-</code></pre>
+<p>
+  Go to <a href="B/C">ABC</a>
+</p>
 
-<pre><code>
-Go to <a href="B/C?param=1#hash">ABC with param & hash</a>
-</code></pre>
+<p>
+  Go to <a href="B/C?param=1#hash">ABC with param & hash</a>
+</p>
 
-<pre><code>
-Go to <a href="https://unrelated-https.url/A/B">Unrelated HTTPS AB</a>
-</code></pre>
+<p>
+  Go to <a href="https://unrelated-https.url/A/B">Unrelated HTTPS AB</a>
+</p>
 
-<pre><code>
-Go to <a href="http://unrelated-http.url/A/B">Unrelated HTTP AB</a>
-</code></pre>
+<p>
+  Go to <a href="http://unrelated-http.url/A/B">Unrelated HTTP AB</a>
+</p>
 
-<pre><code>
-Here's <a href="">No URL</a>
-</code></pre>
+<p>
+  Here's <a href="">No URL</a>
+</p>
