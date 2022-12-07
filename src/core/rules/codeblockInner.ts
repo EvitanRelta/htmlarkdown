@@ -1,6 +1,6 @@
 import type { Rule } from '../../types'
 
-const isChildOfPre = (element: Element) => element.parentElement?.tagName === 'PRE'
+export const isChildOfPre = (element: Element) => element.parentElement?.tagName === 'PRE'
 
 /**
  * The inner `<code>` tag of codeblocks. It just relays the `innerContent` and
