@@ -38,10 +38,6 @@ export class HTMLarkdown {
         plugins.forEach((plugin) => plugin(this))
     }
 
-    addRule(rule: Rule): void {
-        this.rules.push(rule)
-    }
-
     addPreprocess(preprocess: Preprocess): void {
         this.preprocesses.push(preprocess)
     }
@@ -58,6 +54,10 @@ export class HTMLarkdown {
             (text, process) => process(text, textNode, this.options, parentOptions),
             text
         )
+    }
+
+    addRule(rule: Rule): void {
+        this.rules.push(rule)
     }
 
     findRule(element: Element): Rule | null {
