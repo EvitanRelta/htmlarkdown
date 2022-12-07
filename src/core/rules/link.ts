@@ -1,4 +1,4 @@
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { isTextNode, obeyForceHtml } from '../../utilities'
 
 const urlWOProtocol = (url: string) => url.replace(/^https?:\/\//, '')
@@ -24,7 +24,7 @@ const isImageAutolink = (linkElement: Element) => {
     return (child as Element).getAttribute('src') === href
 }
 
-export const link: Rule = {
+export const link: RuleWithHTML = {
     filter: 'a',
     toUseHtmlPredicate: obeyForceHtml,
     replacement: (element, options, parentOptions) => (innerContent) => {

@@ -1,6 +1,6 @@
-import type { Rule } from '../../types'
+import type { RuleWOHTML } from '../../types'
 
-export const subscript: Rule = {
+export const subscript: RuleWOHTML = {
     filter: 'sub',
     replacement: () => (innerContent) => `<sub>${innerContent}</sub>`,
 }

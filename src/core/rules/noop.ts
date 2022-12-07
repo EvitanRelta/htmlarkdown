@@ -1,4 +1,4 @@
-import type { Rule, TagName } from '../../types'
+import type { RuleWOHTML, TagName } from '../../types'
 
 /**
  * Elements to keep, but have no specific conversions and just passes on their
@@ -12,7 +12,7 @@ export const noopTags: TagName[] = ['div', 'span']
  *
  * This is to prevent them from being stripped from the converted markdown.
  */
-export const noop: Rule = {
+export const noop: RuleWOHTML = {
     filter: noopTags,
     replacement: () => (innerContent) => innerContent,
 }

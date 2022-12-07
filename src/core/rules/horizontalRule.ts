@@ -1,7 +1,7 @@
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { obeyForceHtml } from '../../utilities'
 
-export const horizontalRule: Rule = {
+export const horizontalRule: RuleWithHTML = {
     filter: 'hr',
     toUseHtmlPredicate: obeyForceHtml,
     replacement: () => '---\n\n',

@@ -1,8 +1,8 @@
 import { any } from 'predicate-hof'
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { hasAnyOfAttributes, obeyForceHtml } from '../../utilities'
 
-export const image: Rule = {
+export const image: RuleWithHTML = {
     filter: 'img',
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['height', 'width'])),
     replacement: (element, options, parentOptions) => {

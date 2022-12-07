@@ -1,7 +1,7 @@
-import type { Rule } from '../../types'
+import type { RuleWithHTML } from '../../types'
 import { obeyForceHtml } from '../../utilities'
 
-export const bold: Rule = {
+export const bold: RuleWithHTML = {
     filter: ['b', 'strong'],
     toUseHtmlPredicate: obeyForceHtml,
     replacement: () => (innerContent) => `**${innerContent}**`,
