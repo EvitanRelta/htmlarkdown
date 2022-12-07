@@ -9,3 +9,4 @@ export type TextProcess = (
     options: HTMLarkdownOptions,
     parentOptions: PassDownOptions
 ) => string
+export type Postprocess = (rawMarkdown: string, options: HTMLarkdownOptions) => string
