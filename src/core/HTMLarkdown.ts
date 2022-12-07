@@ -90,10 +90,11 @@ export class HTMLarkdown {
         containerElement = this.preprocess(containerElement)
 
         const childElements = Array.from(containerElement.children)
-        return childElements
+        const rawMarkdown = childElements
             .map((ele) => this._convert(ele, this._getDefaultParentOptions()))
             .join('')
-            .replaceAll(/^[ \n]*\n|\n[ \n]*$/g, '')
+        const trimNewlines = (str: string) => str.replaceAll(/^[ \n]*\n|\n[ \n]*$/g, '')
+        return trimNewlines(rawMarkdown)
     }
 
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
