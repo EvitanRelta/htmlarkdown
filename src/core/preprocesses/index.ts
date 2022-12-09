@@ -1,7 +1,7 @@
 import type { Preprocess } from '../../types'
 import { addTrailingLinebreaks } from './addTrailingLinebreaks'
 import { collapseWhitespace } from './collapseWhitespace'
-import { removeTextlessFormattings } from './removeTextlessFormattings'
+import { removeEmptyElements } from './removeEmptyElements'
 
 /**
  * Preprocesses are called starting from the FRONT of the array to the back.
@@ -15,6 +15,6 @@ import { removeTextlessFormattings } from './removeTextlessFormattings'
  */
 export const preprocesses: Preprocess[] = [
     collapseWhitespace,
-    removeTextlessFormattings,
+    removeEmptyElements,
     addTrailingLinebreaks,
 ]
