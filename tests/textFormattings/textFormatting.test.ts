@@ -30,3 +30,10 @@ test.concurrent('Text Formatting - empty (trailing linebreak)', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Text Formatting - horizontal-rule only', async () => {
+    const htmlarkdown = new HTMLarkdown({ addTrailingLinebreak: true })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./horizontalRuleOnly')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
