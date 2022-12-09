@@ -146,7 +146,7 @@ export class HTMLarkdown {
 
         const childElements = Array.from(containerElement.children)
         const rawMarkdown = childElements
-            .map((ele) => this._convert(ele, this._getDefaultParentOptions()))
+            .map((ele) => this._convert(ele, this._getDefaultParentOptions(containerElement)))
             .join('')
         return this.postprocess(rawMarkdown)
     }
@@ -166,10 +166,11 @@ export class HTMLarkdown {
         }
     }
 
-    private _getDefaultParentOptions(): PassDownOptions {
+    private _getDefaultParentOptions(containerElement: Element): PassDownOptions {
         return {
             forceHtml: false,
             escapeWhitespace: true,
+            containerElement,
         }
     }
 

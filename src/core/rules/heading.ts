@@ -1,16 +1,18 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../types'
 import {
+    blockTagNames,
     hasAnyOfAttributes,
-    isBlock,
     isHeading,
     obeyForceHtml,
     toSanitisedHtmlHOF,
 } from '../../utilities'
 
+const blockTagsExceptHr = blockTagNames.filter((x) => x !== 'HR')
+const isBlockExceptHr = (node: Node) => blockTagsExceptHr.includes(node.nodeName)
 const hasBlockElements = (element: Element): boolean => {
     const children = Array.from(element.children)
-    return children.some(isBlock) || children.some(hasBlockElements)
+    return children.some(isBlockExceptHr) || children.some(hasBlockElements)
 }
 
 export const heading: RuleWithHTML = {
