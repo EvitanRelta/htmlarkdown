@@ -19,6 +19,8 @@ export const toSanitisedHtmlHOF = (
             ? `<${tag}${attributesStr} />`
             : !isBlock(element)
             ? `<${tag}${attributesStr}>${content}</${tag}>`
+            : content === ''
+            ? `<${tag}${attributesStr}>${content}</${tag}>\n\n`
             : `<${tag}${attributesStr}>\n` +
               (addIndent ? indent(trimTrailingNewlines(content)) : content) +
               `\n</${tag}>\n\n`
