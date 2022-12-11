@@ -1,6 +1,5 @@
-import { isEmpty } from './elementPredicates'
 import { indent } from './indent'
-import { isBlock } from './nodePredicates'
+import { isBlock, isVoid } from './nodePredicates'
 import { trimTrailingNewlines } from './trimTrailingNewlines'
 
 export const toSanitisedHtmlHOF = (
@@ -16,11 +15,13 @@ export const toSanitisedHtmlHOF = (
     const tag = element.tagName.toLowerCase()
 
     return (content: string = '') =>
-        isEmpty(element)
+        isVoid(element)
             ? `<${tag}${attributesStr} />`
-            : isBlock(element)
-            ? `<${tag}${attributesStr}>\n` +
+            : !isBlock(element)
+            ? `<${tag}${attributesStr}>${content}</${tag}>`
+            : content === ''
+            ? `<${tag}${attributesStr}>${content}</${tag}>\n\n`
+            : `<${tag}${attributesStr}>\n` +
               (addIndent ? indent(trimTrailingNewlines(content)) : content) +
               `\n</${tag}>\n\n`
-            : `<${tag}${attributesStr}>${content}</${tag}>`
 }
