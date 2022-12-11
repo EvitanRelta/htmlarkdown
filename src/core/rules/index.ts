@@ -1,3 +1,4 @@
+import { blockquote } from './blockquote'
 import { bold } from './bold'
 import { code } from './code'
 import { codeblock } from './codeblock'
@@ -41,4 +42,5 @@ export const rules = [
     link,
     image,
     noop,
+    blockquote,
 ]
