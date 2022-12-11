@@ -23,3 +23,10 @@ test.concurrent('Code & Codeblock - empty', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Code & Codeblock - empty (trailing linebreak)', async () => {
+    const htmlarkdown = new HTMLarkdown({ addTrailingLinebreak: true })
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./emptyTrailingLinebreak')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
