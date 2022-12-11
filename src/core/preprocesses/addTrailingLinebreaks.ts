@@ -1,8 +1,9 @@
-import { any } from 'predicate-hof'
+import { all, any } from 'predicate-hof'
 import type { Preprocess } from '../../types'
 import { isBlock, isEmpty } from '../../utilities'
 
 const hasTrailingLinebreak = (element: Element) => element.lastChild?.nodeName === 'BR'
+const isNotPre = (element: Element) => element.tagName !== 'PRE'
 
 /**
  * Inserts a linebreak inside block-elements that are either empty or end with
@@ -21,7 +22,9 @@ export const addTrailingLinebreaks: Preprocess = (container, options) => {
     if (!options.addTrailingLinebreak) return container
 
     const insertLineBreak = (element: Element) => element.append(document.createElement('br'))
-    const allBlockElements = Array.from(container.querySelectorAll('*')).filter(isBlock)
-    allBlockElements.filter(any(isEmpty, hasTrailingLinebreak)).forEach(insertLineBreak)
+    const allNonPreBlockElements = Array.from(container.querySelectorAll('*')).filter(
+        all(isBlock, isNotPre)
+    )
+    allNonPreBlockElements.filter(any(isEmpty, hasTrailingLinebreak)).forEach(insertLineBreak)
     return container
 }
