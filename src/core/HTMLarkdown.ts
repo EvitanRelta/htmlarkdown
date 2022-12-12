@@ -142,6 +142,7 @@ export class HTMLarkdown {
             preloadPlugins: [],
             addTrailingLinebreak: false,
             codeblockTrailingLinebreak: 'both',
+            maxPrettyTableWidth: 80,
         }
     }
 
