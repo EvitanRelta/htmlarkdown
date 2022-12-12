@@ -53,7 +53,7 @@ export const codeblock: RuleWithHTML = {
         return `${fence}${language}\n${innerContent}\n${fence}\n\n`
     },
     htmlReplacement: (element, options) => ({
-        childOptions: { forceHtml: true, escapeWhitespace: false },
+        childOptions: { forceHtml: true, escapeWhitespace: false, isInsideBlockElement: true },
         value: (innerContent) => {
             const language = element.getAttribute('lang') || ''
             const language_attr = language ? ` lang="${language}"` : ''

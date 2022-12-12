@@ -171,6 +171,7 @@ export class HTMLarkdown {
             forceHtml: false,
             escapeWhitespace: true,
             containerElement,
+            isInsideBlockElement: false,
         }
     }
 

@@ -13,7 +13,7 @@ export const blockquote: RuleWithHTML = {
     replacement: () => (innerContent) =>
         trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') + '\n\n',
     htmlReplacement: (element) => ({
-        childOptions: { forceHtml: true },
+        childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(element, ['align']),
     }),
 }

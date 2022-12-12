@@ -24,7 +24,7 @@ export const heading: RuleWithHTML = {
         return `${prefix} ${innerContent}\n\n`
     },
     htmlReplacement: (element) => ({
-        childOptions: { forceHtml: true },
+        childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(element, ['align']),
     }),
 }
