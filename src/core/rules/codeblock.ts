@@ -52,7 +52,7 @@ export const codeblock: RuleWithHTML = {
         const fence = longestBacktick + '`'
         return `${fence}${language}\n${innerContent}\n${fence}\n\n`
     },
-    htmlReplacement: (element, options) => ({
+    htmlReplacement: (element, options, parentOptions) => ({
         childOptions: { forceHtml: true, escapeWhitespace: false, isInsideBlockElement: true },
         value: (innerContent) => {
             const language = element.getAttribute('lang') || ''
@@ -72,8 +72,14 @@ export const codeblock: RuleWithHTML = {
                 innerContent = removeLastNewline(innerContent)
 
             if (['add', 'both'].includes(options.codeblockTrailingLinebreak))
-                return `<pre${language_attr}><code>${innerContent}\n</code></pre>\n\n`
-            return `<pre${language_attr}><code>${innerContent}</code></pre>\n\n`
+                return (
+                    `<pre${language_attr}><code>${innerContent}\n</code></pre>\n` +
+                    (parentOptions.isInsideBlockElement ? '' : '\n')
+                )
+            return (
+                `<pre${language_attr}><code>${innerContent}</code></pre>\n` +
+                (parentOptions.isInsideBlockElement ? '' : '\n')
+            )
         },
     }),
 }

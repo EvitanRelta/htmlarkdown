@@ -6,8 +6,8 @@ export const paragraph: RuleWithHTML = {
     filter: ['p'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: () => (innerContent) => innerContent ? innerContent + '\n\n' : '',
-    htmlReplacement: (element) => ({
+    htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
-        value: toSanitisedHtmlHOF(element, ['align']),
+        value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
     }),
 }

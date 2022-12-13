@@ -5,6 +5,7 @@ import { trimTrailingNewlines } from './trimTrailingNewlines'
 export const toSanitisedHtmlHOF = (
     element: Element,
     allowedAttributes: string[],
+    addExtraTrailingNewline = true,
     addIndent = true
 ) => {
     const isAllowed = (attr: Attr) => allowedAttributes.includes(attr.name)
@@ -20,8 +21,10 @@ export const toSanitisedHtmlHOF = (
             : !isBlock(element)
             ? `<${tag}${attributesStr}>${content}</${tag}>`
             : content === ''
-            ? `<${tag}${attributesStr}>${content}</${tag}>\n\n`
+            ? `<${tag}${attributesStr}>${content}</${tag}>\n` +
+              (addExtraTrailingNewline ? '\n' : '')
             : `<${tag}${attributesStr}>\n` +
               (addIndent ? indent(trimTrailingNewlines(content)) : content) +
-              `\n</${tag}>\n\n`
+              `\n</${tag}>\n` +
+              (addExtraTrailingNewline ? '\n' : '')
 }
