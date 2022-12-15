@@ -2,12 +2,8 @@
 
 > TEXT
 
-<blockquote>
-  TEXT
-</blockquote>
+<blockquote>TEXT</blockquote>
 
 <blockquote>
-  <p>
-    TEXT
-  </p>
+  <p>TEXT</p>
 </blockquote>

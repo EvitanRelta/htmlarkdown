@@ -3,9 +3,7 @@
 </blockquote>
 
 <blockquote align="center">
-  <p>
-    TEXT
-  </p>
+  <p>TEXT</p>
 </blockquote>
 
 > <p align="center">
@@ -17,9 +15,7 @@
 </blockquote>
 
 <blockquote align="center">
-  <p>
-    TEXT
-  </p>
+  <p>TEXT</p>
 </blockquote>
 
 <blockquote>

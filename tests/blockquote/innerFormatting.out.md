@@ -8,20 +8,14 @@
 > Codeblock
 > ```
 
+<blockquote><b><s>TEXT</s></b></blockquote>
+
 <blockquote>
-  <b><s>TEXT</s></b>
+  <p><b><s>TEXT</s></b></p>
 </blockquote>
 
 <blockquote>
-  <p>
-    <b><s>TEXT</s></b>
-  </p>
-</blockquote>
-
-<blockquote>
-  <h1>
-    Heading
-  </h1>
+  <h1>Heading</h1>
 </blockquote>
 
 <blockquote>

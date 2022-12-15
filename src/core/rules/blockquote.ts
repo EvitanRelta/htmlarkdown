@@ -12,8 +12,8 @@ export const blockquote: RuleWithHTML = {
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: () => (innerContent) =>
         trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') + '\n\n',
-    htmlReplacement: (element) => ({
-        childOptions: { forceHtml: true },
-        value: toSanitisedHtmlHOF(element, ['align']),
+    htmlReplacement: (element, _, parentOptions) => ({
+        childOptions: { forceHtml: true, isInsideBlockElement: true },
+        value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
     }),
 }
