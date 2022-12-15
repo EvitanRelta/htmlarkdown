@@ -1,8 +1,19 @@
 import type { Plugin } from './Plugin'
-import type { TagName } from './Rule'
+import type { Rule, TagName } from './Rule'
 import type { UrlTransformer } from './UrlTransformer'
 
 export interface HTMLarkdownOptions {
+    /**
+     * The rules to use.
+     *
+     * Rules dictate how each element is converted to markdown.  \
+     * They are ran after preprocesses, and together with text-processes.
+     *
+     * They can have `toUseHtmlPredicate` and `htmlReplacement` properties  \
+     * which control when/how elements are converted to HTML-in-markdown syntax.
+     * @default HTMLarkdown.defaultRules
+     */
+    rules: Rule[]
     /**
      * Function to transform the URLs of hyperlinks & images.
      *

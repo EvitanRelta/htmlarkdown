@@ -19,9 +19,8 @@ test.concurrent('Immutability - pre-process', async () => {
     const insertLinebreak: PreProcess = (container) =>
         container.firstChild!.appendChild(document.createElement('br'))
 
-    const htmlarkdown = new HTMLarkdown()
+    const htmlarkdown = new HTMLarkdown({ rules: [] })
     htmlarkdown.preProcesses = [insertLinebreak]
-    htmlarkdown.rules = []
 
     expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
 })
@@ -36,9 +35,8 @@ test.concurrent('Immutability - rule', async () => {
         },
     }
 
-    const htmlarkdown = new HTMLarkdown()
+    const htmlarkdown = new HTMLarkdown({ rules: [insertLinebreak] })
     htmlarkdown.preProcesses = []
-    htmlarkdown.rules = [insertLinebreak]
 
     expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
 })

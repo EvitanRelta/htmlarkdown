@@ -1,3 +1,4 @@
+import type { MergeWithCustomizer } from 'lodash'
 import _ from 'lodash'
 import type { IterableElement, PartialDeep } from 'type-fest'
 import type {
@@ -28,7 +29,6 @@ export class HTMLarkdown {
     static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
     options: HTMLarkdownOptions
-    rules: Rule[] = HTMLarkdown.defaultRules.slice()
     preProcesses: PreProcess[] = HTMLarkdown.defaultPreProcesses.slice()
     textProcesses: TextProcess[] = HTMLarkdown.defaultTextProcesses.slice()
     postProcesses: PostProcess[] = HTMLarkdown.defaultPostProcesses.slice()
@@ -36,7 +36,11 @@ export class HTMLarkdown {
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = this._getDefaultHTMLarkdownOptions()
         if (options?.preloadPlugins) this.loadPlugins(options.preloadPlugins)
-        this.options = _.merge(this.options, options)
+
+        const overwriteArrays: MergeWithCustomizer = (_, src2) =>
+            Array.isArray(src2) ? src2 : undefined
+        this.options = _.mergeWith(this.options, options, overwriteArrays)
+
         this.loadPlugins(this.options.plugins)
     }
 
@@ -113,8 +117,8 @@ export class HTMLarkdown {
      * _(default: `true`)_
      */
     addRule(rule: Rule, runFirst: boolean = true): void {
-        if (runFirst) this.rules.push(rule)
-        else this.rules.unshift(rule)
+        if (runFirst) this.options.rules.push(rule)
+        else this.options.rules.unshift(rule)
     }
 
     findRule(element: Element): Rule | null {
@@ -131,7 +135,7 @@ export class HTMLarkdown {
                 isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
             )
 
-        return this.rules.slice().reverse().find(isMatchRule) ?? null
+        return this.options.rules.slice().reverse().find(isMatchRule) ?? null
     }
 
     // Assumes no text nodes in childNodes
@@ -150,6 +154,7 @@ export class HTMLarkdown {
 
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
         return {
+            rules: HTMLarkdown.defaultRules.slice(),
             urlTransformer: null,
             elementsNoWhitespaceCollapse: ['pre'],
             reverseAutolinks: {
