@@ -22,16 +22,16 @@ import { rules } from './rules'
 import { textProcesses } from './textProcesses'
 
 export class HTMLarkdown {
-    readonly defaultRules: readonly Rule[] = rules
-    readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
-    readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
-    readonly defaultPostprocesses: readonly Postprocess[] = postprocesses
+    static readonly defaultRules: readonly Rule[] = rules
+    static readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
+    static readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
+    static readonly defaultPostprocesses: readonly Postprocess[] = postprocesses
 
     options: HTMLarkdownOptions
-    rules: Rule[] = this.defaultRules.slice()
-    preprocesses: Preprocess[] = this.defaultPreprocesses.slice()
-    textProcesses: TextProcess[] = this.defaultTextProcesses.slice()
-    postprocesses: Postprocess[] = this.defaultPostprocesses.slice()
+    rules: Rule[] = HTMLarkdown.defaultRules.slice()
+    preprocesses: Preprocess[] = HTMLarkdown.defaultPreprocesses.slice()
+    textProcesses: TextProcess[] = HTMLarkdown.defaultTextProcesses.slice()
+    postprocesses: Postprocess[] = HTMLarkdown.defaultPostprocesses.slice()
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = this._getDefaultHTMLarkdownOptions()
