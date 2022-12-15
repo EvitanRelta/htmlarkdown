@@ -29,7 +29,6 @@ export class HTMLarkdown {
     static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
     options: HTMLarkdownOptions
-    preProcesses: PreProcess[] = HTMLarkdown.defaultPreProcesses.slice()
     textProcesses: TextProcess[] = HTMLarkdown.defaultTextProcesses.slice()
     postProcesses: PostProcess[] = HTMLarkdown.defaultPostProcesses.slice()
 
@@ -57,12 +56,12 @@ export class HTMLarkdown {
      * _(default: `false`)_
      */
     addPreProcess(preProcess: PreProcess, runFirst: boolean = false): void {
-        if (runFirst) this.preProcesses.unshift(preProcess)
-        else this.preProcesses.push(preProcess)
+        if (runFirst) this.options.preProcesses.unshift(preProcess)
+        else this.options.preProcesses.push(preProcess)
     }
 
     preProcess(container: Element): Element {
-        return this.preProcesses.reduce(
+        return this.options.preProcesses.reduce(
             (container, process) => process(container, this.options),
             container
         )
@@ -154,6 +153,7 @@ export class HTMLarkdown {
 
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
         return {
+            preProcesses: HTMLarkdown.defaultPreProcesses.slice(),
             rules: HTMLarkdown.defaultRules.slice(),
             urlTransformer: null,
             elementsNoWhitespaceCollapse: ['pre'],
