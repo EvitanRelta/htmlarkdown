@@ -14,13 +14,15 @@ export const toSanitisedHtmlHOF = (
         .map((attribute) => ` ${attribute.name}="${attribute.value}"`)
         .join('')
     const tag = element.tagName.toLowerCase()
+    const hasNoAttributes = attributesStr === ''
+    const hasNoNewline = (str: string) => !/\n/.test(str)
 
     return (content: string = '') =>
         isVoid(element)
             ? `<${tag}${attributesStr} />`
             : !isBlock(element)
             ? `<${tag}${attributesStr}>${content}</${tag}>`
-            : content === ''
+            : content === '' || (hasNoAttributes && hasNoNewline(content))
             ? `<${tag}${attributesStr}>${content}</${tag}>\n` +
               (addExtraTrailingNewline ? '\n' : '')
             : `<${tag}${attributesStr}>\n` +

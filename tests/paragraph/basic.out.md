@@ -4,14 +4,8 @@ Second
 
 Third
 
-<p>
-  First
-</p>
+<p>First</p>
 
-<p>
-  Second
-</p>
+<p>Second</p>
 
-<p>
-  Third
-</p>
+<p>Third</p>
