@@ -10,6 +10,8 @@ import type {
     Plugin,
     PostProcess,
     PreProcess,
+    ReplacementFunction,
+    ReplacementObj,
     Rule,
     TagName,
     TextNode,
@@ -194,8 +196,11 @@ export class HTMLarkdown {
         let value
         let childOptions = parentOptions
         const replacement = replacementFunc(node, this.options, parentOptions)
+        const isReplacementObj = (
+            replacement: ReturnType<ReplacementFunction>
+        ): replacement is ReplacementObj => typeof replacement === 'object'
 
-        if (typeof replacement === 'object') {
+        if (isReplacementObj(replacement)) {
             value = replacement.value
             childOptions = {
                 ...parentOptions,
