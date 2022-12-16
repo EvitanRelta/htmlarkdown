@@ -41,6 +41,23 @@ export class HTMLarkdown {
         this.loadPlugins(this.options.plugins)
     }
 
+    static findRule(element: Element, options: HTMLarkdownOptions): Rule | null {
+        const elementTagName = element.tagName.toLowerCase() as TagName
+
+        const isFilterAnd = (x: IterableElement<FilterOr>): x is FilterAnd => typeof x === 'object'
+        const isTagName = (x: IterableElement<FilterOr | FilterAnd>): x is TagName =>
+            typeof x === 'string'
+
+        const isMatchTagOrPredicate = (x: TagName | FilterPredicate) =>
+            isTagName(x) ? elementTagName === x : x(element, options)
+        const isMatchRule = (rule: Rule): boolean =>
+            rule.filter.some((x) =>
+                isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
+            )
+
+        return options.rules.slice().reverse().find(isMatchRule) ?? null
+    }
+
     loadPlugins(plugins: Plugin[]): void {
         plugins.forEach((plugin) => plugin(this))
     }
@@ -58,11 +75,17 @@ export class HTMLarkdown {
         else this.options.preProcesses.push(preProcess)
     }
 
-    private _preProcess(container: Element): Element {
-        return this.options.preProcesses.reduce(
-            (container, process) => process(container, this.options),
-            container
-        )
+    /**
+     * Adds a new rule to the conversion.
+     *
+     * By default, the added rule is prioritised and evaluated **BEFORE** all the other rules.
+     * @param rule The rule to add
+     * @param runFirst Whether to run the rule first or last among the rules \
+     * _(default: `true`)_
+     */
+    addRule(rule: Rule, runFirst: boolean = true): void {
+        if (runFirst) this.options.rules.push(rule)
+        else this.options.rules.unshift(rule)
     }
 
     /**
@@ -78,13 +101,6 @@ export class HTMLarkdown {
         else this.options.textProcesses.push(textProcess)
     }
 
-    private _processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
-        return this.options.textProcesses.reduce(
-            (text, process) => process(text, textNode, this.options, parentOptions),
-            text
-        )
-    }
-
     /**
      * Adds a new post-process to the conversion.
      *
@@ -96,43 +112,6 @@ export class HTMLarkdown {
     addPostProcess(postProcess: PostProcess, runFirst: boolean = false): void {
         if (runFirst) this.options.postProcesses.unshift(postProcess)
         else this.options.postProcesses.push(postProcess)
-    }
-
-    private _postProcess(rawMarkdown: string): string {
-        return this.options.postProcesses.reduce(
-            (rawMarkdown, process) => process(rawMarkdown, this.options),
-            rawMarkdown
-        )
-    }
-
-    /**
-     * Adds a new rule to the conversion.
-     *
-     * By default, the added rule is prioritised and evaluated **BEFORE** all the other rules.
-     * @param rule The rule to add
-     * @param runFirst Whether to run the rule first or last among the rules \
-     * _(default: `true`)_
-     */
-    addRule(rule: Rule, runFirst: boolean = true): void {
-        if (runFirst) this.options.rules.push(rule)
-        else this.options.rules.unshift(rule)
-    }
-
-    static findRule(element: Element, options: HTMLarkdownOptions): Rule | null {
-        const elementTagName = element.tagName.toLowerCase() as TagName
-
-        const isFilterAnd = (x: IterableElement<FilterOr>): x is FilterAnd => typeof x === 'object'
-        const isTagName = (x: IterableElement<FilterOr | FilterAnd>): x is TagName =>
-            typeof x === 'string'
-
-        const isMatchTagOrPredicate = (x: TagName | FilterPredicate) =>
-            isTagName(x) ? elementTagName === x : x(element, options)
-        const isMatchRule = (rule: Rule): boolean =>
-            rule.filter.some((x) =>
-                isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
-            )
-
-        return options.rules.slice().reverse().find(isMatchRule) ?? null
     }
 
     // Assumes no text nodes in childNodes
@@ -177,6 +156,27 @@ export class HTMLarkdown {
             containerElement,
             isInsideBlockElement: false,
         }
+    }
+
+    private _preProcess(container: Element): Element {
+        return this.options.preProcesses.reduce(
+            (container, process) => process(container, this.options),
+            container
+        )
+    }
+
+    private _processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
+        return this.options.textProcesses.reduce(
+            (text, process) => process(text, textNode, this.options, parentOptions),
+            text
+        )
+    }
+
+    private _postProcess(rawMarkdown: string): string {
+        return this.options.postProcesses.reduce(
+            (rawMarkdown, process) => process(rawMarkdown, this.options),
+            rawMarkdown
+        )
     }
 
     private _convert(node: Node, parentOptions: PassDownOptions): string {
