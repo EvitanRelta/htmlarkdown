@@ -9,6 +9,6 @@ export const isChildOfPre = (element: Element) => element.parentElement?.tagName
  * Used to ensure the inner `<code>` isn't ignored and filtered out.
  */
 export const codeblockInner: RuleWOHTML = {
-    filter: ['code', isChildOfPre],
+    filter: [['code', isChildOfPre]],
     replacement: () => (innerContent) => innerContent,
 }

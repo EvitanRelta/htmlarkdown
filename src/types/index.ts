@@ -4,7 +4,8 @@ export type { Plugin } from './Plugin'
 export type { Postprocess, Preprocess, TextProcess } from './processes'
 export type {
     ContentAddonFunction,
-    Filter,
+    FilterAnd,
+    FilterOr,
     FilterPredicate,
     ReplacementFunction,
     ReplacementObj,

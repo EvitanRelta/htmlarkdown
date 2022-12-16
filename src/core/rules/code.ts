@@ -4,7 +4,7 @@ import { hasChildElements, isEmpty, obeyForceHtml } from '../../utilities'
 import { isChildOfPre } from './codeblockInner'
 
 export const code: RuleWithHTML = {
-    filter: ['code', not(isChildOfPre)],
+    filter: [['code', not(isChildOfPre)]],
     toUseHtmlPredicate: any(obeyForceHtml, hasChildElements, isEmpty),
     replacement: (element) => `\`${element.textContent!}\``,
     htmlReplacement: () => (innerContent) => `<code>${innerContent}</code>`,

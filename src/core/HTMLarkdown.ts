@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import type { IterableElement, PartialDeep } from 'type-fest'
 import type {
-    Filter,
+    FilterAnd,
+    FilterOr,
     FilterPredicate,
     HTMLarkdownOptions,
     PassDownOptions,
@@ -119,16 +120,16 @@ export class HTMLarkdown {
     findRule(element: Element): Rule | null {
         const elementTagName = element.tagName.toLowerCase() as TagName
 
-        const isTagNameArr = (filter: Filter): filter is TagName[] =>
-            filter.every((x) => typeof x === 'string')
-        const isTagName = (x: IterableElement<Filter>): x is TagName => typeof x === 'string'
+        const isFilterAnd = (x: IterableElement<FilterOr>): x is FilterAnd => typeof x === 'object'
+        const isTagName = (x: IterableElement<FilterOr | FilterAnd>): x is TagName =>
+            typeof x === 'string'
 
         const isMatchTagOrPredicate = (x: TagName | FilterPredicate) =>
             isTagName(x) ? elementTagName === x : x(element, this.options)
         const isMatchRule = (rule: Rule): boolean =>
-            isTagNameArr(rule.filter)
-                ? rule.filter.includes(elementTagName)
-                : rule.filter.every(isMatchTagOrPredicate)
+            rule.filter.some((x) =>
+                isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
+            )
 
         return this.rules.slice().reverse().find(isMatchRule) ?? null
     }
