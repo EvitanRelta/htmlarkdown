@@ -1,5 +1,5 @@
 import type { Plugin } from './Plugin'
-import type { PreProcess } from './processes'
+import type { PreProcess, TextProcess } from './processes'
 import type { Rule, TagName } from './Rule'
 import type { UrlTransformer } from './UrlTransformer'
 
@@ -29,6 +29,17 @@ export interface HTMLarkdownOptions {
      * @default HTMLarkdown.defaultRules
      */
     rules: Rule[]
+    /**
+     * The text-processes to use.
+     *
+     * Text-processes transforms the text in each text-node.  \
+     * They are ran after pre-processes, and together with rules.
+     *
+     * They are mainly used to escape text characters, such as markdown-specific
+     * ones like `**` *(ie. bold)* & `#` *(ie. heading)*.
+     * @default HTMLarkdown.defaultTextProcesses
+     */
+    textProcesses: TextProcess[]
     /**
      * Function to transform the URLs of hyperlinks & images.
      *
