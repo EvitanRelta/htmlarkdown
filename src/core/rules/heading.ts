@@ -16,7 +16,7 @@ const hasBlockElements = (element: Element): boolean => {
 }
 
 export const heading: RuleWithHTML = {
-    filter: isHeading,
+    filter: [isHeading],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align']), hasBlockElements),
     replacement: (element) => (innerContent) => {
         const headingLevel = Number(element.tagName[1])

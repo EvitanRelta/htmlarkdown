@@ -6,7 +6,7 @@ const isNotChildOfContainer: ToUseHtmlPredicate = (element, _, parentOptions) =>
     element.parentElement !== parentOptions.containerElement
 
 export const horizontalRule: RuleWithHTML = {
-    filter: 'hr',
+    filter: ['hr'],
     toUseHtmlPredicate: any(obeyForceHtml, isNotChildOfContainer),
     replacement: () => '---\n\n',
     htmlReplacement: (...args) => (isNotChildOfContainer(...args) ? '<hr>' : '<hr>\n\n'),

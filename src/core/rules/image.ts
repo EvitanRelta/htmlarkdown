@@ -3,7 +3,7 @@ import type { RuleWithHTML } from '../../types'
 import { hasAnyOfAttributes, obeyForceHtml } from '../../utilities'
 
 export const image: RuleWithHTML = {
-    filter: 'img',
+    filter: ['img'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['height', 'width'])),
     replacement: (element, options, parentOptions) => {
         const alt = element.getAttribute('alt') || ''

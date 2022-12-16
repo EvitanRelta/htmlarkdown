@@ -29,7 +29,7 @@ test.concurrent('Immutability - preprocess', async () => {
 /** Test whether the input element is mutated by rules. */
 test.concurrent('Immutability - preprocess', async () => {
     const insertLinebreak: Rule = {
-        filter: 'p',
+        filter: ['p'],
         replacement: (element) => {
             element.appendChild(document.createElement('br'))
             return ''

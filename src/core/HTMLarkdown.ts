@@ -1,7 +1,9 @@
 import _ from 'lodash'
-import type { PartialDeep } from 'type-fest'
+import type { IterableElement, PartialDeep } from 'type-fest'
 import type {
-    Filter,
+    FilterAnd,
+    FilterOr,
+    FilterPredicate,
     HTMLarkdownOptions,
     PassDownOptions,
     Plugin,
@@ -116,25 +118,20 @@ export class HTMLarkdown {
     }
 
     findRule(element: Element): Rule | null {
-        const isTagNameArr = (filter: TagName[] | Filter[]): filter is TagName[] =>
-            filter.every((x) => typeof x === 'string')
-        const isMatch = (element: Element, filter: Filter | Filter[]): boolean => {
-            if (typeof filter === 'string')
-                return element.tagName.toLowerCase() === filter.toLowerCase()
-            if (typeof filter === 'function') return filter(element, this.options)
-            if (isTagNameArr(filter))
-                return filter
-                    .map((x) => x.toLowerCase())
-                    .includes(element.tagName.toLowerCase() as TagName)
-            return filter.every((x) => isMatch(element, x))
-        }
+        const elementTagName = element.tagName.toLowerCase() as TagName
 
-        return (
-            this.rules
-                .slice()
-                .reverse()
-                .find((rule) => isMatch(element, rule.filter)) ?? null
-        )
+        const isFilterAnd = (x: IterableElement<FilterOr>): x is FilterAnd => typeof x === 'object'
+        const isTagName = (x: IterableElement<FilterOr | FilterAnd>): x is TagName =>
+            typeof x === 'string'
+
+        const isMatchTagOrPredicate = (x: TagName | FilterPredicate) =>
+            isTagName(x) ? elementTagName === x : x(element, this.options)
+        const isMatchRule = (rule: Rule): boolean =>
+            rule.filter.some((x) =>
+                isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
+            )
+
+        return this.rules.slice().reverse().find(isMatchRule) ?? null
     }
 
     // Assumes no text nodes in childNodes
