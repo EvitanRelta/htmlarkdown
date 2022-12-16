@@ -1,8 +1,57 @@
 import type { Plugin } from './Plugin'
-import type { TagName } from './Rule'
+import type { PostProcess, PreProcess, TextProcess } from './processes'
+import type { Rule, TagName } from './Rule'
 import type { UrlTransformer } from './UrlTransformer'
 
 export interface HTMLarkdownOptions {
+    /**
+     * The pre-processes to use.
+     *
+     * Pre-processes modify the container element.  \
+     * They are ran first, before the any other processes/rules.
+     *
+     * They are used to "clean-up" the elements before being converted to
+     * markdown by the rules/text-processes.
+     *
+     * _**Note:** The container element can be safely mutated, as
+     * `HTMLarkdown.convert` deep-clones the container element given to it._
+     * @default HTMLarkdown.defaultPreProcesses
+     */
+    preProcesses: PreProcess[]
+    /**
+     * The rules to use.
+     *
+     * Rules dictate how each element is converted to markdown.  \
+     * They are ran after pre-processes, and together with text-processes.
+     *
+     * They can have `toUseHtmlPredicate` and `htmlReplacement` properties  \
+     * which control when/how elements are converted to HTML-in-markdown syntax.
+     * @default HTMLarkdown.defaultRules
+     */
+    rules: Rule[]
+    /**
+     * The text-processes to use.
+     *
+     * Text-processes transforms the text in each text-node.  \
+     * They are ran after pre-processes, and together with rules.
+     *
+     * They are mainly used to escape text characters, such as markdown-specific
+     * ones like `**` *(ie. bold)* & `#` *(ie. heading)*.
+     * @default HTMLarkdown.defaultTextProcesses
+     */
+    textProcesses: TextProcess[]
+    /**
+     * The post-processes to use.
+     *
+     * Post-processes transforms the markdown output string produced by the
+     * rules/text-processes.  \
+     * They are ran last, after all other processes/rules.
+     *
+     * They are used to "clean-up" the final markdown string, such as for trimming
+     * excess newlines from the markdown.
+     * @default HTMLarkdown.defaultPostProcesses
+     */
+    postProcesses: PostProcess[]
     /**
      * Function to transform the URLs of hyperlinks & images.
      *

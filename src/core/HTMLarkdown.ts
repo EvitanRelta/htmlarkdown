@@ -1,3 +1,4 @@
+import type { MergeWithCustomizer } from 'lodash'
 import _ from 'lodash'
 import type { IterableElement, PartialDeep } from 'type-fest'
 import type {
@@ -28,15 +29,15 @@ export class HTMLarkdown {
     static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
     options: HTMLarkdownOptions
-    rules: Rule[] = HTMLarkdown.defaultRules.slice()
-    preProcesses: PreProcess[] = HTMLarkdown.defaultPreProcesses.slice()
-    textProcesses: TextProcess[] = HTMLarkdown.defaultTextProcesses.slice()
-    postProcesses: PostProcess[] = HTMLarkdown.defaultPostProcesses.slice()
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = this._getDefaultHTMLarkdownOptions()
         if (options?.preloadPlugins) this.loadPlugins(options.preloadPlugins)
-        this.options = _.merge(this.options, options)
+
+        const overwriteArrays: MergeWithCustomizer = (_, src2) =>
+            Array.isArray(src2) ? src2 : undefined
+        this.options = _.mergeWith(this.options, options, overwriteArrays)
+
         this.loadPlugins(this.options.plugins)
     }
 
@@ -53,12 +54,12 @@ export class HTMLarkdown {
      * _(default: `false`)_
      */
     addPreProcess(preProcess: PreProcess, runFirst: boolean = false): void {
-        if (runFirst) this.preProcesses.unshift(preProcess)
-        else this.preProcesses.push(preProcess)
+        if (runFirst) this.options.preProcesses.unshift(preProcess)
+        else this.options.preProcesses.push(preProcess)
     }
 
     preProcess(container: Element): Element {
-        return this.preProcesses.reduce(
+        return this.options.preProcesses.reduce(
             (container, process) => process(container, this.options),
             container
         )
@@ -73,12 +74,12 @@ export class HTMLarkdown {
      * _(default: `false`)_
      */
     addTextProcess(textProcess: TextProcess, runFirst: boolean = false): void {
-        if (runFirst) this.textProcesses.unshift(textProcess)
-        else this.textProcesses.push(textProcess)
+        if (runFirst) this.options.textProcesses.unshift(textProcess)
+        else this.options.textProcesses.push(textProcess)
     }
 
     processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
-        return this.textProcesses.reduce(
+        return this.options.textProcesses.reduce(
             (text, process) => process(text, textNode, this.options, parentOptions),
             text
         )
@@ -93,12 +94,12 @@ export class HTMLarkdown {
      * _(default: `false`)_
      */
     addPostProcess(postProcess: PostProcess, runFirst: boolean = false): void {
-        if (runFirst) this.postProcesses.unshift(postProcess)
-        else this.postProcesses.push(postProcess)
+        if (runFirst) this.options.postProcesses.unshift(postProcess)
+        else this.options.postProcesses.push(postProcess)
     }
 
     postProcess(rawMarkdown: string): string {
-        return this.postProcesses.reduce(
+        return this.options.postProcesses.reduce(
             (rawMarkdown, process) => process(rawMarkdown, this.options),
             rawMarkdown
         )
@@ -113,8 +114,8 @@ export class HTMLarkdown {
      * _(default: `true`)_
      */
     addRule(rule: Rule, runFirst: boolean = true): void {
-        if (runFirst) this.rules.push(rule)
-        else this.rules.unshift(rule)
+        if (runFirst) this.options.rules.push(rule)
+        else this.options.rules.unshift(rule)
     }
 
     findRule(element: Element): Rule | null {
@@ -131,7 +132,7 @@ export class HTMLarkdown {
                 isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
             )
 
-        return this.rules.slice().reverse().find(isMatchRule) ?? null
+        return this.options.rules.slice().reverse().find(isMatchRule) ?? null
     }
 
     // Assumes no text nodes in childNodes
@@ -150,6 +151,10 @@ export class HTMLarkdown {
 
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
         return {
+            preProcesses: HTMLarkdown.defaultPreProcesses.slice(),
+            rules: HTMLarkdown.defaultRules.slice(),
+            textProcesses: HTMLarkdown.defaultTextProcesses.slice(),
+            postProcesses: HTMLarkdown.defaultPostProcesses.slice(),
             urlTransformer: null,
             elementsNoWhitespaceCollapse: ['pre'],
             reverseAutolinks: {
