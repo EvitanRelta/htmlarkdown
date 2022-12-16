@@ -1,4 +1,4 @@
-import type { Preprocess } from '../../types'
+import type { PreProcess } from '../../types'
 import { noopTags } from '../rules/noop'
 
 /**
@@ -13,7 +13,7 @@ import { noopTags } from '../rules/noop'
  *
  * _**Warning:** This mutates the original 'container' element._
  */
-export const removeEmptyElements: Preprocess = (container) => {
+export const removeEmptyElements: PreProcess = (container) => {
     const removeElement = (element: Element) => element.remove()
 
     const textFormattingsSelector = 'b,strong,i,em,u,ins,s,del,sup,sub'

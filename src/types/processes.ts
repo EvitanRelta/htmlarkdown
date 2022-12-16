@@ -3,7 +3,7 @@ import type { PassDownOptions } from './PassDownOptions'
 import type { TextNode } from './TextNode'
 
 /**
- * Preprocesses modify the container element.  \
+ * Pre-processes modify the container element.  \
  * They are ran first, before the any other processes/rules.
  *
  * They are used to "clean-up" the elements before being converted to
@@ -15,11 +15,11 @@ import type { TextNode } from './TextNode'
  * @param options Options from the `HTMLarkdown` instance.
  * @returns The modified container element.
  */
-export type Preprocess = (container: Element, options: HTMLarkdownOptions) => Element
+export type PreProcess = (container: Element, options: HTMLarkdownOptions) => Element
 
 /**
  * Text-processes transforms the text in each text-node.  \
- * They are ran after preprocesses, and together with rules.
+ * They are ran after pre-processes, and together with rules.
  *
  * They are mainly used to escape text characters, such as markdown-specific
  * ones like `**` *(ie. bold)* & `#` *(ie. heading)*.

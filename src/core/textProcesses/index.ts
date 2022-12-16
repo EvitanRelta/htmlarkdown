@@ -8,7 +8,7 @@ import { htmlEscapeSpaces } from './htmlEscapeSpaces'
  *
  * This is so the newer text-processes *(added by the user)* that are pushed to
  * the back are ran last \
- * *(as they're probably less important than the default preprocesses)*.
+ * *(as they're probably less important than the default pre-processes)*.
  *
  * _**Note:** This is opposite of rules, which is evaluated starting from the
  * **BACK**._

@@ -8,7 +8,7 @@ import type {
     PassDownOptions,
     Plugin,
     PostProcess,
-    Preprocess,
+    PreProcess,
     Rule,
     TagName,
     TextNode,
@@ -17,19 +17,19 @@ import type {
 import { isElement, isTextNode, stringToDom } from '../utilities'
 import { isRuleWithHtml } from './helpers'
 import { postProcesses } from './postProcesses'
-import { preprocesses } from './preProcesses'
+import { preProcesses } from './preProcesses'
 import { rules } from './rules'
 import { textProcesses } from './textProcesses'
 
 export class HTMLarkdown {
     static readonly defaultRules: readonly Rule[] = rules
-    static readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
+    static readonly defaultPreProcesses: readonly PreProcess[] = preProcesses
     static readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
     static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
     options: HTMLarkdownOptions
     rules: Rule[] = HTMLarkdown.defaultRules.slice()
-    preprocesses: Preprocess[] = HTMLarkdown.defaultPreprocesses.slice()
+    preProcesses: PreProcess[] = HTMLarkdown.defaultPreProcesses.slice()
     textProcesses: TextProcess[] = HTMLarkdown.defaultTextProcesses.slice()
     postProcesses: PostProcess[] = HTMLarkdown.defaultPostProcesses.slice()
 
@@ -45,20 +45,20 @@ export class HTMLarkdown {
     }
 
     /**
-     * Adds a new preprocess to the conversion.
+     * Adds a new pre-process to the conversion.
      *
-     * By default, the added preprocess evaluated **AFTER** all the other preprocesses.
-     * @param preprocess The preprocess to add
-     * @param runFirst Whether to run the preprocess first or last among the preprocesses \
+     * By default, the added pre-process evaluated **AFTER** all the other pre-processes.
+     * @param preProcess The pre-process to add
+     * @param runFirst Whether to run the pre-process first or last among the pre-processes \
      * _(default: `false`)_
      */
-    addPreprocess(preprocess: Preprocess, runFirst: boolean = false): void {
-        if (runFirst) this.preprocesses.unshift(preprocess)
-        else this.preprocesses.push(preprocess)
+    addPreProcess(preProcess: PreProcess, runFirst: boolean = false): void {
+        if (runFirst) this.preProcesses.unshift(preProcess)
+        else this.preProcesses.push(preProcess)
     }
 
-    preprocess(container: Element): Element {
-        return this.preprocesses.reduce(
+    preProcess(container: Element): Element {
+        return this.preProcesses.reduce(
             (container, process) => process(container, this.options),
             container
         )
@@ -139,7 +139,7 @@ export class HTMLarkdown {
         let containerElement: Element
         if (typeof container === 'string') containerElement = stringToDom(container)
         else containerElement = container.cloneNode(true) as Element
-        containerElement = this.preprocess(containerElement)
+        containerElement = this.preProcess(containerElement)
 
         const childElements = Array.from(containerElement.children)
         const rawMarkdown = childElements

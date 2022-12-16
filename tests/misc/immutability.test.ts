@@ -2,7 +2,7 @@
  * Checks that input 'container' element is not mutated by the conversion.
  */
 
-import { HTMLarkdown, Preprocess, Rule } from '../../src'
+import { HTMLarkdown, PreProcess, Rule } from '../../src'
 
 const isEmptyParagraphMutated = (htmlarkdown: HTMLarkdown) => {
     const container = document.createElement('div')
@@ -14,13 +14,13 @@ const isEmptyParagraphMutated = (htmlarkdown: HTMLarkdown) => {
     return isNotEmptyAnymore
 }
 
-/** Test whether the input element is mutated by preprocessing. */
-test.concurrent('Immutability - preprocess', async () => {
-    const insertLinebreak: Preprocess = (container) =>
+/** Test whether the input element is mutated by pre-processing. */
+test.concurrent('Immutability - pre-process', async () => {
+    const insertLinebreak: PreProcess = (container) =>
         container.firstChild!.appendChild(document.createElement('br'))
 
     const htmlarkdown = new HTMLarkdown()
-    htmlarkdown.preprocesses = [insertLinebreak]
+    htmlarkdown.preProcesses = [insertLinebreak]
     htmlarkdown.rules = []
 
     expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
@@ -37,7 +37,7 @@ test.concurrent('Immutability - rule', async () => {
     }
 
     const htmlarkdown = new HTMLarkdown()
-    htmlarkdown.preprocesses = []
+    htmlarkdown.preProcesses = []
     htmlarkdown.rules = [insertLinebreak]
 
     expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)

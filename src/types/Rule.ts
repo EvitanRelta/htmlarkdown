@@ -126,7 +126,7 @@ export interface RuleWithHTML extends RuleWOHTML {
 
 /**
  * Rules dictate how each element is converted to markdown.  \
- * They are ran after preprocesses, and together with text-processes.
+ * They are ran after pre-processes, and together with text-processes.
  *
  * They can have `toUseHtmlPredicate` and `htmlReplacement` properties  \
  * which control when/how elements are converted to HTML-in-markdown syntax.
