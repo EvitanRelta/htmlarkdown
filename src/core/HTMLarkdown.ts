@@ -16,8 +16,8 @@ import type {
 } from '../types'
 import { isElement, isTextNode, stringToDom } from '../utilities'
 import { isRuleWithHtml } from './helpers'
-import { postprocesses } from './postprocesses'
-import { preprocesses } from './preprocesses'
+import { postprocesses } from './postProcesses'
+import { preprocesses } from './preProcesses'
 import { rules } from './rules'
 import { textProcesses } from './textProcesses'
 
