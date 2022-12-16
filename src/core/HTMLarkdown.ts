@@ -118,7 +118,7 @@ export class HTMLarkdown {
         else this.options.rules.unshift(rule)
     }
 
-    findRule(element: Element): Rule | null {
+    static findRule(element: Element, options: HTMLarkdownOptions): Rule | null {
         const elementTagName = element.tagName.toLowerCase() as TagName
 
         const isFilterAnd = (x: IterableElement<FilterOr>): x is FilterAnd => typeof x === 'object'
@@ -126,13 +126,13 @@ export class HTMLarkdown {
             typeof x === 'string'
 
         const isMatchTagOrPredicate = (x: TagName | FilterPredicate) =>
-            isTagName(x) ? elementTagName === x : x(element, this.options)
+            isTagName(x) ? elementTagName === x : x(element, options)
         const isMatchRule = (rule: Rule): boolean =>
             rule.filter.some((x) =>
                 isFilterAnd(x) ? x.every(isMatchTagOrPredicate) : isMatchTagOrPredicate(x)
             )
 
-        return this.options.rules.slice().reverse().find(isMatchRule) ?? null
+        return options.rules.slice().reverse().find(isMatchRule) ?? null
     }
 
     // Assumes no text nodes in childNodes
@@ -183,7 +183,7 @@ export class HTMLarkdown {
         if (isTextNode(node)) return this.processText(node.nodeValue, node, parentOptions)
         if (!isElement(node)) return ''
 
-        const rule = this.findRule(node)
+        const rule = HTMLarkdown.findRule(node, this.options)
         if (!rule) return ''
 
         let replacementFunc
