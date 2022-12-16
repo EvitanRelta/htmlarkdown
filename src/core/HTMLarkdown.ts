@@ -58,7 +58,7 @@ export class HTMLarkdown {
         else this.options.preProcesses.push(preProcess)
     }
 
-    preProcess(container: Element): Element {
+    private _preProcess(container: Element): Element {
         return this.options.preProcesses.reduce(
             (container, process) => process(container, this.options),
             container
@@ -78,7 +78,7 @@ export class HTMLarkdown {
         else this.options.textProcesses.push(textProcess)
     }
 
-    processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
+    private _processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
         return this.options.textProcesses.reduce(
             (text, process) => process(text, textNode, this.options, parentOptions),
             text
@@ -98,7 +98,7 @@ export class HTMLarkdown {
         else this.options.postProcesses.push(postProcess)
     }
 
-    postProcess(rawMarkdown: string): string {
+    private _postProcess(rawMarkdown: string): string {
         return this.options.postProcesses.reduce(
             (rawMarkdown, process) => process(rawMarkdown, this.options),
             rawMarkdown
@@ -140,7 +140,7 @@ export class HTMLarkdown {
         let containerElement: Element
         if (typeof container === 'string') containerElement = stringToDom(container)
         else containerElement = container.cloneNode(true) as Element
-        containerElement = this.preProcess(containerElement)
+        containerElement = this._preProcess(containerElement)
 
         const childElements = Array.from(containerElement.children)
         const rawMarkdown = childElements
@@ -148,7 +148,7 @@ export class HTMLarkdown {
                 this._convert(ele, HTMLarkdown._getDefaultParentOptions(containerElement))
             )
             .join('')
-        return this.postProcess(rawMarkdown)
+        return this._postProcess(rawMarkdown)
     }
 
     private static _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
@@ -180,7 +180,7 @@ export class HTMLarkdown {
     }
 
     private _convert(node: Node, parentOptions: PassDownOptions): string {
-        if (isTextNode(node)) return this.processText(node.nodeValue, node, parentOptions)
+        if (isTextNode(node)) return this._processText(node.nodeValue, node, parentOptions)
         if (!isElement(node)) return ''
 
         const rule = HTMLarkdown.findRule(node, this.options)
