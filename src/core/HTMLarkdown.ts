@@ -29,7 +29,6 @@ export class HTMLarkdown {
     static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
     options: HTMLarkdownOptions
-    postProcesses: PostProcess[] = HTMLarkdown.defaultPostProcesses.slice()
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = this._getDefaultHTMLarkdownOptions()
@@ -95,12 +94,12 @@ export class HTMLarkdown {
      * _(default: `false`)_
      */
     addPostProcess(postProcess: PostProcess, runFirst: boolean = false): void {
-        if (runFirst) this.postProcesses.unshift(postProcess)
-        else this.postProcesses.push(postProcess)
+        if (runFirst) this.options.postProcesses.unshift(postProcess)
+        else this.options.postProcesses.push(postProcess)
     }
 
     postProcess(rawMarkdown: string): string {
-        return this.postProcesses.reduce(
+        return this.options.postProcesses.reduce(
             (rawMarkdown, process) => process(rawMarkdown, this.options),
             rawMarkdown
         )
@@ -155,6 +154,7 @@ export class HTMLarkdown {
             preProcesses: HTMLarkdown.defaultPreProcesses.slice(),
             rules: HTMLarkdown.defaultRules.slice(),
             textProcesses: HTMLarkdown.defaultTextProcesses.slice(),
+            postProcesses: HTMLarkdown.defaultPostProcesses.slice(),
             urlTransformer: null,
             elementsNoWhitespaceCollapse: ['pre'],
             reverseAutolinks: {

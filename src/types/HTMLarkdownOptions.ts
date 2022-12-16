@@ -1,5 +1,5 @@
 import type { Plugin } from './Plugin'
-import type { PreProcess, TextProcess } from './processes'
+import type { PostProcess, PreProcess, TextProcess } from './processes'
 import type { Rule, TagName } from './Rule'
 import type { UrlTransformer } from './UrlTransformer'
 
@@ -40,6 +40,18 @@ export interface HTMLarkdownOptions {
      * @default HTMLarkdown.defaultTextProcesses
      */
     textProcesses: TextProcess[]
+    /**
+     * The post-processes to use.
+     *
+     * Post-processes transforms the markdown output string produced by the
+     * rules/text-processes.  \
+     * They are ran last, after all other processes/rules.
+     *
+     * They are used to "clean-up" the final markdown string, such as for trimming
+     * excess newlines from the markdown.
+     * @default HTMLarkdown.defaultPostProcesses
+     */
+    postProcesses: PostProcess[]
     /**
      * Function to transform the URLs of hyperlinks & images.
      *
