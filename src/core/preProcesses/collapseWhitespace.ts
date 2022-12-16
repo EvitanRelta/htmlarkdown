@@ -1,5 +1,5 @@
 import { any } from 'predicate-hof'
-import type { HTMLarkdownOptions, Preprocess, TagName, TextNode } from '../../types'
+import type { HTMLarkdownOptions, PreProcess, TagName, TextNode } from '../../types'
 import { isBlock, isInside, isTextNode, isVoid } from '../../utilities'
 
 const isBr = (node: Node) => node.nodeName === 'BR'
@@ -146,7 +146,7 @@ const getNextTextNode = (node: Node): TextNode | null => {
  *
  * _**Warning:** This mutates the original 'container' element._
  */
-export const collapseWhitespace: Preprocess = (container, options) => {
+export const collapseWhitespace: PreProcess = (container, options) => {
     if (options.elementsNoWhitespaceCollapse === 'all') return container
 
     const startNode = getNestedFirstChild(container)

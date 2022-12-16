@@ -1,5 +1,5 @@
 import { all, any } from 'predicate-hof'
-import type { Preprocess } from '../../types'
+import type { PreProcess } from '../../types'
 import { isBlock, isEmpty } from '../../utilities'
 
 const hasTrailingLinebreak = (element: Element) => element.lastChild?.nodeName === 'BR'
@@ -18,7 +18,7 @@ const isNotPre = (element: Element) => element.tagName !== 'PRE'
  *
  * _**Warning:** This mutates the original 'container' element._
  */
-export const addTrailingLinebreaks: Preprocess = (container, options) => {
+export const addTrailingLinebreaks: PreProcess = (container, options) => {
     if (!options.addTrailingLinebreak) return container
 
     const insertLineBreak = (element: Element) => element.append(document.createElement('br'))
