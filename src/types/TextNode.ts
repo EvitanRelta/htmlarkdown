@@ -2,10 +2,14 @@
  * A DOM text-node.
  * Subtype of `Text`, but with some properties narrowed down to that of a text-node.
  *
- * **Example:**
+ * **Specifically:**
  * - `nodeType` is `3`
- * - `nodeValue` is `string`
- * - `firstChild` is `null`
+ * - `nodeName` is `"#text"`
+ * - `firstChild` is type `null`
+ * - `lastChild` is type `null`
+ * - `nodeValue` is type `string`
+ * - `textContent` is type `string`
+ * - `splitText` method returns another `TextNode`
  */
 export interface TextNode extends Text {
     readonly nodeType: 3
