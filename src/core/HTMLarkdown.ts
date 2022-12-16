@@ -1,5 +1,3 @@
-import type { MergeWithCustomizer } from 'lodash'
-import _ from 'lodash'
 import type { IterableElement, PartialDeep } from 'type-fest'
 import type {
     FilterAnd,
@@ -10,13 +8,15 @@ import type {
     Plugin,
     PostProcess,
     PreProcess,
+    ReplacementFunction,
+    ReplacementObj,
     Rule,
     TagName,
     TextNode,
     TextProcess,
 } from '../types'
 import { isElement, isTextNode, stringToDom } from '../utilities'
-import { isRuleWithHtml } from './helpers'
+import { isRuleWithHtml, mergeOverwriteArray } from './helpers'
 import { postProcesses } from './postProcesses'
 import { preProcesses } from './preProcesses'
 import { rules } from './rules'
@@ -33,11 +33,7 @@ export class HTMLarkdown {
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = HTMLarkdown._getDefaultHTMLarkdownOptions()
         if (options?.preloadPlugins) this.loadPlugins(options.preloadPlugins)
-
-        const overwriteArrays: MergeWithCustomizer = (_, src2) =>
-            Array.isArray(src2) ? src2 : undefined
-        this.options = _.mergeWith(this.options, options, overwriteArrays)
-
+        mergeOverwriteArray(this.options, options)
         this.loadPlugins(this.options.plugins)
     }
 
@@ -194,13 +190,13 @@ export class HTMLarkdown {
         let value
         let childOptions = parentOptions
         const replacement = replacementFunc(node, this.options, parentOptions)
+        const isReplacementObj = (
+            replacement: ReturnType<ReplacementFunction>
+        ): replacement is ReplacementObj => typeof replacement === 'object'
 
-        if (typeof replacement === 'object') {
+        if (isReplacementObj(replacement)) {
             value = replacement.value
-            childOptions = {
-                ...parentOptions,
-                ...replacement.childOptions,
-            }
+            childOptions = mergeOverwriteArray({}, parentOptions, replacement.childOptions)
         } else {
             value = replacement
         }
