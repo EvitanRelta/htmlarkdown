@@ -1,4 +1,5 @@
-import { HTMLarkdown, type Plugin, type UrlTransformer } from '../../src'
+import type { Plugin, UrlTransformer } from '../../src'
+import { HTMLarkdown } from '../../src'
 
 const identityFn: UrlTransformer = (x) => x
 const dummyUrl: UrlTransformer = () => 'dummy-url'

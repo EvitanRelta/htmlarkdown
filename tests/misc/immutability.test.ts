@@ -2,7 +2,8 @@
  * Checks that input 'container' element is not mutated by the conversion.
  */
 
-import { HTMLarkdown, PreProcess, Rule } from '../../src'
+import type { PreProcess, Rule } from '../../src'
+import { HTMLarkdown } from '../../src'
 
 const isEmptyParagraphMutated = (htmlarkdown: HTMLarkdown) => {
     const container = document.createElement('div')
