@@ -4,7 +4,9 @@ import type { UrlTransformer } from './UrlTransformer'
 
 export interface HTMLarkdownOptions {
     /**
-     * Transforms the URLs of hyperlinks & images.
+     * Function to transform the URLs of hyperlinks & images.
+     *
+     * Useful for converting between relative URLs and absolute URLs.
      * @default null
      */
     urlTransformer: null | UrlTransformer
