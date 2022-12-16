@@ -31,7 +31,7 @@ export class HTMLarkdown {
     options: HTMLarkdownOptions
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
-        this.options = this._getDefaultHTMLarkdownOptions()
+        this.options = HTMLarkdown._getDefaultHTMLarkdownOptions()
         if (options?.preloadPlugins) this.loadPlugins(options.preloadPlugins)
 
         const overwriteArrays: MergeWithCustomizer = (_, src2) =>
@@ -144,12 +144,14 @@ export class HTMLarkdown {
 
         const childElements = Array.from(containerElement.children)
         const rawMarkdown = childElements
-            .map((ele) => this._convert(ele, this._getDefaultParentOptions(containerElement)))
+            .map((ele) =>
+                this._convert(ele, HTMLarkdown._getDefaultParentOptions(containerElement))
+            )
             .join('')
         return this.postProcess(rawMarkdown)
     }
 
-    private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
+    private static _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
         return {
             preProcesses: HTMLarkdown.defaultPreProcesses.slice(),
             rules: HTMLarkdown.defaultRules.slice(),
@@ -168,7 +170,7 @@ export class HTMLarkdown {
         }
     }
 
-    private _getDefaultParentOptions(containerElement: Element): PassDownOptions {
+    private static _getDefaultParentOptions(containerElement: Element): PassDownOptions {
         return {
             forceHtml: false,
             escapeWhitespace: true,
