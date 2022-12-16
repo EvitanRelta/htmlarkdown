@@ -7,7 +7,7 @@ import type {
     HTMLarkdownOptions,
     PassDownOptions,
     Plugin,
-    Postprocess,
+    PostProcess,
     Preprocess,
     Rule,
     TagName,
@@ -16,7 +16,7 @@ import type {
 } from '../types'
 import { isElement, isTextNode, stringToDom } from '../utilities'
 import { isRuleWithHtml } from './helpers'
-import { postprocesses } from './postProcesses'
+import { postProcesses } from './postProcesses'
 import { preprocesses } from './preProcesses'
 import { rules } from './rules'
 import { textProcesses } from './textProcesses'
@@ -25,13 +25,13 @@ export class HTMLarkdown {
     static readonly defaultRules: readonly Rule[] = rules
     static readonly defaultPreprocesses: readonly Preprocess[] = preprocesses
     static readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
-    static readonly defaultPostprocesses: readonly Postprocess[] = postprocesses
+    static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
     options: HTMLarkdownOptions
     rules: Rule[] = HTMLarkdown.defaultRules.slice()
     preprocesses: Preprocess[] = HTMLarkdown.defaultPreprocesses.slice()
     textProcesses: TextProcess[] = HTMLarkdown.defaultTextProcesses.slice()
-    postprocesses: Postprocess[] = HTMLarkdown.defaultPostprocesses.slice()
+    postProcesses: PostProcess[] = HTMLarkdown.defaultPostProcesses.slice()
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
         this.options = this._getDefaultHTMLarkdownOptions()
@@ -85,20 +85,20 @@ export class HTMLarkdown {
     }
 
     /**
-     * Adds a new postprocess to the conversion.
+     * Adds a new post-process to the conversion.
      *
-     * By default, the added postprocess evaluated **AFTER** all the other postprocesses.
-     * @param postprocess The postprocess to add
-     * @param runFirst Whether to run the postprocess first or last among the postprocesses \
+     * By default, the added post-process evaluated **AFTER** all the other post-processes.
+     * @param postProcess The post-process to add
+     * @param runFirst Whether to run the post-process first or last among the post-processes \
      * _(default: `false`)_
      */
-    addPostprocess(postprocess: Postprocess, runFirst: boolean = false): void {
-        if (runFirst) this.postprocesses.unshift(postprocess)
-        else this.postprocesses.push(postprocess)
+    addPostProcess(postProcess: PostProcess, runFirst: boolean = false): void {
+        if (runFirst) this.postProcesses.unshift(postProcess)
+        else this.postProcesses.push(postProcess)
     }
 
-    postprocess(rawMarkdown: string): string {
-        return this.postprocesses.reduce(
+    postProcess(rawMarkdown: string): string {
+        return this.postProcesses.reduce(
             (rawMarkdown, process) => process(rawMarkdown, this.options),
             rawMarkdown
         )
@@ -145,7 +145,7 @@ export class HTMLarkdown {
         const rawMarkdown = childElements
             .map((ele) => this._convert(ele, this._getDefaultParentOptions(containerElement)))
             .join('')
-        return this.postprocess(rawMarkdown)
+        return this.postProcess(rawMarkdown)
     }
 
     private _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {

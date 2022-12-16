@@ -1,3 +1,3 @@
-import type { Postprocess } from '../../types'
+import type { PostProcess } from '../../types'
 
-export const trimNewlines: Postprocess = (str: string) => str.replaceAll(/^\n+|\n+$/g, '')
+export const trimNewlines: PostProcess = (str: string) => str.replaceAll(/^\n+|\n+$/g, '')

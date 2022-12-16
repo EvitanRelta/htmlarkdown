@@ -47,4 +47,4 @@ export type TextProcess = (
  * @param options Options from the `HTMLarkdown` instance.
  * @returns The transformed markdown.
  */
-export type Postprocess = (rawMarkdown: string, options: HTMLarkdownOptions) => string
+export type PostProcess = (rawMarkdown: string, options: HTMLarkdownOptions) => string

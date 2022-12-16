@@ -1,5 +1,5 @@
-import type { Postprocess } from '../../types'
+import type { PostProcess } from '../../types'
 import { trimNewlines } from './trimNewlines'
 import { unindentCodeblocks } from './unindentCodeblocks'
 
-export const postprocesses: Postprocess[] = [trimNewlines, unindentCodeblocks]
+export const postProcesses: PostProcess[] = [trimNewlines, unindentCodeblocks]
