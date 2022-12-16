@@ -25,7 +25,7 @@ const isImageAutolink = (linkElement: Element) => {
 }
 
 export const link: RuleWithHTML = {
-    filter: 'a',
+    filter: ['a'],
     toUseHtmlPredicate: obeyForceHtml,
     replacement: (element, options, parentOptions) => (innerContent) => {
         if (options.reverseAutolinks.textUrls && isTextAutolink(element)) return innerContent

@@ -1,6 +1,6 @@
 import type { RuleWOHTML } from '../../types'
 
 export const superscript: RuleWOHTML = {
-    filter: 'sup',
+    filter: ['sup'],
     replacement: () => (innerContent) => `<sup>${innerContent}</sup>`,
 }

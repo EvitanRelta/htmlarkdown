@@ -3,7 +3,7 @@ import type { PassDownOptions } from './PassDownOptions'
 
 export type TagName = keyof HTMLElementTagNameMap
 export type FilterPredicate = (element: Element, options: HTMLarkdownOptions) => boolean
-export type Filter = TagName | TagName[] | FilterPredicate
+export type Filter = (TagName | FilterPredicate)[]
 
 export type ContentAddonFunction = (innerContent: string) => string
 export interface ReplacementObj {
@@ -17,7 +17,7 @@ export type ReplacementFunction = (
 ) => string | ContentAddonFunction | ReplacementObj
 
 export interface RuleWOHTML {
-    filter: Filter | Filter[]
+    filter: Filter
     replacement: ReplacementFunction
 }
 export type ToUseHtmlPredicate = (
