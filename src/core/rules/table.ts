@@ -1,6 +1,11 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../types'
-import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../utilities'
+import {
+    childWillBeHtml,
+    hasAnyOfAttributes,
+    obeyForceHtml,
+    toSanitisedHtmlHOF,
+} from '../../utilities'
 
 const getColumnMaxWidth = (rows: string[][]): number[] => {
     const numOfColumns = rows[0].length
@@ -22,7 +27,8 @@ export const table: RuleWithHTML = {
     filter: ['table'],
     toUseHtmlPredicate: any(
         obeyForceHtml,
-        hasAnyOfAttributes(['align', 'border', 'width', 'height'])
+        hasAnyOfAttributes(['align', 'border', 'width', 'height']),
+        childWillBeHtml
     ),
     replacement: (_, options) => (innerContent) => {
         const rows = innerContent
