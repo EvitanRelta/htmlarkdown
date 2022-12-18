@@ -14,6 +14,10 @@ import { paragraph } from './paragraph'
 import { strikethrough } from './strikethrough'
 import { subscript } from './subscript'
 import { superscript } from './superscript'
+import { table } from './table'
+import { tableCell } from './tableCell'
+import { tableNoop } from './tableNoop'
+import { tableRow } from './tableRow'
 import { underline } from './underline'
 
 /**
@@ -43,4 +47,8 @@ export const rules = [
     image,
     noop,
     blockquote,
+    table,
+    tableNoop,
+    tableRow,
+    tableCell,
 ]

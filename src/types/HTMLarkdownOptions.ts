@@ -178,4 +178,24 @@ export interface HTMLarkdownOptions {
      * @default 'both'
      */
     codeblockTrailingLinebreak: 'remove' | 'add' | 'both' | 'none'
+    /**
+     * The max width of a table before the converter stops trying to make the
+     * columns align \
+     * *(ie. stop trying to make it pretty)*.
+     * ```
+     * <===== Width =====>
+     * | HEADER | HEADER |
+     * |--------|--------|
+     * |  CELL  |  CELL  |
+     * ```
+     * \
+     * If a table is beyond this width, it would look something like this:
+     * ```
+     * | HEADER | HEADER |
+     * |---|---|
+     * | CELL | CELL |
+     * ```
+     * @default 80
+     */
+    maxPrettyTableWidth: 80
 }
