@@ -1,11 +1,24 @@
 import { any } from 'predicate-hof'
-import type { RuleWithHTML } from '../../types'
+import type { RuleWithHTML, ToUseHtmlPredicate } from '../../types'
 import {
     childWillBeHtml,
     hasAnyOfAttributes,
     obeyForceHtml,
     toSanitisedHtmlHOF,
 } from '../../utilities'
+
+const hasInvalidHeaders: ToUseHtmlPredicate = (tableElement) => {
+    const headerCells = Array.from(tableElement.querySelectorAll('tr > th'))
+    const numOfheaderRows = new Set(headerCells.map((cell) => cell.parentElement!)).size
+    const hasMultipleHeaderRows = numOfheaderRows > 1
+    if (hasMultipleHeaderRows) return true
+
+    const firstRow = tableElement.querySelector('tr')
+    const hasNoRows = firstRow === null
+    if (hasNoRows) return true
+
+    return firstRow.firstElementChild?.tagName !== 'TH'
+}
 
 const getColumnMaxWidth = (rows: string[][]): number[] => {
     const numOfColumns = rows[0].length
@@ -28,6 +41,7 @@ export const table: RuleWithHTML = {
     toUseHtmlPredicate: any(
         obeyForceHtml,
         hasAnyOfAttributes(['align', 'border', 'width', 'height']),
+        hasInvalidHeaders,
         childWillBeHtml
     ),
     replacement: (_, options) => (innerContent) => {

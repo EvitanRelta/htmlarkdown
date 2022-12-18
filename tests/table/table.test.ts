@@ -30,3 +30,10 @@ test.concurrent('Table - no body', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Table - invalid header', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./invalidHeader')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
