@@ -23,3 +23,10 @@ test.concurrent('Table - with HTML child', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('Table - no body', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./noBody')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})

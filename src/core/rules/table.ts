@@ -43,16 +43,21 @@ export const table: RuleWithHTML = {
         if (tableWidth > options.maxPrettyTableWidth) {
             const strRows = rows.map((row) => '| ' + row.join(' | ') + ' |')
             const numOfColumns = rows[0].length
-            const headerSeparator = '\n' + '|---'.repeat(numOfColumns) + '|\n'
-            return strRows[0] + headerSeparator + strRows.slice(1).join('\n') + '\n\n'
+            const body = strRows.slice(1).join('\n')
+            const headerSeparator = '\n' + '|---'.repeat(numOfColumns) + '|' + (body ? '\n' : '')
+            return strRows[0] + headerSeparator + body + '\n\n'
         }
 
         const padRow = (row: string[]) =>
             '| ' + row.map((cell, i) => cell.padEnd(maxColumnWidths[i])).join(' | ') + ' |'
         const paddedRows = rows.map(padRow)
+        const body = paddedRows.slice(1).join('\n')
         const headerSeparator =
-            '\n|' + maxColumnWidths.map((width) => '-'.repeat(width + 2)).join('|') + '|\n'
-        return paddedRows[0] + headerSeparator + paddedRows.slice(1).join('\n') + '\n\n'
+            '\n|' +
+            maxColumnWidths.map((width) => '-'.repeat(width + 2)).join('|') +
+            '|' +
+            (body ? '\n' : '')
+        return paddedRows[0] + headerSeparator + body + '\n\n'
     },
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
