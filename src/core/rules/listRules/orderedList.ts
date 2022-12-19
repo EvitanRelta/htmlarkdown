@@ -1,6 +1,7 @@
 import { any } from 'predicate-hof'
 import type { PassDownOptions, Rule, ToUseHtmlPredicate } from '../../../types'
 import {
+    directChildWillBeHtml,
     hasAnyOfAttributes,
     obeyForceHtml,
     toSanitisedHtmlHOF,
@@ -30,10 +31,11 @@ const getChildOptions = (element: Element): Partial<PassDownOptions> => {
 
 export const orderedList: Rule = {
     filter: ['ol'],
-    toUseHtmlPredicate: any(
+    toUseHtmlPredicate: any<Parameters<ToUseHtmlPredicate>>(
         obeyForceHtml,
         hasAnyOfAttributes(['align', 'type']),
-        isSublistWithStart
+        isSublistWithStart,
+        (element, ...rest) => directChildWillBeHtml(getChildOptions(element))(element, ...rest)
     ),
     replacement: (element, _, parentOptions) => ({
         childOptions: getChildOptions(element),

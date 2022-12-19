@@ -44,3 +44,10 @@ test.concurrent('List - nested align', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('List - nested HTML', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./nestedHtml')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
