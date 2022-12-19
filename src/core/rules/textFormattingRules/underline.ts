@@ -1,4 +1,4 @@
-import type { RuleWOHTML } from '../../types'
+import type { RuleWOHTML } from '../../../types'
 
 export const underline: RuleWOHTML = {
     filter: ['u', 'ins'],

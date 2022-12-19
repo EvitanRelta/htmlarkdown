@@ -1,21 +1,15 @@
 import { blockquote } from './blockquote'
-import { bold } from './bold'
-import { code } from './code'
 import { codeblock } from './codeblock'
 import { codeblockInner } from './codeblockInner'
 import { heading } from './heading'
 import { horizontalRule } from './horizontalRule'
 import { image } from './image'
-import { italic } from './italic'
 import { linebreak } from './linebreak'
 import { link } from './link'
 import { noop } from './noop'
 import { paragraph } from './paragraph'
-import { strikethrough } from './strikethrough'
-import { subscript } from './subscript'
-import { superscript } from './superscript'
 import { tableRules } from './tableRules'
-import { underline } from './underline'
+import { textFormattingRules } from './textFormattingRules'
 
 /**
  * Rules are checked starting from the **BACK** of the array to the front.
@@ -30,14 +24,7 @@ export const rules = [
     paragraph,
     linebreak,
     heading,
-    bold,
-    italic,
-    underline,
-    strikethrough,
-    superscript,
-    subscript,
     horizontalRule,
-    code,
     codeblock,
     codeblockInner,
     link,
@@ -45,4 +32,5 @@ export const rules = [
     noop,
     blockquote,
     ...tableRules,
+    ...textFormattingRules,
 ]
