@@ -1,6 +1,6 @@
 import { any } from 'predicate-hof'
-import type { RuleWithHTML } from '../../types'
-import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../utilities'
+import type { RuleWithHTML } from '../../../types'
+import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../../utilities'
 
 export const tableRow: RuleWithHTML = {
     filter: ['tr'],
