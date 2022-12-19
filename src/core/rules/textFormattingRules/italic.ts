@@ -1,5 +1,5 @@
-import type { RuleWithHTML } from '../../types'
-import { obeyForceHtml } from '../../utilities'
+import type { RuleWithHTML } from '../../../types'
+import { obeyForceHtml } from '../../../utilities'
 
 export const italic: RuleWithHTML = {
     filter: ['i', 'em'],

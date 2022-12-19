@@ -1,5 +1,5 @@
-import type { RuleWOHTML } from '../../types'
-import { isHeading } from '../../utilities'
+import type { RuleWOHTML } from '../../../types'
+import { isHeading } from '../../../utilities'
 
 export const BR_TAG_STR = '<br>'
 

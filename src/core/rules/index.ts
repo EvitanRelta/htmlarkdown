@@ -1,24 +1,8 @@
-import { blockquote } from './blockquote'
-import { bold } from './bold'
-import { code } from './code'
-import { codeblock } from './codeblock'
-import { codeblockInner } from './codeblockInner'
-import { heading } from './heading'
-import { horizontalRule } from './horizontalRule'
-import { image } from './image'
-import { italic } from './italic'
-import { linebreak } from './linebreak'
-import { link } from './link'
-import { noop } from './noop'
-import { paragraph } from './paragraph'
-import { strikethrough } from './strikethrough'
-import { subscript } from './subscript'
-import { superscript } from './superscript'
-import { table } from './table'
-import { tableCell } from './tableCell'
-import { tableNoop } from './tableNoop'
-import { tableRow } from './tableRow'
-import { underline } from './underline'
+import type { Rule } from '../../types'
+import { blockRules } from './blockRules'
+import { miscRules } from './miscRules'
+import { tableRules } from './tableRules'
+import { textFormattingRules } from './textFormattingRules'
 
 /**
  * Rules are checked starting from the **BACK** of the array to the front.
@@ -29,26 +13,4 @@ import { underline } from './underline'
  * _**Note:** This is opposite of pre/text-processes, which are all evaluated
  * starting from the **FRONT**._
  */
-export const rules = [
-    paragraph,
-    linebreak,
-    heading,
-    bold,
-    italic,
-    underline,
-    strikethrough,
-    superscript,
-    subscript,
-    horizontalRule,
-    code,
-    codeblock,
-    codeblockInner,
-    link,
-    image,
-    noop,
-    blockquote,
-    table,
-    tableNoop,
-    tableRow,
-    tableCell,
-]
+export const rules: Rule[] = [...tableRules, ...miscRules, ...textFormattingRules, ...blockRules]

@@ -1,11 +1,11 @@
 import { any } from 'predicate-hof'
-import type { RuleWithHTML, ToUseHtmlPredicate } from '../../types'
+import type { RuleWithHTML, ToUseHtmlPredicate } from '../../../types'
 import {
     childWillBeHtml,
     hasAnyOfAttributes,
     obeyForceHtml,
     toSanitisedHtmlHOF,
-} from '../../utilities'
+} from '../../../utilities'
 
 const hasInvalidHeaders: ToUseHtmlPredicate = (tableElement) => {
     const headerCells = Array.from(tableElement.querySelectorAll('tr > th'))
