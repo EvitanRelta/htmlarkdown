@@ -1,11 +1,11 @@
 import { any } from 'predicate-hof'
-import type { RuleWithHTML } from '../../types'
+import type { RuleWithHTML } from '../../../types'
 import {
     hasAnyOfAttributes,
     obeyForceHtml,
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
-} from '../../utilities'
+} from '../../../utilities'
 
 export const blockquote: RuleWithHTML = {
     filter: ['blockquote'],

@@ -1,12 +1,12 @@
 import { any } from 'predicate-hof'
-import type { RuleWithHTML } from '../../types'
+import type { RuleWithHTML } from '../../../types'
 import {
     blockTagNames,
     hasAnyOfAttributes,
     isHeading,
     obeyForceHtml,
     toSanitisedHtmlHOF,
-} from '../../utilities'
+} from '../../../utilities'
 
 const blockTagsExceptHr = blockTagNames.filter((x) => x !== 'HR')
 const isBlockExceptHr = (node: Node) => blockTagsExceptHr.includes(node.nodeName)

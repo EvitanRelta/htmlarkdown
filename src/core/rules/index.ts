@@ -1,13 +1,8 @@
-import { blockquote } from './blockquote'
-import { codeblock } from './codeblock'
-import { codeblockInner } from './codeblockInner'
-import { heading } from './heading'
-import { horizontalRule } from './horizontalRule'
+import { blockRules } from './blockRules'
 import { image } from './image'
 import { linebreak } from './linebreak'
 import { link } from './link'
 import { noop } from './noop'
-import { paragraph } from './paragraph'
 import { tableRules } from './tableRules'
 import { textFormattingRules } from './textFormattingRules'
 
@@ -21,16 +16,11 @@ import { textFormattingRules } from './textFormattingRules'
  * starting from the **FRONT**._
  */
 export const rules = [
-    paragraph,
     linebreak,
-    heading,
-    horizontalRule,
-    codeblock,
-    codeblockInner,
     link,
     image,
     noop,
-    blockquote,
     ...tableRules,
     ...textFormattingRules,
+    ...blockRules,
 ]
