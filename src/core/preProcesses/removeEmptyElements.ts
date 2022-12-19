@@ -1,5 +1,5 @@
 import type { PreProcess } from '../../types'
-import { noopTags } from '../rules/noop'
+import { noopTags } from '../rules/miscRules/noop'
 
 /**
  * Continuously removes elements with no child-nodes *(ie. empty)*, until no

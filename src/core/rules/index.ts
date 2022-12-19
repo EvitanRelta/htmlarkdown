@@ -1,8 +1,5 @@
 import { blockRules } from './blockRules'
-import { image } from './image'
-import { linebreak } from './linebreak'
-import { link } from './link'
-import { noop } from './noop'
+import { miscRules } from './miscRules'
 import { tableRules } from './tableRules'
 import { textFormattingRules } from './textFormattingRules'
 
@@ -15,12 +12,4 @@ import { textFormattingRules } from './textFormattingRules'
  * _**Note:** This is opposite of pre/text-processes, which are all evaluated
  * starting from the **FRONT**._
  */
-export const rules = [
-    linebreak,
-    link,
-    image,
-    noop,
-    ...tableRules,
-    ...textFormattingRules,
-    ...blockRules,
-]
+export const rules = [...tableRules, ...textFormattingRules, ...blockRules, ...miscRules]

@@ -1,7 +1,7 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../../types'
 import { obeyForceHtml } from '../../../utilities'
-import { noopTags } from '../noop'
+import { noopTags } from '../miscRules/noop'
 
 const hasOnlyCodeChild = (element: Element) =>
     element.childNodes.length === 1 && element.firstChild!.nodeName === 'CODE'

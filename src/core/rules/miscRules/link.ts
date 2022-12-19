@@ -1,5 +1,5 @@
-import type { RuleWithHTML } from '../../types'
-import { isTextNode, obeyForceHtml } from '../../utilities'
+import type { RuleWithHTML } from '../../../types'
+import { isTextNode, obeyForceHtml } from '../../../utilities'
 
 const urlWOProtocol = (url: string) => url.replace(/^https?:\/\//, '')
 const isTextAutolink = (linkElement: Element) => {

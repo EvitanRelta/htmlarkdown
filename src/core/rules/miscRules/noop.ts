@@ -1,4 +1,4 @@
-import type { RuleWOHTML, TagName } from '../../types'
+import type { RuleWOHTML, TagName } from '../../../types'
 
 /**
  * Elements to keep, but have no specific conversions and just passes on their
