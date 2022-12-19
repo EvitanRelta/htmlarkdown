@@ -8,6 +8,7 @@ import {
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
+import { isLooseList } from './helpers'
 
 const isSublistWithStart: ToUseHtmlPredicate = (element, _, parentOptions) => {
     if (!parentOptions.isInsideList) return false
@@ -27,6 +28,7 @@ const getChildOptions = (element: Element): Partial<PassDownOptions> => {
             startAttribute !== null && !isNaN(parseInt(startAttribute))
                 ? parseInt(startAttribute)
                 : 1,
+        isLooseList: isLooseList(element),
     }
 }
 
@@ -43,7 +45,7 @@ export const orderedList: Rule = {
         value: (innerContent) =>
             parentOptions.isInsideList
                 ? '\n' + trimTrailingNewlines(innerContent)
-                : innerContent + '\n',
+                : trimTrailingNewlines(innerContent) + '\n\n',
     }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: {

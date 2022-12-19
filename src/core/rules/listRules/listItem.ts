@@ -15,17 +15,32 @@ export const listItem: Rule = {
     filter: ['li'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: (element, __, parentOptions) => ({
-        childOptions: { isInsideBlockElement: true },
+        childOptions: {
+            isInsideBlockElement: true,
+            /**
+             * To produce the markdown:
+             * ```
+             * - Item 1
+             * - <p>Item 2</p>
+             * - Item 3
+             * ```
+             */
+            forceHtml: !parentOptions.isLooseList && element.firstChild?.nodeName === 'P',
+        },
         value: (innerContent) => {
             const trimmedContent = trimTrailingNewlines(innerContent)
+            const trailingNewline = parentOptions.isLooseList ? '\n\n' : '\n'
 
             if (!parentOptions.isOrderedList)
-                return `- ${indentAllExceptFirstLine(trimmedContent, 2)}\n`
+                return `- ${indentAllExceptFirstLine(trimmedContent, 2)}` + trailingNewline
 
             const childIndex = Array.from(element.parentElement!.children).indexOf(element)
             const prefix = String(parentOptions.olStartingNum + childIndex)
             const indentSize = prefix.length + 2
-            return `${prefix}. ${indentAllExceptFirstLine(trimmedContent, indentSize)}\n`
+            return (
+                `${prefix}. ${indentAllExceptFirstLine(trimmedContent, indentSize)}` +
+                trailingNewline
+            )
         },
     }),
     htmlReplacement: (element, _, parentOptions) => ({
