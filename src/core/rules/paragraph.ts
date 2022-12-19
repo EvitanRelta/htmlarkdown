@@ -5,7 +5,10 @@ import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../uti
 export const paragraph: RuleWithHTML = {
     filter: ['p'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
-    replacement: () => (innerContent) => innerContent ? innerContent + '\n\n' : '',
+    replacement: () => ({
+        childOptions: { isInsideBlockElement: true },
+        value: (innerContent) => (innerContent ? innerContent + '\n\n' : ''),
+    }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),

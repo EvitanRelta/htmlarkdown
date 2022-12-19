@@ -44,35 +44,39 @@ export const table: RuleWithHTML = {
         hasInvalidHeaders,
         childWillBeHtml({ isInsideBlockElement: true })
     ),
-    replacement: (_, options) => (innerContent) => {
-        const rows = innerContent
-            .split('\n')
-            .map((row) => row.split(' | ').slice(0, -1))
-            .slice(0, -1) // last " | " and "\n" are trailing separators
-        const maxColumnWidths = getColumnMaxWidth(rows)
-        const numOfCellSeparators = maxColumnWidths.length + 1
-        const cellSeparatorWidth = numOfCellSeparators * 3 - 2 // -2 as the 1st & last separator both lacks a space
-        const tableWidth = maxColumnWidths.reduce((x, y) => x + y, 0) + cellSeparatorWidth
+    replacement: (_, options) => ({
+        childOptions: { isInsideBlockElement: true },
+        value: (innerContent) => {
+            const rows = innerContent
+                .split('\n')
+                .map((row) => row.split(' | ').slice(0, -1))
+                .slice(0, -1) // last " | " and "\n" are trailing separators
+            const maxColumnWidths = getColumnMaxWidth(rows)
+            const numOfCellSeparators = maxColumnWidths.length + 1
+            const cellSeparatorWidth = numOfCellSeparators * 3 - 2 // -2 as the 1st & last separator both lacks a space
+            const tableWidth = maxColumnWidths.reduce((x, y) => x + y, 0) + cellSeparatorWidth
 
-        if (tableWidth > options.maxPrettyTableWidth) {
-            const strRows = rows.map((row) => '| ' + row.join(' | ') + ' |')
-            const numOfColumns = rows[0].length
-            const body = strRows.slice(1).join('\n')
-            const headerSeparator = '\n' + '|---'.repeat(numOfColumns) + '|' + (body ? '\n' : '')
-            return strRows[0] + headerSeparator + body + '\n\n'
-        }
+            if (tableWidth > options.maxPrettyTableWidth) {
+                const strRows = rows.map((row) => '| ' + row.join(' | ') + ' |')
+                const numOfColumns = rows[0].length
+                const body = strRows.slice(1).join('\n')
+                const headerSeparator =
+                    '\n' + '|---'.repeat(numOfColumns) + '|' + (body ? '\n' : '')
+                return strRows[0] + headerSeparator + body + '\n\n'
+            }
 
-        const padRow = (row: string[]) =>
-            '| ' + row.map((cell, i) => cell.padEnd(maxColumnWidths[i])).join(' | ') + ' |'
-        const paddedRows = rows.map(padRow)
-        const body = paddedRows.slice(1).join('\n')
-        const headerSeparator =
-            '\n|' +
-            maxColumnWidths.map((width) => '-'.repeat(width + 2)).join('|') +
-            '|' +
-            (body ? '\n' : '')
-        return paddedRows[0] + headerSeparator + body + '\n\n'
-    },
+            const padRow = (row: string[]) =>
+                '| ' + row.map((cell, i) => cell.padEnd(maxColumnWidths[i])).join(' | ') + ' |'
+            const paddedRows = rows.map(padRow)
+            const body = paddedRows.slice(1).join('\n')
+            const headerSeparator =
+                '\n|' +
+                maxColumnWidths.map((width) => '-'.repeat(width + 2)).join('|') +
+                '|' +
+                (body ? '\n' : '')
+            return paddedRows[0] + headerSeparator + body + '\n\n'
+        },
+    }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(

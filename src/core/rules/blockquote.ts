@@ -10,8 +10,11 @@ import {
 export const blockquote: RuleWithHTML = {
     filter: ['blockquote'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
-    replacement: () => (innerContent) =>
-        trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') + '\n\n',
+    replacement: () => ({
+        childOptions: { isInsideBlockElement: true },
+        value: (innerContent) =>
+            trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') + '\n\n',
+    }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),

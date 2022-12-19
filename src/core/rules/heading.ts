@@ -18,11 +18,14 @@ const hasBlockElements = (element: Element): boolean => {
 export const heading: RuleWithHTML = {
     filter: [isHeading],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align']), hasBlockElements),
-    replacement: (element) => (innerContent) => {
-        const headingLevel = Number(element.tagName[1])
-        const prefix = '#'.repeat(headingLevel)
-        return `${prefix} ${innerContent}\n\n`
-    },
+    replacement: (element) => ({
+        childOptions: { isInsideBlockElement: true },
+        value: (innerContent) => {
+            const headingLevel = Number(element.tagName[1])
+            const prefix = '#'.repeat(headingLevel)
+            return `${prefix} ${innerContent}\n\n`
+        },
+    }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),

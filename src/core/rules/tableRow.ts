@@ -8,7 +8,10 @@ export const tableRow: RuleWithHTML = {
         obeyForceHtml,
         hasAnyOfAttributes(['align', 'valign', 'width', 'height'])
     ),
-    replacement: () => (innerContent) => innerContent + '\n',
+    replacement: () => ({
+        childOptions: { isInsideBlockElement: true },
+        value: (innerContent) => innerContent + '\n',
+    }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },
         value: toSanitisedHtmlHOF(

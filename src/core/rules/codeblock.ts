@@ -50,7 +50,10 @@ export const codeblock: RuleWithHTML = {
             '``'
         )
         const fence = longestBacktick + '`'
-        return `${fence}${language}\n${innerContent}\n${fence}\n\n`
+        return {
+            childOptions: { isInsideBlockElement: true },
+            value: `${fence}${language}\n${innerContent}\n${fence}\n\n`,
+        }
     },
     htmlReplacement: (element, options, parentOptions) => ({
         childOptions: { forceHtml: true, escapeWhitespace: false, isInsideBlockElement: true },
