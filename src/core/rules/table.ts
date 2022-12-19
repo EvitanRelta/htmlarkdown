@@ -42,7 +42,7 @@ export const table: RuleWithHTML = {
         obeyForceHtml,
         hasAnyOfAttributes(['align', 'border', 'width', 'height']),
         hasInvalidHeaders,
-        childWillBeHtml
+        childWillBeHtml({ isInsideBlockElement: true })
     ),
     replacement: (_, options) => (innerContent) => {
         const rows = innerContent

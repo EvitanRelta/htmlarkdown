@@ -1,6 +1,11 @@
 import { HTMLarkdown } from '../../core'
 import { isRuleWithHtml, mergeOverwriteArray } from '../../core/helpers'
-import type { ReplacementFunction, ReplacementObj, ToUseHtmlPredicate } from '../../types'
+import type {
+    PassDownOptions,
+    ReplacementFunction,
+    ReplacementObj,
+    ToUseHtmlPredicate,
+} from '../../types'
 
 const willBeHtml: ToUseHtmlPredicate = (element, options, parentOptions) => {
     const rule = HTMLarkdown.findRule(element, options)
@@ -30,8 +35,20 @@ const willBeHtml: ToUseHtmlPredicate = (element, options, parentOptions) => {
 }
 
 /**
- * Returns `true` if any child-elements *(both direct and nested children)* will
+ * A Higher-Order-Function that takes in the current rule's childOptions
+ * *(if any)*, and returns a `ToUseHtmlPredicate` which returns `true` if any
+ * child-elements *(both direct and nested children)* will be in
+ * HTML-in-markdown syntax.
+ * @param newChildOptions The current rule's childOptions.  \
+ * _(default: `{}`)_
+ * @returns A `ToUseHtmlPredicate` that checks if any direct child-elements will
  * be in HTML-in-markdown syntax.
  */
-export const childWillBeHtml: ToUseHtmlPredicate = (element, ...rest) =>
-    Array.from(element.children).some((child) => willBeHtml(child, ...rest))
+export const childWillBeHtml =
+    (newChildOptions: Partial<PassDownOptions> = {}): ToUseHtmlPredicate =>
+    (element, options, parentOptions) => {
+        const childOptions = mergeOverwriteArray({}, parentOptions, newChildOptions)
+        return Array.from(element.children).some((child) =>
+            willBeHtml(child, options, childOptions)
+        )
+    }
