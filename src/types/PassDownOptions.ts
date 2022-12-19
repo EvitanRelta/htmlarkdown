@@ -21,6 +21,9 @@ export interface PassDownOptions {
      * The container element that's being converted.
      *
      * Useful for checking if an element is a direct-child of the container.
+     *
+     * _**Note:** This is not the same element given to the `HTMLarkdown.convert`
+     * method, as `HTMLarkdown.convert` deep-clones the element._
      */
     containerElement: Element
     /**
