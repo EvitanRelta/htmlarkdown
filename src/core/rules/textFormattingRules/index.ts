@@ -7,11 +7,11 @@ import { superscript } from './superscript'
 import { underline } from './underline'
 
 export const textFormattingRules = [
-    bold,
-    italic,
     underline,
-    strikethrough,
-    superscript,
     subscript,
+    superscript,
+    strikethrough,
     code,
+    italic,
+    bold,
 ]

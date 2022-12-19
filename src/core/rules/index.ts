@@ -12,4 +12,4 @@ import { textFormattingRules } from './textFormattingRules'
  * _**Note:** This is opposite of pre/text-processes, which are all evaluated
  * starting from the **FRONT**._
  */
-export const rules = [...tableRules, ...textFormattingRules, ...blockRules, ...miscRules]
+export const rules = [...tableRules, ...miscRules, ...textFormattingRules, ...blockRules]

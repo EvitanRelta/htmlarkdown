@@ -6,10 +6,10 @@ import { horizontalRule } from './horizontalRule'
 import { paragraph } from './paragraph'
 
 export const blockRules = [
-    paragraph,
-    heading,
     horizontalRule,
     codeblock,
     codeblockInner,
     blockquote,
+    heading,
+    paragraph,
 ]
