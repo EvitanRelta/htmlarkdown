@@ -51,3 +51,10 @@ test.concurrent('List - nested HTML', async () => {
     const outputMarkdown = htmlarkdown.convert(htmlInput)
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
+
+test.concurrent('List - ordered-list attributes', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./orderedListAttributes')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
