@@ -1,3 +1,4 @@
+import type { Rule } from '../../../types'
 import { bold } from './bold'
 import { code } from './code'
 import { italic } from './italic'
@@ -6,7 +7,7 @@ import { subscript } from './subscript'
 import { superscript } from './superscript'
 import { underline } from './underline'
 
-export const textFormattingRules = [
+export const textFormattingRules: Rule[] = [
     underline,
     subscript,
     superscript,
