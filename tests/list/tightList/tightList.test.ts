@@ -1,5 +1,5 @@
-import { HTMLarkdown } from '../../src'
-import { getTestPairHOF } from '../helpers'
+import { HTMLarkdown } from '../../../src'
+import { getTestPairHOF } from '../../helpers'
 
 const getTestPair = getTestPairHOF(__dirname)
 
