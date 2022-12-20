@@ -182,7 +182,11 @@ export interface HTMLarkdownOptions {
     /**
      * The max width of a table before the converter stops trying to make the
      * columns align \
-     * *(ie. stop trying to make it pretty)*.
+     * _(ie. stop trying to make it pretty)_.
+     *
+     * _**Note:** Set this to `-1` or `Number.POSITIVE_INFINITY` to never/always prettify
+     * tables respectively._
+     *
      * ```
      * <===== Width =====>
      * | HEADER | HEADER |
