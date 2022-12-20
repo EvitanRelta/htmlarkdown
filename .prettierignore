@@ -26,3 +26,5 @@ yarn-error.log*
 
 *.temp.*
 /.vscode
+
+*.md
