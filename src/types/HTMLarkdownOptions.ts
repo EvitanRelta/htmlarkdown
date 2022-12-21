@@ -1,6 +1,8 @@
 import type { Plugin } from './Plugin'
-import type { PostProcess, PreProcess, TextProcess } from './processes'
+import type { PostProcess } from './PostProcess'
+import type { PreProcess } from './PreProcess'
 import type { Rule, TagName } from './Rule'
+import type { TextProcess } from './TextProcess'
 import type { UrlTransformer } from './UrlTransformer'
 
 export interface HTMLarkdownOptions {
