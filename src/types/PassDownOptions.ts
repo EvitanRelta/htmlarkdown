@@ -45,4 +45,36 @@ export interface PassDownOptions {
      * Used to control the counter-prefix of ordered-lists' list-items.
      */
     olStartingNum: number
+    /**
+     * Whether the element is part of an [loose-list](https://github.github.com/gfm/#loose).
+     *
+     * HTML examples of loose-list:
+     * ```html
+     * <ul>
+     *   <li><p>Item 1</p></li>
+     *   <li><p>Item 2</p></li>
+     * </ul>
+     * ```
+     *
+     * ```html
+     * <ul>
+     *   <li><p>Item 1</p></li>
+     *   <li>
+     *     <p>Item 2</p>
+     *     <h1>Item 2 (heading)</h1>
+     *   </li>
+     * </ul>
+     * ```
+     *
+     * Used to control whether to add blank-lines inbetween list-items.  \
+     * For example:
+     * ```md
+     * - Item 1
+     *
+     * - Item 2
+     *
+     * - Item 3
+     * ```
+     */
+    isLooseList: boolean
 }

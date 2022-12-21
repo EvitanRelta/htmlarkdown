@@ -2,30 +2,45 @@ import { any } from 'predicate-hof'
 import type { Rule } from '../../../types'
 import {
     hasAnyOfAttributes,
-    indent,
     obeyForceHtml,
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
 
+/** Indents all lines except the first. */
+const indentAllExceptFirstLine = (str: string, indentSize: number) =>
+    str.replaceAll(/(\n)/g, '$1' + ' '.repeat(indentSize))
+
 export const listItem: Rule = {
     filter: ['li'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
     replacement: (element, __, parentOptions) => ({
-        childOptions: { isInsideBlockElement: true },
+        childOptions: {
+            isInsideBlockElement: true,
+            /**
+             * To produce the markdown:
+             * ```
+             * - Item 1
+             * - <p>Item 2</p>
+             * - Item 3
+             * ```
+             */
+            forceHtml: !parentOptions.isLooseList && element.firstChild?.nodeName === 'P',
+        },
         value: (innerContent) => {
             const trimmedContent = trimTrailingNewlines(innerContent)
+            const trailingNewline = parentOptions.isLooseList ? '\n\n' : '\n'
 
             if (!parentOptions.isOrderedList)
-                return `- ${indent(trimmedContent, 2).replace(/^ {2}/, '')}\n`
+                return `- ${indentAllExceptFirstLine(trimmedContent, 2)}` + trailingNewline
 
             const childIndex = Array.from(element.parentElement!.children).indexOf(element)
             const prefix = String(parentOptions.olStartingNum + childIndex)
             const indentSize = prefix.length + 2
-            return `${prefix}. ${indent(trimmedContent, indentSize).replace(
-                new RegExp(`^ {${indentSize}}`),
-                ''
-            )}\n`
+            return (
+                `${prefix}. ${indentAllExceptFirstLine(trimmedContent, indentSize)}` +
+                trailingNewline
+            )
         },
     }),
     htmlReplacement: (element, _, parentOptions) => ({

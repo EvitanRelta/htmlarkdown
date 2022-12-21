@@ -8,30 +8,32 @@ import {
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
+import { isLooseList } from './helpers'
 
-const childOptions: Partial<PassDownOptions> = {
+const getChildOptions = (element: Element): Partial<PassDownOptions> => ({
     isOrderedList: false,
     isInsideBlockElement: true,
     isInsideList: true,
-}
+    isLooseList: isLooseList(element),
+})
 
 export const unorderedList: Rule = {
     filter: ['ul'],
     toUseHtmlPredicate: any<Parameters<ToUseHtmlPredicate>>(
         obeyForceHtml,
         hasAnyOfAttributes(['align']),
-        directChildWillBeHtml(childOptions)
+        (element, ...rest) => directChildWillBeHtml(getChildOptions(element))(element, ...rest)
     ),
-    replacement: (_, __, parentOptions) => ({
-        childOptions,
+    replacement: (element, __, parentOptions) => ({
+        childOptions: getChildOptions(element),
         value: (innerContent) =>
             parentOptions.isInsideList
                 ? '\n' + trimTrailingNewlines(innerContent)
-                : innerContent + '\n',
+                : trimTrailingNewlines(innerContent) + '\n\n',
     }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: {
-            ...childOptions,
+            ...getChildOptions(element),
             forceHtml: true,
         },
         value: (innerContent) => {
