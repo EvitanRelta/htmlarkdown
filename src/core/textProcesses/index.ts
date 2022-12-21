@@ -2,6 +2,7 @@ import type { TextProcess } from '../../types'
 import { escapeMarkdown } from './escapeMarkdown'
 import { escapeWhitespace } from './escapeWhitespace'
 import { htmlEscapeSpaces } from './htmlEscapeSpaces'
+import { listItemTrailingNewline } from './listItemTrailingNewline'
 
 /**
  * Text-processes are called starting from the FRONT of the array to the back.
@@ -13,4 +14,9 @@ import { htmlEscapeSpaces } from './htmlEscapeSpaces'
  * _**Note:** This is opposite of rules, which is evaluated starting from the
  * **BACK**._
  */
-export const textProcesses: TextProcess[] = [escapeMarkdown, htmlEscapeSpaces, escapeWhitespace]
+export const textProcesses: TextProcess[] = [
+    escapeMarkdown,
+    htmlEscapeSpaces,
+    escapeWhitespace,
+    listItemTrailingNewline,
+]

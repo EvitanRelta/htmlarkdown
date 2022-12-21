@@ -6,14 +6,16 @@ import {
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
+import { getBlockTrailingNewline } from '../helpers'
 
 export const blockquote: RuleWithHTML = {
     filter: ['blockquote'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
-    replacement: () => ({
+    replacement: (_, __, parentOptions) => ({
         childOptions: { isInsideBlockElement: true },
         value: (innerContent) =>
-            trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') + '\n\n',
+            trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') +
+            getBlockTrailingNewline(parentOptions),
     }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: { forceHtml: true, isInsideBlockElement: true },

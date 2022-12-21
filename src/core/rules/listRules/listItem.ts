@@ -6,6 +6,7 @@ import {
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
+import { getBlockTrailingNewline } from '../helpers'
 
 /** Indents all lines except the first. */
 const indentAllExceptFirstLine = (str: string, indentSize: number) =>
@@ -14,7 +15,7 @@ const indentAllExceptFirstLine = (str: string, indentSize: number) =>
 export const listItem: Rule = {
     filter: ['li'],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align'])),
-    replacement: (element, __, parentOptions) => ({
+    replacement: (element, _, parentOptions) => ({
         childOptions: {
             isInsideBlockElement: true,
             /**
@@ -29,7 +30,7 @@ export const listItem: Rule = {
         },
         value: (innerContent) => {
             const trimmedContent = trimTrailingNewlines(innerContent)
-            const trailingNewline = parentOptions.isLooseList ? '\n\n' : '\n'
+            const trailingNewline = getBlockTrailingNewline(parentOptions)
 
             if (!parentOptions.isOrderedList)
                 return `- ${indentAllExceptFirstLine(trimmedContent, 2)}` + trailingNewline

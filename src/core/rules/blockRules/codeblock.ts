@@ -1,6 +1,7 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../../types'
 import { obeyForceHtml } from '../../../utilities'
+import { getBlockTrailingNewline } from '../helpers'
 import { noopTags } from '../miscRules/noop'
 
 const hasOnlyCodeChild = (element: Element) =>
@@ -32,13 +33,13 @@ const hasNonNoopElements = (element: Element) => {
 export const codeblock: RuleWithHTML = {
     filter: ['pre'],
     toUseHtmlPredicate: any(obeyForceHtml, hasNonNoopElements),
-    replacement: (element, options) => {
+    replacement: (element, options, parentOptions) => {
         const removeLastNewline = (str: string) => str.replace(/\n$/, '')
         const innerContent = ['remove', 'both'].includes(options.codeblockTrailingLinebreak)
             ? removeLastNewline(element.textContent!)
             : element.textContent!
 
-        if (innerContent === '') return '```\n```\n\n'
+        if (innerContent === '') return '```\n```' + getBlockTrailingNewline(parentOptions)
 
         const language = element.getAttribute('lang') || ''
 
@@ -52,7 +53,9 @@ export const codeblock: RuleWithHTML = {
         const fence = longestBacktick + '`'
         return {
             childOptions: { isInsideBlockElement: true },
-            value: `${fence}${language}\n${innerContent}\n${fence}\n\n`,
+            value:
+                `${fence}${language}\n${innerContent}\n${fence}` +
+                getBlockTrailingNewline(parentOptions),
         }
     },
     htmlReplacement: (element, options, parentOptions) => ({

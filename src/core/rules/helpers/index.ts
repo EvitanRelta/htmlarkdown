@@ -1,0 +1,1 @@
+export { getBlockTrailingNewline } from './getBlockTrailingNewline'

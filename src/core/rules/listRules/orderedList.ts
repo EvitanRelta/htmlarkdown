@@ -3,7 +3,6 @@ import type { PassDownOptions, Rule, ToUseHtmlPredicate } from '../../../types'
 import {
     directChildWillBeHtml,
     hasAnyOfAttributes,
-    isTextNode,
     obeyForceHtml,
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
@@ -42,25 +41,20 @@ export const orderedList: Rule = {
     ),
     replacement: (element, _, parentOptions) => ({
         childOptions: getChildOptions(element),
-        value: (innerContent) =>
-            parentOptions.isInsideList
-                ? '\n' + trimTrailingNewlines(innerContent)
-                : trimTrailingNewlines(innerContent) + '\n\n',
+        value: (innerContent) => {
+            const suffix = parentOptions.isInsideList ? '' : '\n\n'
+            return trimTrailingNewlines(innerContent) + suffix
+        },
     }),
     htmlReplacement: (element, _, parentOptions) => ({
         childOptions: {
             ...getChildOptions(element),
             forceHtml: true,
         },
-        value: (innerContent) => {
-            const isAfterTextNode = element.previousSibling && isTextNode(element.previousSibling)
-            const prefix = parentOptions.isInsideList && isAfterTextNode ? '\n' : ''
-            const html = toSanitisedHtmlHOF(
-                element,
-                ['align', 'start', 'type'],
-                !parentOptions.isInsideBlockElement
-            )(innerContent)
-            return prefix + html
-        },
+        value: toSanitisedHtmlHOF(
+            element,
+            ['align', 'start', 'type'],
+            !parentOptions.isInsideBlockElement
+        ),
     }),
 }
