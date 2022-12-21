@@ -22,6 +22,8 @@
    </ol>
 2. Item 2
 
+<!-- LIST_SEPARATOR -->
+
 99. Item 99
     1. Sub-item 99.1
     2. Sub-item 99.2

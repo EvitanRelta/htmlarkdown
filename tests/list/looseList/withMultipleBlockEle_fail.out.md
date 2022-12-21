@@ -5,6 +5,8 @@
   <h1>Item 2 (heading)</h1>
 - <p>Item 3</p>
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
   - Sub-item 1
   - <p>Sub-item 2</p>
@@ -20,6 +22,8 @@
    </code></pre>
    <h1>Item 2 (heading)</h1>
 3. <p>Item 3</p>
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. Sub-item 1

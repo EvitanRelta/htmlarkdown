@@ -8,12 +8,16 @@
 
 - Item 4
 
+<!-- LIST_SEPARATOR -->
+
 - # Item 1 (heading 1)
 - Item 2
 - ```
   Item 3 (codeblock)
   ```
 - <p>Item 4</p>
+
+<!-- LIST_SEPARATOR -->
 
 - Item 1
   - # Item 1 (heading 1)
@@ -26,6 +30,8 @@
   
   - Item 4
 - Item 2
+
+<!-- LIST_SEPARATOR -->
 
 - Item 1
   - # Item 1 (heading 1)
@@ -46,12 +52,16 @@
 
 4. Item 4
 
+<!-- LIST_SEPARATOR -->
+
 1. # Item 1 (heading 1)
 2. Item 2
 3. ```
    Item 3 (codeblock)
    ```
 4. <p>Item 4</p>
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. # Item 1 (heading 1)
@@ -64,6 +74,8 @@
    
    4. Item 4
 2. Item 2
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. # Item 1 (heading 1)
