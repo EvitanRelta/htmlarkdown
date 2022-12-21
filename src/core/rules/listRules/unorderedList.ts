@@ -7,7 +7,7 @@ import {
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
-import { isLooseList } from './helpers'
+import { isLooseList, UNORDERED_LIST_BOUNDARY } from './helpers'
 
 const getChildOptions = (element: Element): Partial<PassDownOptions> => ({
     isOrderedList: false,
@@ -26,8 +26,16 @@ export const unorderedList: Rule = {
     replacement: (element, _, parentOptions) => ({
         childOptions: getChildOptions(element),
         value: (innerContent) => {
-            const suffix = parentOptions.isInsideList ? '' : '\n\n'
-            return trimTrailingNewlines(innerContent) + suffix
+            if (parentOptions.isInsideList) return trimTrailingNewlines(innerContent)
+            /**
+             * These boundary strings will be used by the 'insertListSeparator'
+             * post-process to identify where to insert separators to
+             * separate adjacent lists.
+             * @see {@link https://github.com/EvitanRelta/htmlarkdown/issues/16}
+             */
+            const prefix = UNORDERED_LIST_BOUNDARY
+            const suffix = '\n\n' + UNORDERED_LIST_BOUNDARY
+            return prefix + trimTrailingNewlines(innerContent) + suffix
         },
     }),
     htmlReplacement: (element, _, parentOptions) => ({
