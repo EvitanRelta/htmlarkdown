@@ -7,32 +7,34 @@ const setIdentityUrlTransformer: Plugin = (htmlarkdown) => {
     htmlarkdown.options.urlTransformer = identityFn
 }
 
-test.concurrent('Plugin - plugin', async () => {
-    const htmlarkdown = new HTMLarkdown({
-        plugins: [setIdentityUrlTransformer],
+describe('Plugin', () => {
+    test.concurrent('plugin', async () => {
+        const htmlarkdown = new HTMLarkdown({
+            plugins: [setIdentityUrlTransformer],
+        })
+        expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
     })
-    expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
-})
 
-test.concurrent('Plugin - plugin overwrite', async () => {
-    const htmlarkdown = new HTMLarkdown({
-        plugins: [setIdentityUrlTransformer],
-        urlTransformer: dummyUrl,
+    test.concurrent('plugin overwrite', async () => {
+        const htmlarkdown = new HTMLarkdown({
+            plugins: [setIdentityUrlTransformer],
+            urlTransformer: dummyUrl,
+        })
+        expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
     })
-    expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
-})
 
-test.concurrent('Plugin - preload-plugin', async () => {
-    const htmlarkdown = new HTMLarkdown({
-        preloadPlugins: [setIdentityUrlTransformer],
+    test.concurrent('preload-plugin', async () => {
+        const htmlarkdown = new HTMLarkdown({
+            preloadPlugins: [setIdentityUrlTransformer],
+        })
+        expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
     })
-    expect(htmlarkdown.options.urlTransformer).toBe(identityFn)
-})
 
-test.concurrent('Plugin - preload-plugin overwrite', async () => {
-    const htmlarkdown = new HTMLarkdown({
-        preloadPlugins: [setIdentityUrlTransformer],
-        urlTransformer: dummyUrl,
+    test.concurrent('preload-plugin overwrite', async () => {
+        const htmlarkdown = new HTMLarkdown({
+            preloadPlugins: [setIdentityUrlTransformer],
+            urlTransformer: dummyUrl,
+        })
+        expect(htmlarkdown.options.urlTransformer).toBe(dummyUrl)
     })
-    expect(htmlarkdown.options.urlTransformer).toBe(dummyUrl)
 })
