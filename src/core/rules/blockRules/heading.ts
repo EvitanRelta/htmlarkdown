@@ -7,6 +7,7 @@ import {
     obeyForceHtml,
     toSanitisedHtmlHOF,
 } from '../../../utilities'
+import { getBlockTrailingNewline } from '../helpers'
 
 const blockTagsExceptHr = blockTagNames.filter((x) => x !== 'HR')
 const isBlockExceptHr = (node: Node) => blockTagsExceptHr.includes(node.nodeName)
@@ -18,12 +19,12 @@ const hasBlockElements = (element: Element): boolean => {
 export const heading: RuleWithHTML = {
     filter: [isHeading],
     toUseHtmlPredicate: any(obeyForceHtml, hasAnyOfAttributes(['align']), hasBlockElements),
-    replacement: (element) => ({
+    replacement: (element, _, parentOptions) => ({
         childOptions: { isInsideBlockElement: true },
         value: (innerContent) => {
             const headingLevel = Number(element.tagName[1])
             const prefix = '#'.repeat(headingLevel)
-            return `${prefix} ${innerContent}\n\n`
+            return `${prefix} ${innerContent}` + getBlockTrailingNewline(parentOptions)
         },
     }),
     htmlReplacement: (element, _, parentOptions) => ({

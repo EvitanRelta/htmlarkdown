@@ -6,6 +6,7 @@ import {
     obeyForceHtml,
     toSanitisedHtmlHOF,
 } from '../../../utilities'
+import { getBlockTrailingNewline } from '../helpers'
 
 const hasInvalidHeaders: ToUseHtmlPredicate = (tableElement) => {
     const headerCells = Array.from(tableElement.querySelectorAll('tr > th'))
@@ -44,7 +45,7 @@ export const table: RuleWithHTML = {
         hasInvalidHeaders,
         childWillBeHtml({ isInsideBlockElement: true })
     ),
-    replacement: (_, options) => ({
+    replacement: (_, options, parentOptions) => ({
         childOptions: { isInsideBlockElement: true },
         value: (innerContent) => {
             const rows = innerContent
@@ -74,7 +75,7 @@ export const table: RuleWithHTML = {
                 maxColumnWidths.map((width) => '-'.repeat(width + 2)).join('|') +
                 '|' +
                 (body ? '\n' : '')
-            return paddedRows[0] + headerSeparator + body + '\n\n'
+            return paddedRows[0] + headerSeparator + body + getBlockTrailingNewline(parentOptions)
         },
     }),
     htmlReplacement: (element, _, parentOptions) => ({

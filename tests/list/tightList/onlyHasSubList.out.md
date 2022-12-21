@@ -1,11 +1,9 @@
 - Item 1
-- 
-  - Sub-item 2.1
+- - Sub-item 2.1
 - Item 3
 
 1. Item 1
-2. 
-   1. Sub-item 2.1
+2. 1. Sub-item 2.1
 3. Item 3
 
 <ul>
