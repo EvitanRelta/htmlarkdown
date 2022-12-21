@@ -10,6 +10,13 @@ test.concurrent('Tight List - empty', async () => {
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
+test.concurrent('Tight List - only has sub-list', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./onlyHasSubList')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
+
 test.concurrent('Tight List - basic', async () => {
     const htmlarkdown = new HTMLarkdown()
     const [htmlInput, expectedMarkdownOutput] = await getTestPair('./basic')
