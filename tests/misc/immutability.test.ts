@@ -15,23 +15,25 @@ const isEmptyParagraphMutated = (htmlarkdown: HTMLarkdown) => {
     return isNotEmptyAnymore
 }
 
-/** Test whether the input element is mutated by pre-processing. */
-test.concurrent('Immutability - pre-process', async () => {
-    const insertLinebreak: PreProcess = (container) =>
-        container.firstChild!.appendChild(document.createElement('br'))
-    const htmlarkdown = new HTMLarkdown({ preProcesses: [insertLinebreak], rules: [] })
-    expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
-})
+describe('Immutability', () => {
+    /** Test whether the input element is mutated by pre-processing. */
+    test.concurrent('pre-process', async () => {
+        const insertLinebreak: PreProcess = (container) =>
+            container.firstChild!.appendChild(document.createElement('br'))
+        const htmlarkdown = new HTMLarkdown({ preProcesses: [insertLinebreak], rules: [] })
+        expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
+    })
 
-/** Test whether the input element is mutated by rules. */
-test.concurrent('Immutability - rule', async () => {
-    const insertLinebreak: Rule = {
-        filter: ['p'],
-        replacement: (element) => {
-            element.appendChild(document.createElement('br'))
-            return ''
-        },
-    }
-    const htmlarkdown = new HTMLarkdown({ preProcesses: [], rules: [insertLinebreak] })
-    expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
+    /** Test whether the input element is mutated by rules. */
+    test.concurrent('rule', async () => {
+        const insertLinebreak: Rule = {
+            filter: ['p'],
+            replacement: (element) => {
+                element.appendChild(document.createElement('br'))
+                return ''
+            },
+        }
+        const htmlarkdown = new HTMLarkdown({ preProcesses: [], rules: [insertLinebreak] })
+        expect(isEmptyParagraphMutated(htmlarkdown)).toBe(false)
+    })
 })
