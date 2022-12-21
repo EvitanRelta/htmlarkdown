@@ -1,3 +1,4 @@
+import escapeStringRegexp from 'escape-string-regexp'
 import type { PostProcess } from '../../types'
 import {
     LIST_SEPARATOR,
@@ -5,11 +6,14 @@ import {
     UNORDERED_LIST_BOUNDARY,
 } from '../rules/listRules/helpers'
 
+const escapedUnorderedBoundary = escapeStringRegexp(UNORDERED_LIST_BOUNDARY)
+const escapedOrderedBoundary = escapeStringRegexp(ORDERED_LIST_BOUNDARY)
+
 const isTwoSameBoundary = new RegExp(
-    `(${UNORDERED_LIST_BOUNDARY}){2}|(${ORDERED_LIST_BOUNDARY}){2}`,
+    `(${escapedUnorderedBoundary}){2}|(${escapedOrderedBoundary}){2}`,
     'g'
 )
-const isBoundary = new RegExp(`${UNORDERED_LIST_BOUNDARY}|${ORDERED_LIST_BOUNDARY}`, 'g')
+const isBoundary = new RegExp(`${escapedUnorderedBoundary}|${escapedOrderedBoundary}`, 'g')
 
 /**
  * Inserts a string inbetween adjacent lists' markdowns, to prevent them from

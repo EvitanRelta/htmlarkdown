@@ -21,6 +21,7 @@
         "typescript": "^4.9.4"
     },
     "dependencies": {
+        "escape-string-regexp": "^5.0.0",
         "lodash": "^4.17.21",
         "predicate-hof": "^2.0.1",
         "relateurl": "^0.2.7"
