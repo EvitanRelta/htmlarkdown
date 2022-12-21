@@ -38,6 +38,13 @@ test.concurrent('Tight List - with one block-element', async () => {
     expect(outputMarkdown).toBe(expectedMarkdownOutput)
 })
 
+test.concurrent('Tight List - with multiple block-elements', async () => {
+    const htmlarkdown = new HTMLarkdown()
+    const [htmlInput, expectedMarkdownOutput] = await getTestPair('./withMultipleBlockEle')
+    const outputMarkdown = htmlarkdown.convert(htmlInput)
+    expect(outputMarkdown).toBe(expectedMarkdownOutput)
+})
+
 test.concurrent('Tight List - align', async () => {
     const htmlarkdown = new HTMLarkdown()
     const [htmlInput, expectedMarkdownOutput] = await getTestPair('./align')
