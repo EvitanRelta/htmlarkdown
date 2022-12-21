@@ -5,6 +5,8 @@
   ```
 - Item 4
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
   - # Item 1 (heading 1)
   - Item 2
@@ -20,6 +22,8 @@
    Item 3 (codeblock)
    ```
 4. Item 4
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. # Item 1 (heading 1)

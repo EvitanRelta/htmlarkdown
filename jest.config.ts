@@ -2,7 +2,7 @@ import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
     testEnvironment: 'jsdom',
-    // transformIgnorePatterns: ['node_modules/(?!(lowlight|fault))'],
+    transformIgnorePatterns: ['node_modules/(?!escape-string-regexp)'],
     transform: {
         '\\.(t|j)s$': '@swc/jest',
     },

@@ -4,9 +4,13 @@
 
 - Item 3
 
+<!-- LIST_SEPARATOR -->
+
 - <p>Item 1</p>
 - Item 2
 - Item 3
+
+<!-- LIST_SEPARATOR -->
 
 - Item 1
 - <p>Item 2</p>
@@ -18,9 +22,13 @@
 
 3. Item 3
 
+<!-- LIST_SEPARATOR -->
+
 1. <p>Item 1</p>
 2. Item 2
 3. Item 3
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
 2. <p>Item 2</p>

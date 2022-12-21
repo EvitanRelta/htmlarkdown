@@ -4,6 +4,8 @@
 
 - Item 3
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
 - Item 2
   - Sub-item 2.1
@@ -18,6 +20,8 @@
 2. 
 
 3. Item 3
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
 2. Item 2

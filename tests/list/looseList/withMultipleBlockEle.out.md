@@ -10,6 +10,8 @@
 
 - Item 3
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
 
 - Item 2 (paragraph 1)
@@ -18,10 +20,14 @@
 
 - Item 3
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
 - <p>Item 2 (paragraph 1)</p>
   <p>Item 2 (paragraph 2)</p>
 - <p>Item 3</p>
+
+<!-- LIST_SEPARATOR -->
 
 - Item 1
   - Sub-item 1
@@ -37,6 +43,8 @@
   - Sub-item 3
 - Item 2
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
   - Sub-item 1
   
@@ -46,6 +54,8 @@
   
   - Sub-item 3
 - Item 2
+
+<!-- LIST_SEPARATOR -->
 
 - Item 1
   - Sub-item 1
@@ -66,6 +76,8 @@
 
 3. Item 3
 
+<!-- LIST_SEPARATOR -->
+
 1. Item 1
 
 2. Item 2 (paragraph 1)
@@ -74,10 +86,14 @@
 
 3. Item 3
 
+<!-- LIST_SEPARATOR -->
+
 1. Item 1
 2. <p>Item 2 (paragraph 1)</p>
    <p>Item 2 (paragraph 2)</p>
 3. <p>Item 3</p>
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. Sub-item 1
@@ -93,6 +109,8 @@
    3. Sub-item 3
 2. Item 2
 
+<!-- LIST_SEPARATOR -->
+
 1. Item 1
    1. Sub-item 1
    
@@ -102,6 +120,8 @@
    
    3. Sub-item 3
 2. Item 2
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. Sub-item 1

@@ -6,6 +6,8 @@
   </ul>
 - Item 2
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
   <ul>
     <li>Sub-item 1.1</li>
@@ -23,6 +25,8 @@
      <li>Sub-item 1.3 (aligned)</li>
    </ol>
 2. Item 2
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    <ol>
