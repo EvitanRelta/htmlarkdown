@@ -1,7 +1,9 @@
 import { any, not } from 'predicate-hof'
 import type { RuleWithHTML } from '../../../types'
-import { hasChildElements, isEmpty, obeyForceHtml } from '../../../utilities'
+import { isEmpty, obeyForceHtml } from '../../../utilities'
 import { isChildOfPre } from '../blockRules/codeblockInner'
+
+const hasChildElements = (element: Element) => element.childElementCount > 0
 
 export const code: RuleWithHTML = {
     filter: [['code', not(isChildOfPre)]],
