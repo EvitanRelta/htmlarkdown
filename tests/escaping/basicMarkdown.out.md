@@ -38,6 +38,8 @@ Triple HTML-tag \<h1>\<p>\<b>
 
 \<h1>\<p>\<b> Triple-leading HTML-tag
 
+\<!-- Comment -->
+
 \</closingtag>
 
 \<tag with space>
@@ -47,6 +49,8 @@ Triple HTML-tag \<h1>\<p>\<b>
 \<UPPERCASETAG>
 
 \</UPPERCASETAG>
+
+<!- Malformed comment -->
 
 <1InvalidTag1>
 
