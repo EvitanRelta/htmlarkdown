@@ -13,7 +13,7 @@ import { applyReplacement } from './helpers'
 const anywhereEscapings: ReplacementArray = [
     [/\\/g, '\\\\'], // backslash itself
     [/(&[#a-z0-9]+;)/gi, '\\$1'], // HTML encoded characters
-    [/(<\/?[a-z])/gi, '\\$1'], // HTML tags
+    [/(<(!--|\/?[a-z]))/gi, '\\$1'], // HTML tags
 
     [/(\[|\])/g, '\\$1'], // links, images, tick-boxes, footnotes, reference-style links
 
