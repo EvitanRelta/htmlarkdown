@@ -1,3 +1,4 @@
+<!-- Single text-formatting -->
 <p><b>Bold 1</b></p>
 <p><strong>Bold 2</strong></p>
 
@@ -14,8 +15,15 @@
 
 <p><sub>Subscript</sub></p>
 
+<!-- Multiple text-formattings -->
+<p><b><u><i><sup><s><sub>TEXT</sub></s></sup></i></u></b></p>
+<p><strong><ins><em><sup><del><sub>TEXT</sub></del></sup></em></ins></strong></p>
+
+
 
 <!-- Forced HTML conversions -->
+<!-- 'forcehtml' attribute on paragraph -->
+<!-- Single text-formatting -->
 <p forcehtml><b>Bold 1</b></p>
 <p forcehtml><strong>Bold 2</strong></p>
 
@@ -31,3 +39,30 @@
 <p forcehtml><sup>Superscript</sup></p>
 
 <p forcehtml><sub>Subscript</sub></p>
+
+<!-- Multiple text-formattings -->
+<p forcehtml><b><u><i><sup><s><sub>TEXT</sub></s></sup></i></u></b></p>
+<p forcehtml><strong><ins><em><sup><del><sub>TEXT</sub></del></sup></em></ins></strong></p>
+
+
+<!-- 'forcehtml' attribute on text-formatting -->
+<!-- Single text-formatting -->
+<p><b forcehtml>Bold 1</b></p>
+<p><strong forcehtml>Bold 2</strong></p>
+
+<p><i forcehtml>Italic 1</i></p>
+<p><em forcehtml>Italic 2</em></p>
+
+<p><u forcehtml>Underline 1</u></p>
+<p><ins forcehtml>Underline 2</ins></p>
+
+<p><s forcehtml>Strikethrough 1</s></p>
+<p><del forcehtml>Strikethrough 2</del></p>
+
+<p><sup forcehtml>Superscript</sup></p>
+
+<p><sub forcehtml>Subscript</sub></p>
+
+<!-- Multiple text-formattings -->
+<p><b><u><i forcehtml><sup><s><sub>TEXT</sub></s></sup></i></u></b></p>
+<p><strong><ins><em forcehtml><sup><del><sub>TEXT</sub></del></sup></em></ins></strong></p>

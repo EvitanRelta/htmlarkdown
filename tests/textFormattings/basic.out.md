@@ -18,6 +18,10 @@
 
 <sub>Subscript</sub>
 
+**<ins>*<sup>~~<sub>TEXT</sub>~~</sup>*</ins>**
+
+**<ins>*<sup>~~<sub>TEXT</sub>~~</sup>*</ins>**
+
 <p><b>Bold 1</b></p>
 
 <p><b>Bold 2</b></p>
@@ -37,3 +41,31 @@
 <p><sup>Superscript</sup></p>
 
 <p><sub>Subscript</sub></p>
+
+<p><b><ins><i><sup><s><sub>TEXT</sub></s></sup></i></ins></b></p>
+
+<p><b><ins><i><sup><s><sub>TEXT</sub></s></sup></i></ins></b></p>
+
+<b>Bold 1</b>
+
+<b>Bold 2</b>
+
+<i>Italic 1</i>
+
+<i>Italic 2</i>
+
+<ins>Underline 1</ins>
+
+<ins>Underline 2</ins>
+
+<s>Strikethrough 1</s>
+
+<s>Strikethrough 2</s>
+
+<sup>Superscript</sup>
+
+<sub>Subscript</sub>
+
+**<ins><i><sup><s><sub>TEXT</sub></s></sup></i></ins>**
+
+**<ins><i><sup><s><sub>TEXT</sub></s></sup></i></ins>**
