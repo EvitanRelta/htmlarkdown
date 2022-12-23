@@ -33,6 +33,40 @@ public static void main(String[] args) {}
 </code></pre>
 
 
+<!-- Forced HTML conversions -->
+
+<!-- Check for text being NOT escaped AT ALL, when using Markdown-syntax -->
+<pre forcehtml><code>&lt;tag&gt;
+</code></pre>
+<pre forcehtml><code>&amp;nbsp;
+</code></pre>
+<pre forcehtml><code>**
+</code></pre>
+
+
+<!-- Check for inclusion of language in Markdown-syntax --->
+<pre lang="javascript" forcehtml><code>const x = 1;
+</code></pre>
+<pre lang="html" forcehtml><code>&lt;div&gt;innerText&lt;/div&gt;
+</code></pre>
+
+
+<!-- Check for backtick-escaping --->
+<pre forcehtml><code>```bash
+git commit -m "Message"
+```
+</code></pre>
+
+<pre forcehtml><code>```
+
+````java
+```
+public static void main(String[] args) {}
+```
+````
+</code></pre>
+
+
 <!-- ============================== HTML-Syntax ============================== -->
 
 <!-- Check for correct switching to HTML-syntax --->

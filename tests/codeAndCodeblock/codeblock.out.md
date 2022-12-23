@@ -34,6 +34,35 @@ public static void main(String[] args) {}
 ````
 `````
 
+<pre><code>&lt;tag>
+</code></pre>
+
+<pre><code>&amp;nbsp;
+</code></pre>
+
+<pre><code>**
+</code></pre>
+
+<pre lang="javascript"><code>const x = 1;
+</code></pre>
+
+<pre lang="html"><code>&lt;div>innerText&lt;/div>
+</code></pre>
+
+<pre><code>```bash
+git commit -m "Message"
+```
+</code></pre>
+
+<pre><code>```
+
+````java
+```
+public static void main(String[] args) {}
+```
+````
+</code></pre>
+
 <pre><code>unbolded <b>bolded</b>
 </code></pre>
 

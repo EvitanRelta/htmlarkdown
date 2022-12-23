@@ -10,12 +10,20 @@
 
 <!-- Forced HTML conversions -->
 <!-- 'forcehtml' attribute on paragraph -->
+<p forcehtml>&lt;tag&gt; <code>&lt;tag&gt;</code></p>
+<p forcehtml>&amp;nbsp; <code>&amp;nbsp;</code></p>
+<p forcehtml>** <code>**</code></p>
+
 <p forcehtml><code>unbolded <b>bolded</b></code></p>
 <p forcehtml><code>unitalicised <em>italicised</em></code></p>
 <p forcehtml><code>unstrikedthrough <s>strikedthrough</s></code></p>
 
 
 <!-- 'forcehtml' attribute on '<code>' -->
+<p>&lt;tag&gt; <code forcehtml>&lt;tag&gt;</code></p>
+<p>&amp;nbsp; <code forcehtml>&amp;nbsp;</code></p>
+<p>** <code forcehtml>**</code></p>
+
 <p><code forcehtml>unbolded <b>bolded</b></code></p>
 <p><code forcehtml>unitalicised <em>italicised</em></code></p>
 <p><code forcehtml>unstrikedthrough <s>strikedthrough</s></code></p>
