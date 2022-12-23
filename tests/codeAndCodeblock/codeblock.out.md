@@ -40,9 +40,9 @@ public static void main(String[] args) {}
 <pre lang="javascript"><code><b>const</b> x = 1;
 </code></pre>
 
-<pre><code>\<tag>
-\&nbsp;
-\*\*
+<pre><code>&lt;tag>
+&amp;nbsp;
+**
 <b>bolded</b>
 </code></pre>
 
@@ -50,8 +50,8 @@ public static void main(String[] args) {}
     indented <b>bold</b>
 </code></pre>
 
-<pre lang="html"><code>\<div>
+<pre lang="html"><code>&lt;div>
     innerText
-\</div>
+&lt;/div>
 <b>bolded</b>
 </code></pre>
