@@ -12,6 +12,6 @@ const spaceHtmlEscapings: ReplacementArray = [
     ['\u00A0', ' '],
 ]
 
-export const htmlEscapeSpaces: TextProcess = (text) => {
+export const escapeSpecialSpaces: TextProcess = (text) => {
     return applyReplacement(spaceHtmlEscapings, text)
 }
