@@ -50,4 +50,11 @@ describe('Escaping', () => {
         const outputMarkdown = htmlarkdown.convert(htmlInput)
         expect(outputMarkdown).toBe(expectedMarkdownOutput)
     })
+
+    test.concurrent('escape HTML (conservative)', async () => {
+        const htmlarkdown = new HTMLarkdown()
+        const [htmlInput, expectedMarkdownOutput] = await getTestPair('./escapeHtmlConservative')
+        const outputMarkdown = htmlarkdown.convert(htmlInput)
+        expect(outputMarkdown).toBe(expectedMarkdownOutput)
+    })
 })
