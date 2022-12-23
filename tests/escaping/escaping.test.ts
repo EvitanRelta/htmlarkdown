@@ -57,4 +57,18 @@ describe('Escaping', () => {
         const outputMarkdown = htmlarkdown.convert(htmlInput)
         expect(outputMarkdown).toBe(expectedMarkdownOutput)
     })
+
+    test.concurrent('escape HTML', async () => {
+        const htmlarkdown = new HTMLarkdown({ htmlEscapingMode: '&<>' })
+        const [htmlInput, expectedMarkdownOutput] = await getTestPair('./escapeHtml')
+        const outputMarkdown = htmlarkdown.convert(htmlInput)
+        expect(outputMarkdown).toBe(expectedMarkdownOutput)
+    })
+
+    test.concurrent('escape HTML (full)', async () => {
+        const htmlarkdown = new HTMLarkdown({ htmlEscapingMode: '&<>"\'' })
+        const [htmlInput, expectedMarkdownOutput] = await getTestPair('./escapeHtmlFull')
+        const outputMarkdown = htmlarkdown.convert(htmlInput)
+        expect(outputMarkdown).toBe(expectedMarkdownOutput)
+    })
 })
