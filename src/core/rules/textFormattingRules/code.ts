@@ -9,7 +9,7 @@ export const code: RuleWithHTML = {
     filter: [['code', not(isChildOfPre)]],
     toUseHtmlPredicate: any(obeyForceHtml, hasChildElements, isEmpty),
     replacement: () => ({
-        childOptions: { escapeHtml: false, escapeMarkdown: false },
+        childOptions: { escapeHtml: false, escapeMarkdown: false, escapeNbsp: false },
         value: (innerContent) => `\`${innerContent}\``,
     }),
     htmlReplacement: (element) =>
