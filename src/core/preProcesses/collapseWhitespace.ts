@@ -144,7 +144,7 @@ const getNextTextNode = (node: Node): TextNode | null => {
  * Collapses whitespaces in text-nodes in all elements except those defined in
  * `HTMLarkdownOptions.elementsNoWhitespaceCollapse`
  *
- * _**Warning:** This mutates the original 'container' element._
+ * _**Warning:** This mutates the 'container' element parameter._
  */
 export const collapseWhitespace: PreProcess = (container, options) => {
     if (options.elementsNoWhitespaceCollapse === 'all') return container

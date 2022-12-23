@@ -16,7 +16,7 @@ const isNotPre = (element: Element) => element.tagName !== 'PRE'
  *
  * Controlled by `HTMLarkdownOptions.addTrailingLinebreak`.
  *
- * _**Warning:** This mutates the original 'container' element._
+ * _**Warning:** This mutates the 'container' element parameter._
  */
 export const addTrailingLinebreaks: PreProcess = (container, options) => {
     if (!options.addTrailingLinebreak) return container

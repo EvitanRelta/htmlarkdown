@@ -11,7 +11,7 @@ import { noopTags } from '../rules/miscRules/noop'
  * <b><i></i></b>
  * ```
  *
- * _**Warning:** This mutates the original 'container' element._
+ * _**Warning:** This mutates the 'container' element parameter._
  */
 export const removeEmptyElements: PreProcess = (container) => {
     const removeElement = (element: Element) => element.remove()
