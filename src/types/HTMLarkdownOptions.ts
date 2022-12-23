@@ -138,10 +138,9 @@ export interface HTMLarkdownOptions {
      * ````
      *
      * - `remove` – removes it from the input HTML
-     * - `add` – adds it to output markdown (in the case where the codeblock is
-     * converted to HTML-syntax)
-     * - `both` – adds and removes
-     * - `none` – uses the inner-text of the `<pre><code>` element as-is
+     * - `add` – adds it to output markdown. _(in the case where the codeblock is converted to HTML-syntax)_
+     * - `both` – adds and removes.
+     * - `none` – uses the inner-text of the `<pre><code>` element as-is.
      *
      * ---
      *
@@ -200,4 +199,16 @@ export interface HTMLarkdownOptions {
      * @default 80
      */
     maxPrettyTableWidth: 80
+    /**
+     * The mode to use when escaping HTML-entities.  \
+     * _(escaping to `&amp;`, `&lt;`, etc)_
+     *
+     * - `conservative` - only escapes when the character will cause problems
+     *   when rendered to HTML.  \
+     *   Thus, allowing text like `"A & B"` and `"<1>"` to go unescaped.
+     * - `&<>` - escapes those 3 characters only.
+     * - `&<>"'` - escapes all 5 HTML-entities.
+     * @default "conservative"
+     */
+    htmlEscapingMode: 'conservative' | '&<>' | '&<>"\''
 }

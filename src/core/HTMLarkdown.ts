@@ -143,6 +143,7 @@ export class HTMLarkdown {
             addTrailingLinebreak: false,
             codeblockTrailingLinebreak: 'both',
             maxPrettyTableWidth: 80,
+            htmlEscapingMode: 'conservative',
         }
     }
 
@@ -156,6 +157,8 @@ export class HTMLarkdown {
             isInsideList: false,
             olStartingNum: -1,
             isLooseList: false,
+            escapeHtml: false,
+            escapeMarkdown: true,
         }
     }
 

@@ -45,7 +45,12 @@ export const listItem: Rule = {
         },
     }),
     htmlReplacement: (element, _, parentOptions) => ({
-        childOptions: { forceHtml: true, isInsideBlockElement: true },
+        childOptions: {
+            forceHtml: true,
+            escapeHtml: true,
+            escapeMarkdown: false,
+            isInsideBlockElement: true,
+        },
         value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
     }),
 }

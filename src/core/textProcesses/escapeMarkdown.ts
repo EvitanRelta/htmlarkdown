@@ -68,7 +68,9 @@ const wholeLineEscapings: ReplacementArray = [
     [/^((\\_)+|(\\\*)+)$/g, reduceEscapingCallback], // horizontal rules ('-' syntax already escaped above in 'wholeLineEscapings')
 ]
 
-export const escapeMarkdown: TextProcess = (text, textNode) => {
+export const escapeMarkdown: TextProcess = (text, textNode, _, parentOptions) => {
+    if (!parentOptions.escapeMarkdown) return text
+
     let escaped = applyReplacement(anywhereEscapings, text)
     if (isStartOfLine(textNode)) escaped = applyReplacement(startOfLineEscapings, escaped)
     if (isWholeLine(textNode)) escaped = applyReplacement(wholeLineEscapings, escaped)
