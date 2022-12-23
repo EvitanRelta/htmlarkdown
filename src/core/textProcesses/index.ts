@@ -1,8 +1,8 @@
 import type { TextProcess } from '../../types'
+import { addListItemTrailingNewline } from './addListItemTrailingNewline'
 import { escapeHtml } from './escapeHtml'
 import { escapeMarkdown } from './escapeMarkdown'
 import { escapeSpecialSpaces } from './escapeSpecialSpaces'
-import { listItemTrailingNewline } from './listItemTrailingNewline'
 import { prettifySpaces } from './prettifySpaces'
 
 /**
@@ -20,5 +20,5 @@ export const textProcesses: TextProcess[] = [
     escapeHtml,
     escapeSpecialSpaces,
     prettifySpaces,
-    listItemTrailingNewline,
+    addListItemTrailingNewline,
 ]
