@@ -13,7 +13,12 @@ export const tableCell: RuleWithHTML = {
         value: (innerContent) => innerContent + ' | ',
     }),
     htmlReplacement: (element, _, parentOptions) => ({
-        childOptions: { forceHtml: true, isInsideBlockElement: true },
+        childOptions: {
+            forceHtml: true,
+            escapeHtml: true,
+            escapeMarkdown: false,
+            isInsideBlockElement: true,
+        },
         value: toSanitisedHtmlHOF(
             element,
             ['colspan', 'rowspan', 'scope', 'align', 'valign', 'width', 'height'],

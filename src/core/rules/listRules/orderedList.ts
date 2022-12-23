@@ -58,6 +58,8 @@ export const orderedList: Rule = {
         childOptions: {
             ...getChildOptions(element),
             forceHtml: true,
+            escapeHtml: true,
+            escapeMarkdown: false,
         },
         value: toSanitisedHtmlHOF(
             element,

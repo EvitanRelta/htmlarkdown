@@ -6,7 +6,10 @@ import { isChildOfPre } from '../blockRules/codeblockInner'
 export const code: RuleWithHTML = {
     filter: [['code', not(isChildOfPre)]],
     toUseHtmlPredicate: any(obeyForceHtml, hasChildElements, isEmpty),
-    replacement: (element) => `\`${element.textContent!}\``,
+    replacement: () => ({
+        childOptions: { escapeHtml: false, escapeMarkdown: false },
+        value: (innerContent) => `\`${innerContent}\``,
+    }),
     htmlReplacement: (element) =>
         element.hasAttribute('forcehtml')
             ? {

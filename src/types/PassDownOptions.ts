@@ -77,4 +77,30 @@ export interface PassDownOptions {
      * ```
      */
     isLooseList: boolean
+    /**
+     * Whether to escape markdown patterns in the text.  \
+     * For example:
+     * ```html
+     * <p># _Not header nor italised_</p>
+     * ```
+     * Is escaped to this markdwon:
+     * ```md
+     * \# \_Not header nor italised\_
+     * ```
+     */
+    escapeMarkdown: boolean
+    /**
+     * Whether to escape HTML-entities _(eg. `&`, `<`, etc.)_ in the text.  \
+     * For example:
+     * ```html
+     * <p forcehtml>&amp;amp;</p>
+     * ```
+     * Is escaped to this markdwon:
+     * ```html
+     * <p>&amp;amp;</p>
+     * ```
+     * _**Note:** The characters that are escaped is controlled by the
+     * `HTMLarkdownOptions.htmlEscapingMode` option._
+     */
+    escapeHtml: boolean
 }

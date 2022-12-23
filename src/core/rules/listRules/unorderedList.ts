@@ -42,6 +42,8 @@ export const unorderedList: Rule = {
         childOptions: {
             ...getChildOptions(element),
             forceHtml: true,
+            escapeHtml: true,
+            escapeMarkdown: false,
         },
         value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
     }),

@@ -69,8 +69,7 @@ const wholeLineEscapings: ReplacementArray = [
 ]
 
 export const escapeMarkdown: TextProcess = (text, textNode, _, parentOptions) => {
-    // Escaping in HTML is handled by 'escapeHtml' text-process.
-    if (parentOptions.forceHtml) return text
+    if (!parentOptions.escapeMarkdown) return text
 
     let escaped = applyReplacement(anywhereEscapings, text)
     if (isStartOfLine(textNode)) escaped = applyReplacement(startOfLineEscapings, escaped)

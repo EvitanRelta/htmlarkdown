@@ -33,33 +33,43 @@ const hasNonNoopElements = (element: Element) => {
 export const codeblock: RuleWithHTML = {
     filter: ['pre'],
     toUseHtmlPredicate: any(obeyForceHtml, hasNonNoopElements),
-    replacement: (element, options, parentOptions) => {
-        const removeLastNewline = (str: string) => str.replace(/\n$/, '')
-        const innerContent = ['remove', 'both'].includes(options.codeblockTrailingLinebreak)
-            ? removeLastNewline(element.textContent!)
-            : element.textContent!
+    replacement: (element, options, parentOptions) => ({
+        childOptions: {
+            escapeHtml: false,
+            escapeMarkdown: false,
+            escapeWhitespace: false,
+            isInsideBlockElement: true,
+        },
+        value: (innerContent) => {
+            const removeLastNewline = (str: string) => str.replace(/\n$/, '')
 
-        if (innerContent === '') return '```\n```' + getBlockTrailingNewline(parentOptions)
+            if (['remove', 'both'].includes(options.codeblockTrailingLinebreak))
+                innerContent = removeLastNewline(innerContent)
 
-        const language = element.getAttribute('lang') || ''
+            if (innerContent === '') return '```\n```' + getBlockTrailingNewline(parentOptions)
 
-        const allBackticksText = Array.from(element.textContent!.matchAll(/^`{3,}/gm)).map(
-            (x) => x[0]
-        )
-        const longestBacktick = allBackticksText.reduce(
-            (x, acc) => (x.length > acc.length ? x : acc),
-            '``'
-        )
-        const fence = longestBacktick + '`'
-        return {
-            childOptions: { isInsideBlockElement: true },
-            value:
+            const language = element.getAttribute('lang') || ''
+
+            const allBackticksText = Array.from(innerContent.matchAll(/^`{3,}/gm)).map((x) => x[0])
+            const longestBacktick = allBackticksText.reduce(
+                (x, acc) => (x.length > acc.length ? x : acc),
+                '``'
+            )
+            const fence = longestBacktick + '`'
+            return (
                 `${fence}${language}\n${innerContent}\n${fence}` +
-                getBlockTrailingNewline(parentOptions),
-        }
-    },
+                getBlockTrailingNewline(parentOptions)
+            )
+        },
+    }),
     htmlReplacement: (element, options, parentOptions) => ({
-        childOptions: { forceHtml: true, escapeWhitespace: false, isInsideBlockElement: true },
+        childOptions: {
+            forceHtml: true,
+            escapeHtml: true,
+            escapeMarkdown: false,
+            escapeWhitespace: false,
+            isInsideBlockElement: true,
+        },
         value: (innerContent) => {
             const language = element.getAttribute('lang') || ''
             const language_attr = language ? ` lang="${language}"` : ''

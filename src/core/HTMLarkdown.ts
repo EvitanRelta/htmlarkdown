@@ -157,6 +157,8 @@ export class HTMLarkdown {
             isInsideList: false,
             olStartingNum: -1,
             isLooseList: false,
+            escapeHtml: false,
+            escapeMarkdown: true,
         }
     }
 

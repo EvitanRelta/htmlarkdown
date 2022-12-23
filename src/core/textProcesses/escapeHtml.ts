@@ -19,8 +19,7 @@ const fullHtmlEscapings: ReplacementArray = [...htmlEscapings, ['"', '&quot;'], 
 
 /** Escapes characters for HTML _(eg. `&` escapes to `&amp;`, `<` escapes to `&lt;`)_. */
 export const escapeHtml: TextProcess = (text, _, options, parentOptions) => {
-    // Only run when 'parentOptions.forceHtml' is true.
-    if (!parentOptions.forceHtml) return text
+    if (!parentOptions.escapeHtml) return text
 
     switch (options.htmlEscapingMode) {
         case 'conservative':

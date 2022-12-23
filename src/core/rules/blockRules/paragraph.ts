@@ -10,7 +10,12 @@ export const paragraph: RuleWithHTML = {
         value: (innerContent) => (innerContent ? innerContent + '\n\n' : ''),
     }),
     htmlReplacement: (element, _, parentOptions) => ({
-        childOptions: { forceHtml: true, isInsideBlockElement: true },
+        childOptions: {
+            forceHtml: true,
+            escapeHtml: true,
+            escapeMarkdown: false,
+            isInsideBlockElement: true,
+        },
         value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
     }),
 }
