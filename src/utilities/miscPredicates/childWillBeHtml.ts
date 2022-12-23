@@ -39,6 +39,8 @@ const willBeHtml: ToUseHtmlPredicate = (element, options, parentOptions) => {
  * *(if any)*, and returns a `ToUseHtmlPredicate` which returns `true` if any
  * child-elements *(both direct and nested children)* will be in
  * HTML-in-markdown syntax.
+ *
+ * To check only direct children, use `directChildWillBeHtml` instead.
  * @param newChildOptions The current rule's childOptions.  \
  * _(default: `{}`)_
  * @returns A `ToUseHtmlPredicate` that checks if any direct child-elements will
