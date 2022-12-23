@@ -34,6 +34,12 @@ public static void main(String[] args) {}
 ````
 `````
 
+```html
+<div>
+  innerText
+</div>
+```
+
 <pre><code>&lt;tag>
 </code></pre>
 
