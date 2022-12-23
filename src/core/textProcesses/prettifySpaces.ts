@@ -14,7 +14,7 @@ const anywhereEscapings: ReplacementArray = [
     [/; &nbsp;(\S)/g, ';&nbsp; $1'],
 ]
 
-export const escapeWhitespace: TextProcess = (text, textNode, _, parentOptions) => {
+export const prettifySpaces: TextProcess = (text, textNode, _, parentOptions) => {
     if (!parentOptions.escapeWhitespace) return text
 
     let escaped = text
