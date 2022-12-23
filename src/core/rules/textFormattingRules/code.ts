@@ -7,5 +7,11 @@ export const code: RuleWithHTML = {
     filter: [['code', not(isChildOfPre)]],
     toUseHtmlPredicate: any(obeyForceHtml, hasChildElements, isEmpty),
     replacement: (element) => `\`${element.textContent!}\``,
-    htmlReplacement: () => (innerContent) => `<code>${innerContent}</code>`,
+    htmlReplacement: (element) =>
+        element.hasAttribute('forcehtml')
+            ? {
+                  childOptions: { forceHtml: true },
+                  value: (innerContent) => `<code>${innerContent}</code>`,
+              }
+            : (innerContent) => `<code>${innerContent}</code>`,
 }

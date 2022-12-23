@@ -5,5 +5,11 @@ export const italic: RuleWithHTML = {
     filter: ['i', 'em'],
     toUseHtmlPredicate: obeyForceHtml,
     replacement: () => (innerContent) => `*${innerContent}*`,
-    htmlReplacement: () => (innerContent) => `<i>${innerContent}</i>`,
+    htmlReplacement: (element) =>
+        element.hasAttribute('forcehtml')
+            ? {
+                  childOptions: { forceHtml: true },
+                  value: (innerContent) => `<i>${innerContent}</i>`,
+              }
+            : (innerContent) => `<i>${innerContent}</i>`,
 }

@@ -36,13 +36,22 @@ export const link: RuleWithHTML = {
             url = options.urlTransformer(url, element, options, parentOptions)
         return innerContent ? `[${innerContent}](${url})` : ''
     },
-    htmlReplacement: (element, options, parentOptions) => (innerContent) => {
-        if (options.reverseAutolinks.textUrls && isTextAutolink(element)) return innerContent
-        if (options.reverseAutolinks.images && isImageAutolink(element)) return innerContent
+    htmlReplacement: (element, options, parentOptions) => {
+        const value = (innerContent: string) => {
+            if (options.reverseAutolinks.textUrls && isTextAutolink(element)) return innerContent
+            if (options.reverseAutolinks.images && isImageAutolink(element)) return innerContent
 
-        let url = element.getAttribute('href') || ''
-        if (options.urlTransformer !== null)
-            url = options.urlTransformer(url, element, options, parentOptions)
-        return `<a href="${url}">${innerContent}</a>`
+            let url = element.getAttribute('href') || ''
+            if (options.urlTransformer !== null)
+                url = options.urlTransformer(url, element, options, parentOptions)
+            return `<a href="${url}">${innerContent}</a>`
+        }
+
+        return element.hasAttribute('forcehtml')
+            ? {
+                  childOptions: { forceHtml: true },
+                  value,
+              }
+            : value
     },
 }
