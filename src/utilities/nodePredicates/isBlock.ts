@@ -7,4 +7,9 @@ export const blockTagNames = [
     'TABLE', 'TBODY', 'TD', 'TFOOT', 'TH', 'THEAD', 'TR', 'UL'
 ]
 
+/**
+ * Checks if a node is a block-element.
+ * @param node Node to check.
+ * @returns Whether `node` is a block-element.
+ */
 export const isBlock = (node: Node) => blockTagNames.includes(node.nodeName)

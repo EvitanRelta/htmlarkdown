@@ -98,6 +98,18 @@ const isWholeLine = (textNode: TextNode) =>
     textNode.nextSibling === null &&
     isBlock(textNode.parentElement!)
 
+/**
+ * Escape markdown patterns in the text.  \
+ * For example:
+ * ```html
+ * <p># _Not header nor italised_</p>
+ * ```
+ * Is escaped to this markdwon:
+ * ```md
+ * \# \_Not header nor italised\_
+ * ```
+ * Controlled by the `PassDownOptions.escapeMarkdown` option.
+ */
 export const escapeMarkdown: TextProcess = (text, textNode, _, parentOptions) => {
     if (!parentOptions.escapeMarkdown) return text
 

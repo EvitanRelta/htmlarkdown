@@ -17,7 +17,12 @@ const htmlEscapings: ReplacementArray = [
 /** The characters that SHOULD to be escaped for HTML. _(includes " and ')_ */
 const fullHtmlEscapings: ReplacementArray = [...htmlEscapings, ['"', '&quot;'], ["'", '&#39;']]
 
-/** Escapes characters for HTML _(eg. `&` escapes to `&amp;`, `<` escapes to `&lt;`)_. */
+/**
+ * Escape HTML-entities _(eg. `&`, `<`, etc.)_ in the text.  \
+ * _(eg. `&` escapes to `&amp;`, `<` escapes to `&lt;`)_
+ *
+ * Controlled by the `PassDownOptions.escapeHtml` option.
+ */
 export const escapeHtml: TextProcess = (text, _, options, parentOptions) => {
     if (!parentOptions.escapeHtml) return text
 
