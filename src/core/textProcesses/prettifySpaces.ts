@@ -14,6 +14,27 @@ const anywhereEscapings: ReplacementArray = [
     [/; &nbsp;(\S)/g, ';&nbsp; $1'],
 ]
 
+/**
+ * Minimise the number of `&nbsp;` escapings in consecutive space / `&nbsp`  \
+ * characters, to them more readable.  \
+ * For example:
+ * ```html
+ * <p>LONG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPACE</p>
+ * ```
+ *
+ * Will be converted to this markdown:
+ * ```html
+ * LONG &nbsp; &nbsp; &nbsp; SPACE
+ * ```
+ *
+ * Notice that the number of `&nbsp;` is minimised, and they're not adjacent   \
+ * to any text for maximum readability.  \
+ * _(in this case, the text are "LONG" and "SPACE")_
+ *
+ * _**Note:** REQUIRES non-breaking spaces _(ie. `\u00A0`)_ to be first
+ * converted to space `" "`,  \
+ * which is currently done by the `escapeSpecialSpaces` text-process._
+ */
 export const prettifySpaces: TextProcess = (text, textNode, _, parentOptions) => {
     if (!parentOptions.escapeNbsp) return text
 
