@@ -12,7 +12,7 @@ export interface PassDownOptions {
      *
      * Mainly to prevent codeblocks from escaping spaces.
      */
-    escapeWhitespace: boolean
+    escapeNbsp: boolean
     /**
      * The container element that's being converted.
      *

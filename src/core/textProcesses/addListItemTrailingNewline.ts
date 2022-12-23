@@ -26,7 +26,7 @@ const isList = (element: Element) => ['UL', 'OL'].includes(element.tagName)
  * ```
  * @see {@link https://github.com/EvitanRelta/htmlarkdown/issues/18}
  */
-export const listItemTrailingNewline: TextProcess = (text, textNode, _, parentOptions) => {
+export const addListItemTrailingNewline: TextProcess = (text, textNode, _, parentOptions) => {
     if (isListItem(textNode.parentElement!) && textNode.nextElementSibling) {
         const isTightList = !parentOptions.isLooseList
         const suffix =
