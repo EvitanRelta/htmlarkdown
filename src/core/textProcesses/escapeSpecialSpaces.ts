@@ -1,7 +1,7 @@
 import type { TextProcess } from '../../types'
 import { applyReplacement, ReplacementArray } from './helpers/applyReplacement'
 
-const spaceHtmlEscapings: ReplacementArray = [
+const specialSpaceEscapings: ReplacementArray = [
     ['\u2003', '&emsp;'],
     ['\u2002', '&ensp;'],
     ['\u2009', '&thinsp;'],
@@ -13,5 +13,5 @@ const spaceHtmlEscapings: ReplacementArray = [
 ]
 
 export const escapeSpecialSpaces: TextProcess = (text) => {
-    return applyReplacement(spaceHtmlEscapings, text)
+    return applyReplacement(specialSpaceEscapings, text)
 }
