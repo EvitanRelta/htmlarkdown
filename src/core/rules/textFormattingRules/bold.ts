@@ -5,5 +5,11 @@ export const bold: RuleWithHTML = {
     filter: ['b', 'strong'],
     toUseHtmlPredicate: obeyForceHtml,
     replacement: () => (innerContent) => `**${innerContent}**`,
-    htmlReplacement: () => (innerContent) => `<b>${innerContent}</b>`,
+    htmlReplacement: (element) =>
+        element.hasAttribute('forcehtml')
+            ? {
+                  childOptions: { forceHtml: true },
+                  value: (innerContent) => `<b>${innerContent}</b>`,
+              }
+            : (innerContent) => `<b>${innerContent}</b>`,
 }

@@ -5,5 +5,11 @@ export const strikethrough: RuleWithHTML = {
     filter: ['s', 'del'],
     toUseHtmlPredicate: obeyForceHtml,
     replacement: () => (innerContent) => `~~${innerContent}~~`,
-    htmlReplacement: () => (innerContent) => `<s>${innerContent}</s>`,
+    htmlReplacement: (element) =>
+        element.hasAttribute('forcehtml')
+            ? {
+                  childOptions: { forceHtml: true },
+                  value: (innerContent) => `<s>${innerContent}</s>`,
+              }
+            : (innerContent) => `<s>${innerContent}</s>`,
 }
