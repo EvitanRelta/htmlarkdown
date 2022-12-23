@@ -37,7 +37,7 @@ export const codeblock: RuleWithHTML = {
         childOptions: {
             escapeHtml: false,
             escapeMarkdown: false,
-            escapeWhitespace: false,
+            escapeNbsp: false,
             isInsideBlockElement: true,
         },
         value: (innerContent) => {
@@ -67,7 +67,7 @@ export const codeblock: RuleWithHTML = {
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
-            escapeWhitespace: false,
+            escapeNbsp: false,
             isInsideBlockElement: true,
         },
         value: (innerContent) => {

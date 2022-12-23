@@ -15,7 +15,7 @@ const anywhereEscapings: ReplacementArray = [
 ]
 
 export const prettifySpaces: TextProcess = (text, textNode, _, parentOptions) => {
-    if (!parentOptions.escapeWhitespace) return text
+    if (!parentOptions.escapeNbsp) return text
 
     let escaped = text
     if (textNode.previousSibling === null) escaped = applyReplacement(startOfLineEscapings, escaped)

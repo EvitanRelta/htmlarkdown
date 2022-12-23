@@ -150,7 +150,7 @@ export class HTMLarkdown {
     private static _getDefaultParentOptions(containerElement: Element): PassDownOptions {
         return {
             forceHtml: false,
-            escapeWhitespace: true,
+            escapeNbsp: true,
             containerElement,
             isInsideBlockElement: false,
             isOrderedList: false,
