@@ -7,8 +7,8 @@ const specialSpaceEscapings: ReplacementArray = [
     ['\u2009', '&thinsp;'],
     ['\u200A', '&hairsp;'],
 
-    // Converts non-breaking space to space for escaping later in `escapeWhitespace`.
-    // `escapeWhitespace` will escape leading/trailer/repeated spaces into "&nbsp;".
+    // Converts non-breaking space to space for to be handled later in
+    // `escapeWhitespace`, which will escape them into "&nbsp;".
     ['\u00A0', ' '],
 ]
 
