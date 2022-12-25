@@ -29,6 +29,8 @@
   <h1>Item 2 (heading)</h1>
 - <p>Item 3</p>
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
 - <p>Item 2 (paragraph 1)</p>
   <p>Item 2 (paragraph 2)</p>
@@ -73,6 +75,8 @@
   - <p>Sub-item 3</p>
 - Item 2
 
+<!-- LIST_SEPARATOR -->
+
 - Item 1
   - Sub-item 1
   - <p>Sub-item 2 (paragraph 1)</p>
@@ -110,6 +114,8 @@
    </code></pre>
    <h1>Item 2 (heading)</h1>
 3. <p>Item 3</p>
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
 2. <p>Item 2 (paragraph 1)</p>
@@ -154,6 +160,8 @@
       <h1>Sub-item 2 (heading)</h1>
    3. <p>Sub-item 3</p>
 2. Item 2
+
+<!-- LIST_SEPARATOR -->
 
 1. Item 1
    1. Sub-item 1
