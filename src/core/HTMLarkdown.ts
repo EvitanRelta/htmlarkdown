@@ -111,10 +111,13 @@ export class HTMLarkdown {
     }
 
     // Assumes no text nodes in childNodes
-    convert(container: Element | string): string {
+    convert(container: Element | string, hasContainer = false): string {
         let containerElement: Element
-        if (typeof container === 'string') containerElement = stringToDom(container)
-        else containerElement = container.cloneNode(true) as Element
+        if (typeof container === 'object') containerElement = container.cloneNode(true) as Element
+        else
+            containerElement = hasContainer
+                ? stringToDom(container).firstElementChild!
+                : stringToDom(container)
         containerElement = this._preProcess(containerElement)
 
         const childElements = Array.from(containerElement.children)
