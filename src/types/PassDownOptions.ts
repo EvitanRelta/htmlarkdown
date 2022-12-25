@@ -95,7 +95,7 @@ export interface PassDownOptions {
      * ```html
      * <p># _Not header nor italised_</p>
      * ```
-     * Is escaped to this markdwon:
+     * Is escaped to this markdown:
      * ```md
      * \# \_Not header nor italised\_
      * ```
@@ -107,7 +107,7 @@ export interface PassDownOptions {
      * ```html
      * <p forcehtml>&amp;amp;</p>
      * ```
-     * Is escaped to this markdwon:
+     * Is escaped to this markdown:
      * ```html
      * <p>&amp;amp;</p>
      * ```
@@ -127,7 +127,7 @@ export interface PassDownOptions {
      * </blockquote>
      * ```
      *
-     * Is escaped to this markdwon:
+     * Is escaped to this markdown:
      * ```html
      * <blockquote>
      * <pre><code># Heading-1 markdown

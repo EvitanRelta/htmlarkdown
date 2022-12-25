@@ -104,7 +104,7 @@ const isWholeLine = (textNode: TextNode) =>
  * ```html
  * <p># _Not header nor italised_</p>
  * ```
- * Is escaped to this markdwon:
+ * Is escaped to this markdown:
  * ```md
  * \# \_Not header nor italised\_
  * ```

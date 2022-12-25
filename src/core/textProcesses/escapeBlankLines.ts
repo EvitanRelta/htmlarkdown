@@ -14,7 +14,7 @@ const ESCAPED_BLANK_LINE = '<!-- BLANK_LINE -->'
  * </blockquote>
  * ```
  *
- * Is escaped to this markdwon:
+ * Is escaped to this markdown:
  * ```html
  * <blockquote>
  * <pre><code># Heading-1 markdown
