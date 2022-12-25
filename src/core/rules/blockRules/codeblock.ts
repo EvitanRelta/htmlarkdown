@@ -46,9 +46,10 @@ export const codeblock: RuleWithHTML = {
             if (['remove', 'both'].includes(options.codeblockTrailingLinebreak))
                 innerContent = removeLastNewline(innerContent)
 
-            if (innerContent === '') return '```\n```' + getBlockTrailingNewline(parentOptions)
-
             const language = element.getAttribute('lang') || ''
+
+            if (innerContent === '')
+                return '```' + language + '\n```' + getBlockTrailingNewline(parentOptions)
 
             const allBackticksText = Array.from(innerContent.matchAll(/^`{3,}/gm)).map((x) => x[0])
             const longestBacktick = allBackticksText.reduce(
