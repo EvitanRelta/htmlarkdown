@@ -202,7 +202,7 @@ export interface HTMLarkdownOptions {
      * ```
      * @default 80
      */
-    maxPrettyTableWidth: 80
+    maxPrettyTableWidth: number
     /**
      * The mode to use when escaping HTML-entities.  \
      * _(escaping to `&amp;`, `&lt;`, etc)_
