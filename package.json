@@ -6,6 +6,11 @@
     "version": "0.1.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": [
+        "src",
+        "dist",
+        "tsconfig.*"
+    ],
     "scripts": {
         "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
         "build-publish": "npm run build && npm publish",
