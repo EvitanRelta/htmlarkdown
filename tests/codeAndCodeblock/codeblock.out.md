@@ -108,3 +108,43 @@ qwe
 qwe
 </code></pre>
 </h1>
+
+<pre><code># Heading-1 markdown
+
+## Heading-2 markdown __ITALIC__
+
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+
+><pre><code># Heading-1 markdown
+> 
+> ## Heading-2 markdown __ITALIC__
+> 
+> &lt;h1 align="center">
+>     Centered-heading
+> &lt;/h1>
+> </code></pre>
+
+<blockquote>
+<pre><code># Heading-1 markdown
+<!-- BLANK_LINE -->
+## Heading-2 markdown __ITALIC__
+<!-- BLANK_LINE -->
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+</blockquote>
+
+<h1>
+<pre><code># Heading-1 markdown
+<!-- BLANK_LINE -->
+## Heading-2 markdown __ITALIC__
+<!-- BLANK_LINE -->
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+</h1>

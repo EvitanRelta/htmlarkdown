@@ -159,6 +159,7 @@ export class HTMLarkdown {
             isLooseList: false,
             escapeHtml: false,
             escapeMarkdown: true,
+            escapeBlankLines: false,
         }
     }
 
