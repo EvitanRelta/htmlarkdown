@@ -1,7 +1,14 @@
 {
     "name": "htmlarkdown",
+    "author": "EvitanRelta",
+    "description": "HTML-to-Markdown converter that can output HTML-syntax when required. (eg. when there's \"align\" attribute in <p>, or \"width\" in <img>)",
+    "repository": "github:EvitanRelta/htmlarkdown",
     "version": "0.1.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
+        "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+        "build-publish": "npm run build && npm publish",
         "test": "jest --silent",
         "test-watch": "jest --watch",
         "pretty": "prettier --write ."
