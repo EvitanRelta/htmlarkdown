@@ -115,4 +115,28 @@ export interface PassDownOptions {
      * `HTMLarkdownOptions.htmlEscapingMode` option._
      */
     escapeHtml: boolean
+    /**
+     * Whether to escape blank-lines _(ie. `\n\n`)_ in the text.  \
+     * For example, this HTML:
+     * ```html
+     * <blockquote forcehtml>
+     * <pre><code># Heading-1 markdown
+     *
+     * ## Heading-2 markdown
+     * </code></pre>
+     * </blockquote>
+     * ```
+     *
+     * Is escaped to this markdwon:
+     * ```html
+     * <blockquote>
+     * <pre><code># Heading-1 markdown
+     * <!-- BLANK_LINE -->
+     * ## Heading-2 markdown
+     * </code></pre>
+     * </blockquote>
+     * ```
+     * @see {@link https://github.com/EvitanRelta/htmlarkdown/issues/33}
+     */
+    escapeBlankLines: boolean
 }

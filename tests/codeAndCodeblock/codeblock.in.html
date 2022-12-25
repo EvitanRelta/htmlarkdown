@@ -131,3 +131,50 @@ qwe
 qwe
 </code></pre>
 </h1>
+
+
+<!-- Check if blank-lines are escaped (see https://github.com/EvitanRelta/htmlarkdown/issues/33) -->
+<!-- Should not be escaped -->
+<pre forcehtml><code># Heading-1 markdown
+
+## Heading-2 markdown __ITALIC__
+
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+
+<blockquote>
+<pre forcehtml><code># Heading-1 markdown
+
+## Heading-2 markdown __ITALIC__
+
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+</blockquote>
+
+
+<!-- Should be escaped -->
+<blockquote forcehtml>
+<pre><code># Heading-1 markdown
+
+## Heading-2 markdown __ITALIC__
+
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+</blockquote>
+
+<h1>
+<pre><code># Heading-1 markdown
+
+## Heading-2 markdown __ITALIC__
+
+&lt;h1 align="center">
+    Centered-heading
+&lt;/h1>
+</code></pre>
+</h1>

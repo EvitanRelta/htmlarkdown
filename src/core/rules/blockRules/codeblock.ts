@@ -70,6 +70,9 @@ export const codeblock: RuleWithHTML = {
             escapeMarkdown: false,
             escapeNbsp: false,
             isInsideBlockElement: true,
+
+            // This is to fix: https://github.com/EvitanRelta/htmlarkdown/issues/33
+            escapeBlankLines: parentOptions.isInsideBlockElement && parentOptions.forceHtml,
         },
         value: (innerContent) => {
             const language = element.getAttribute('lang') || ''
