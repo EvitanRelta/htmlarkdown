@@ -96,3 +96,15 @@ public static void main(String[] args) {}
 &lt;/div>
 <b>bolded</b>
 </code></pre>
+
+<h1>
+<pre><code>asd
+qwe
+</code></pre>
+</h1>
+
+<h1>
+<pre lang="md"><code>asd
+qwe
+</code></pre>
+</h1>
