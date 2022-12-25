@@ -22,12 +22,79 @@ import { preProcesses } from './preProcesses'
 import { rules } from './rules'
 import { textProcesses } from './textProcesses'
 
+/**
+ * A HTML-to-markdown converter class.
+ *
+ * It can output HTML-syntax when required.  \
+ * _(eg. when there's `align` attribute in `<p>`, or `width` in `<img>`,  \
+ * both of which cannot be expressed in markdown-syntax)_
+ *
+ * @example
+ * // Convert an element.
+ * const htmlarkdown = new HTMLarkdown()
+ * const container = document.getElementById('container')
+ * console.log(container.outerHTML)
+ * // => '<div id="container"><h1>Heading</h1></div>'
+ * htmlarkdown.convert(container)
+ * // => '# Heading'
+ *
+ * @example
+ * // Convert a HTML in string format.
+ * const htmlarkdown = new HTMLarkdown()
+ * const htmlString = `
+ * <h1>Heading</h1>
+ * <p>Paragraph</p>
+ * `
+ * const htmlStrWithContainer = `<div>${htmlString}</div>`
+ * htmlarkdown.convert(htmlString)
+ * htmlarkdown.convert(htmlStrWithContainer, true)
+ * // Both output => '# Heading\n\nParagraph'
+ *
+ * @example
+ * // Configuring options.
+ * const htmlarkdown = new HTMLarkdown({
+ *     htmlEscapingMode: '&<>',
+ *     maxPrettyTableWidth: Number.POSITIVE_INFINITY,
+ *     addTrailingLinebreak: true
+ * })
+ * htmlarkdown.options.maxPrettyTableWidth = -1
+ *
+ * @example
+ * // Adding plugins.
+ * const htmlarkdown = new HTMLarkdown({
+ *     plugins: [myPlugin1, myPlugin2],
+ *     preloadPlugins: [myPlugin3, myPlugin4]
+ * })
+ * htmlarkdown.loadPlugins([myPlugin5])
+ *
+ * @example
+ * // Configuring rules/processes.
+ * // Overwriting default rules/processes (does NOT include the defaults).
+ * const htmlarkdown = new HTMLarkdown({
+ *     preProcesses: [myPreProcess1, myPreProcess2],
+ *     rules: [myRule1, myRule2],
+ *     textProcesses: [myTextProcess1, myTextProcess2],
+ *     postProcesses: [myPostProcess1, myPostProcess2]
+ * })
+ *
+ * // Adding on to default rules/processes (includes the defaults).
+ * const htmlarkdown = new HTMLarkdown()
+ * htmlarkdown.addPreProcess(myPreProcess)
+ * htmlarkdown.addRule(myRule)
+ * htmlarkdown.addTextProcess(myTextProcess)
+ * htmlarkdown.addPostProcess(myPostProcess)
+ */
 export class HTMLarkdown {
+    /** The default rules to use. */
     static readonly defaultRules: readonly Rule[] = rules
+    /** The default pre-processes to use. */
     static readonly defaultPreProcesses: readonly PreProcess[] = preProcesses
+    /** The default text-processes to use. */
     static readonly defaultTextProcesses: readonly TextProcess[] = textProcesses
+    /** The default post-processes to use. */
     static readonly defaultPostProcesses: readonly PostProcess[] = postProcesses
 
+    /** The options that defines how `this.convert` converts HTML to markdown. */
     options: HTMLarkdownOptions
 
     constructor(options?: PartialDeep<HTMLarkdownOptions>) {
@@ -37,6 +104,15 @@ export class HTMLarkdown {
         this.loadPlugins(this.options.plugins)
     }
 
+    /**
+     * Finds an element's associated rule, based solely on the `options` param
+     * provided.
+     *
+     * The rules to search from is found in `options.rules`.
+     * @param element The element to find the rule for.
+     * @param options The options to find the rules from.
+     * @returns The rule associated with `element`, or `null` if no such rule is found.
+     */
     static findRule(element: Element, options: HTMLarkdownOptions): Rule | null {
         const elementTagName = element.tagName.toLowerCase() as TagName
 
@@ -54,6 +130,13 @@ export class HTMLarkdown {
         return options.rules.slice().reverse().find(isMatchRule) ?? null
     }
 
+    /**
+     * Load plugins, which mutates this `HTMLarkdown` instance.
+     *
+     * The plugins are loaded starting from the front of the `plugins` array,
+     * to the back.
+     * @param plugins The plugins to load.
+     */
     loadPlugins(plugins: Plugin[]): void {
         plugins.forEach((plugin) => plugin(this))
     }
@@ -175,6 +258,7 @@ export class HTMLarkdown {
         return this._postProcess(rawMarkdown)
     }
 
+    /** Gets the default `HTMLarkdownOptions`. */
     private static _getDefaultHTMLarkdownOptions(): HTMLarkdownOptions {
         return {
             preProcesses: HTMLarkdown.defaultPreProcesses.slice(),
@@ -196,6 +280,7 @@ export class HTMLarkdown {
         }
     }
 
+    /** Gets the default parent-options, which is of type `PassDownOptions`. */
     private static _getDefaultParentOptions(containerElement: Element): PassDownOptions {
         return {
             forceHtml: false,
@@ -212,6 +297,11 @@ export class HTMLarkdown {
         }
     }
 
+    /**
+     * Runs all the pre-processes in `this.options.preProcesses` on `container`.
+     * @param container The container-element to run the pre-processes on.
+     * @returns The pre-processed container-element.
+     */
     private _preProcess(container: Element): Element {
         return this.options.preProcesses.reduce(
             (container, process) => process(container, this.options),
@@ -219,6 +309,14 @@ export class HTMLarkdown {
         )
     }
 
+    /**
+     * Runs all the text-processes in `this.options.textProcesses` on a
+     * text-node's text.
+     * @param text The text content of the text-node.
+     * @param textNode The text-node.
+     * @param parentOptions The options passed down from the text-node's parents's rule.
+     * @returns The processed text.
+     */
     private _processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
         return this.options.textProcesses.reduce(
             (text, process) => process(text, textNode, this.options, parentOptions),
@@ -226,6 +324,12 @@ export class HTMLarkdown {
         )
     }
 
+    /**
+     * Runs all the post-processes in `this.options.postProcesses` on the
+     * markdown string generated by the rules and text-processes.
+     * @param rawMarkdown The markdown string generated by the rules and text-processes.
+     * @returns The post-processed markdown string.
+     */
     private _postProcess(rawMarkdown: string): string {
         return this.options.postProcesses.reduce(
             (rawMarkdown, process) => process(rawMarkdown, this.options),
@@ -233,6 +337,16 @@ export class HTMLarkdown {
         )
     }
 
+    /**
+     * Recursively converts a node _(either a text-node or element)_ into
+     * markdown.
+     *
+     * Elements are converted by rules, and text-nodes are converted by
+     * text-processes.
+     * @param node The node to convert.
+     * @param parentOptions The options passed down from the node's parents's rule.
+     * @returns The raw markdown generated by the rules and text-processes.
+     */
     private _convert(node: Node, parentOptions: PassDownOptions): string {
         if (isTextNode(node)) return this._processText(node.nodeValue, node, parentOptions)
         if (!isElement(node)) return ''
