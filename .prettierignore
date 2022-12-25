@@ -1,3 +1,4 @@
+# ========== From .gitignore ==========
 # dependencies
 /node_modules
 /.pnp
@@ -5,9 +6,6 @@
 
 # testing
 /coverage
-/tests/**/*.in.*
-/tests/**/*.out.*
-/tests/**/*.inout.*
 
 # production
 /build
@@ -27,5 +25,10 @@ yarn-error.log*
 
 *.temp.*
 /.vscode
+
+# ===== Prettier-specific ignores =====
+/tests/**/*.in.*
+/tests/**/*.out.*
+/tests/**/*.inout.*
 
 *.md
