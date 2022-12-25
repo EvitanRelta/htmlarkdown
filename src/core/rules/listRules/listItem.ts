@@ -10,8 +10,8 @@ import {
 import { getBlockTrailingNewline } from '../helpers'
 
 /** Indents all lines except the first. */
-const indentAllExceptFirstLine = (str: string, indentSize: number) =>
-    indent(str, indentSize).replace(new RegExp(`^ {${indentSize}}`), '')
+const indentAllExceptFirstLine = (str: string, indentSize: number, indentHtmlCodeblocks = false) =>
+    indent(str, indentSize, indentHtmlCodeblocks).replace(new RegExp(`^ {${indentSize}}`), '')
 
 export const listItem: Rule = {
     filter: ['li'],
@@ -34,13 +34,13 @@ export const listItem: Rule = {
             const trailingNewline = getBlockTrailingNewline(parentOptions)
 
             if (!parentOptions.isOrderedList)
-                return `- ${indentAllExceptFirstLine(trimmedContent, 2)}` + trailingNewline
+                return `- ${indentAllExceptFirstLine(trimmedContent, 2, true)}` + trailingNewline
 
             const childIndex = Array.from(element.parentElement!.children).indexOf(element)
             const prefix = String(parentOptions.olStartingNum + childIndex)
             const indentSize = prefix.length + 2
             return (
-                `${prefix}. ${indentAllExceptFirstLine(trimmedContent, indentSize)}` +
+                `${prefix}. ${indentAllExceptFirstLine(trimmedContent, indentSize, true)}` +
                 trailingNewline
             )
         },
