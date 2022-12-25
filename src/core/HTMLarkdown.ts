@@ -22,6 +22,68 @@ import { preProcesses } from './preProcesses'
 import { rules } from './rules'
 import { textProcesses } from './textProcesses'
 
+/**
+ * A HTML-to-markdown converter class.
+ *
+ * It can output HTML-syntax when required.  \
+ * _(eg. when there's `align` attribute in `<p>`, or `width` in `<img>`,  \
+ * both of which cannot be expressed in markdown-syntax)_
+ *
+ * @example
+ * // Convert an element.
+ * const htmlarkdown = new HTMLarkdown()
+ * const container = document.getElementById('container')
+ * console.log(container.outerHTML)
+ * // => '<div id="container"><h1>Heading</h1></div>'
+ * htmlarkdown.convert(container)
+ * // => '# Heading'
+ *
+ * @example
+ * // Convert a HTML in string format.
+ * const htmlarkdown = new HTMLarkdown()
+ * const htmlString = `
+ * <h1>Heading</h1>
+ * <p>Paragraph</p>
+ * `
+ * const htmlStrWithContainer = `<div>${htmlString}</div>`
+ * htmlarkdown.convert(htmlString)
+ * htmlarkdown.convert(htmlStrWithContainer, true)
+ * // Both output => '# Heading\n\nParagraph'
+ *
+ * @example
+ * // Configuring options.
+ * const htmlarkdown = new HTMLarkdown({
+ *     htmlEscapingMode: '&<>',
+ *     maxPrettyTableWidth: Number.POSITIVE_INFINITY,
+ *     addTrailingLinebreak: true
+ * })
+ * htmlarkdown.options.maxPrettyTableWidth = -1
+ *
+ * @example
+ * // Adding plugins.
+ * const htmlarkdown = new HTMLarkdown({
+ *     plugins: [myPlugin1, myPlugin2],
+ *     preloadPlugins: [myPlugin3, myPlugin4]
+ * })
+ * htmlarkdown.loadPlugins([myPlugin5])
+ *
+ * @example
+ * // Configuring rules/processes.
+ * // Overwriting default rules/processes (does NOT include the defaults).
+ * const htmlarkdown = new HTMLarkdown({
+ *     preProcesses: [myPreProcess1, myPreProcess2],
+ *     rules: [myRule1, myRule2],
+ *     textProcesses: [myTextProcess1, myTextProcess2],
+ *     postProcesses: [myPostProcess1, myPostProcess2]
+ * })
+ *
+ * // Adding on to default rules/processes (includes the defaults).
+ * const htmlarkdown = new HTMLarkdown()
+ * htmlarkdown.addPreProcess(myPreProcess)
+ * htmlarkdown.addRule(myRule)
+ * htmlarkdown.addTextProcess(myTextProcess)
+ * htmlarkdown.addPostProcess(myPostProcess)
+ */
 export class HTMLarkdown {
     /** The default rules to use. */
     static readonly defaultRules: readonly Rule[] = rules
