@@ -6,7 +6,7 @@ import { unindent } from './unindent'
  * @param indentSize The number of spaces to indent by.
  * @returns The indented string.
  */
-const _indent = (str: string, indentSize = 2) => str.replaceAll(/^/gm, ' '.repeat(indentSize))
+const indent = (str: string, indentSize = 2) => str.replaceAll(/^/gm, ' '.repeat(indentSize))
 
 /**
  * Undents any HTML-codeblocks that's inside a string.
@@ -51,8 +51,12 @@ const unindentHtmlCodeblocks = (str: string, unindentSize = 2) =>
  * @returns The indented string.
  * @see The context section of {@link https://github.com/EvitanRelta/htmlarkdown/issues/26}.
  */
-export const indent = (str: string, indentSize = 2, indentHtmlCodeblocks = false) => {
-    const indented = _indent(str, indentSize)
+export const indentExceptHtmlCodeblocks = (
+    str: string,
+    indentSize = 2,
+    indentHtmlCodeblocks = false
+) => {
+    const indented = indent(str, indentSize)
     if (indentHtmlCodeblocks) return indented
     return unindentHtmlCodeblocks(indented, indentSize)
 }

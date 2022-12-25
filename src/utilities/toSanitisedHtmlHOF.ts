@@ -1,5 +1,5 @@
 import type { ContentAddonFunction } from '../types'
-import { indent } from './indent'
+import { indentExceptHtmlCodeblocks } from './indentExceptHtmlCodeblocks'
 import { isBlock, isVoid } from './nodePredicates'
 import { trimTrailingNewlines } from './trimTrailingNewlines'
 
@@ -35,7 +35,7 @@ export const toSanitisedHtmlHOF = (
             ? `<${tag}${attributesStr}>${content}</${tag}>\n` +
               (addExtraTrailingNewline ? '\n' : '')
             : `<${tag}${attributesStr}>\n` +
-              (addIndent ? indent(trimTrailingNewlines(content)) : content) +
+              (addIndent ? indentExceptHtmlCodeblocks(trimTrailingNewlines(content)) : content) +
               `\n</${tag}>\n` +
               (addExtraTrailingNewline ? '\n' : '')
 }

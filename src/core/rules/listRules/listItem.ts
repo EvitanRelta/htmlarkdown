@@ -2,7 +2,7 @@ import { any } from 'predicate-hof'
 import type { Rule } from '../../../types'
 import {
     hasAnyOfAttributes,
-    indent,
+    indentExceptHtmlCodeblocks,
     obeyForceHtml,
     toSanitisedHtmlHOF,
     trimTrailingNewlines,
@@ -11,7 +11,10 @@ import { getBlockTrailingNewline } from '../helpers'
 
 /** Indents all lines except the first. */
 const indentAllExceptFirstLine = (str: string, indentSize: number, indentHtmlCodeblocks = false) =>
-    indent(str, indentSize, indentHtmlCodeblocks).replace(new RegExp(`^ {${indentSize}}`), '')
+    indentExceptHtmlCodeblocks(str, indentSize, indentHtmlCodeblocks).replace(
+        new RegExp(`^ {${indentSize}}`),
+        ''
+    )
 
 export const listItem: Rule = {
     filter: ['li'],
