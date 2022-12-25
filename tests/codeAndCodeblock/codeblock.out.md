@@ -118,7 +118,7 @@ qwe
 &lt;/h1>
 </code></pre>
 
-><pre><code># Heading-1 markdown
+> <pre><code># Heading-1 markdown
 > 
 > ## Heading-2 markdown __ITALIC__
 > 
