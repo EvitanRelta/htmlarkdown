@@ -38,11 +38,4 @@ describe('Loose List', () => {
         const outputMarkdown = htmlarkdown.convert(htmlInput)
         expect(outputMarkdown).toBe(expectedMarkdownOutput)
     })
-
-    test.skip('Loose List - with multiple block-elements (fail)', async () => {
-        const htmlarkdown = new HTMLarkdown()
-        const [htmlInput, expectedMarkdownOutput] = await getTestPair('./withMultipleBlockEle_fail')
-        const outputMarkdown = htmlarkdown.convert(htmlInput)
-        expect(outputMarkdown).toBe(expectedMarkdownOutput)
-    })
 })

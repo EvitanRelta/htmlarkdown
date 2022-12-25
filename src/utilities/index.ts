@@ -1,5 +1,5 @@
 export * from './elementPredicates'
-export { indent } from './indent'
+export { indentExceptHtmlCodeblocks } from './indentExceptHtmlCodeblocks'
 export * from './linkTransformers'
 export * from './miscPredicates'
 export * from './nodePredicates'
