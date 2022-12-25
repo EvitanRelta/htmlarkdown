@@ -110,7 +110,53 @@ export class HTMLarkdown {
         else this.options.postProcesses.push(postProcess)
     }
 
-    // Assumes no text nodes in childNodes
+    /**
+     * Converts the child-elements of a container-element into markdown.
+     *
+     * This **DOES NOT** mutate the container-element,  \
+     * as it's **deep-cloned** before any processing/conversion.
+     *
+     * _**Note:** The container-element itself won't be converted,
+     * nor is any text-nodes that are direct-child of the container.  \
+     * Only it's child-elements are converted._
+     * @example
+     * const htmlarkdown = new HTMLarkdown()
+     * const container = document.getElementById('container')
+     * console.log(container.outerHTML)
+     * // => '<div id="container"><h1>Heading</h1></div>'
+     * htmlarkdown.convert(container)
+     * // => '# Heading'
+     * @param container The container-element containing the elements to be converted.
+     * @returns Markdown conversion of the elements in `container`.
+     */
+    convert(container: Element): string
+
+    /**
+     * Parses a string containing HTML source-code into a DOM via `stringToDom`
+     * utility function,  \
+     * then converts that DOM into markdown.
+     *
+     * By default, the `htmlString` is expected to not be wrapped in a container
+     * tag.  \
+     * If the it is, then set `hasContainer` param to `true`.
+     *
+     * @example
+     * const htmlarkdown = new HTMLarkdown()
+     * const htmlString = `
+     * <h1>Heading</h1>
+     * <p>Paragraph</p>
+     * `
+     * const htmlStrWithContainer = `<div>${htmlString}</div>`
+     * htmlarkdown.convert(htmlString)
+     * htmlarkdown.convert(htmlStrWithContainer, true)
+     * // Both output => '# Heading\n\nParagraph'
+     * @param htmlString The string containing HTML source-code.
+     * @param hasContainer Whether `htmlString` is wrapped in a container tag.  \
+     * _(default: `false`)_
+     * @returns Markdown conversion of `htmlString`.
+     */
+    convert(htmlString: string, hasContainer?: boolean): string
+
     convert(container: Element | string, hasContainer = false): string {
         let containerElement: Element
         if (typeof container === 'object') containerElement = container.cloneNode(true) as Element
