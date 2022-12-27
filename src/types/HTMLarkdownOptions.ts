@@ -105,23 +105,6 @@ export interface HTMLarkdownOptions {
         images: boolean
     }
     /**
-     * Array of plugins that configures the `HTMLarkdown` instance.
-     *
-     * Plugins are loaded after the `HTMLarkdownOptions` are set.  \
-     * Meaning, plugins may overwrite the given `HTMLarkdownOptions`.
-     *
-     * _(use `preloadPlugins` option instead if you don't want plugins overwriting your configs)_
-     * @default []
-     */
-    plugins: Plugin[]
-    /**
-     * Similar to `plugins` option, but loads the plugins first _(with the `HTMLarkdown`
-     * instance having default `HTMLarkdownOptions` values)_, before setting
-     * the `HTMLarkdownOptions`.
-     * @default []
-     */
-    preloadPlugins: Plugin[]
-    /**
      * Whether to inserts a linebreak inside block-elements that are either
      * empty or end with a linebreak.
      *
@@ -219,4 +202,29 @@ export interface HTMLarkdownOptions {
      * @default "conservative"
      */
     htmlEscapingMode: 'conservative' | '&<>' | '&<>"\''
+}
+
+/**
+ * 'HTMLarkdownOptions' but with options for loading plugins.
+ *
+ * Used by only by HTMLarkdown's constructor.
+ */
+export interface HTMLarkdownOptionsWithPlugins extends HTMLarkdownOptions {
+    /**
+     * Array of plugins that configures the `HTMLarkdown` instance.
+     *
+     * Plugins are loaded after the `HTMLarkdownOptions` are set.  \
+     * Meaning, plugins may overwrite the given `HTMLarkdownOptions`.
+     *
+     * _(use `preloadPlugins` option instead if you don't want plugins overwriting your configs)_
+     * @default []
+     */
+    plugins: Plugin[]
+    /**
+     * Similar to `plugins` option, but loads the plugins first _(with the `HTMLarkdown`
+     * instance having default `HTMLarkdownOptions` values)_, before setting
+     * the `HTMLarkdownOptions`.
+     * @default []
+     */
+    preloadPlugins: Plugin[]
 }

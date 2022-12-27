@@ -1,4 +1,4 @@
-export type { HTMLarkdownOptions } from './HTMLarkdownOptions'
+export type { HTMLarkdownOptions, HTMLarkdownOptionsWithPlugins } from './HTMLarkdownOptions'
 export type { PassDownOptions } from './PassDownOptions'
 export type { Plugin } from './Plugin'
 export type { PostProcess } from './PostProcess'

@@ -1,9 +1,11 @@
+import _ from 'lodash'
 import type { IterableElement, PartialDeep } from 'type-fest'
 import type {
     FilterAnd,
     FilterOr,
     FilterPredicate,
     HTMLarkdownOptions,
+    HTMLarkdownOptionsWithPlugins,
     PassDownOptions,
     Plugin,
     PostProcess,
@@ -97,11 +99,11 @@ export class HTMLarkdown {
     /** The options that defines how `this.convert` converts HTML to markdown. */
     options: HTMLarkdownOptions
 
-    constructor(options?: PartialDeep<HTMLarkdownOptions>) {
+    constructor(options?: PartialDeep<HTMLarkdownOptionsWithPlugins>) {
         this.options = HTMLarkdown._getDefaultHTMLarkdownOptions()
         if (options?.preloadPlugins) this.loadPlugins(options.preloadPlugins)
-        mergeOverwriteArray(this.options, options)
-        this.loadPlugins(this.options.plugins)
+        mergeOverwriteArray(this.options, _.omit(options, ['plugins', 'preloadPlugins']))
+        if (options?.plugins) this.loadPlugins(options.plugins)
     }
 
     /**
@@ -275,8 +277,6 @@ export class HTMLarkdown {
                 textUrls: true,
                 images: true,
             },
-            plugins: [],
-            preloadPlugins: [],
             addTrailingLinebreak: false,
             codeblockTrailingLinebreak: 'both',
             maxPrettyTableWidth: 80,
