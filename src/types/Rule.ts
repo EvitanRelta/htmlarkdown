@@ -48,8 +48,14 @@ export type ContentAddonFunction = (innerContent: string) => string
 export interface ReplacementObj {
     /** `PassDownOptions` to propagate to the element's child nodes. */
     childOptions?: Partial<PassDownOptions>
-    /** The markdown-conversion for the element. */
-    value: ContentAddonFunction | string
+    /**
+     * The markdown-conversion for the element.
+     *
+     * Does not accept strings as that would mean the conversion stops recursing
+     * on this element, and thus there would be no need to pass down any
+     * child-options.
+     */
+    value: ContentAddonFunction
 }
 
 /**
