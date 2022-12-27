@@ -1,0 +1,17 @@
+{
+    "repository": "github:EvitanRelta/htmlarkdown",
+    "version": "0.1.0",
+    "scripts": {
+        "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+        "build-publish": "npm run build && npm publish",
+        "test": "jest --silent",
+        "test-watch": "jest --watch",
+        "pretty": "prettier --write ."
+    },
+    "devDependencies": {
+        "typescript": "^4.9.4"
+    },
+    "dependencies": {
+        "htmlarkdown": "^1.0.1"
+    }
+}
