@@ -7,7 +7,8 @@ import type { UrlTransformer } from './UrlTransformer'
 
 export interface HTMLarkdownOptions {
     /**
-     * The pre-processes to use.
+     * The pre-processes to use. Evaluated starting from **BACK** of the array
+     * to the front.
      *
      * Pre-processes modify the container element.  \
      * They are ran first, before the any other processes/rules.
@@ -21,7 +22,8 @@ export interface HTMLarkdownOptions {
      */
     preProcesses: PreProcess[]
     /**
-     * The rules to use.
+     * The rules to use. Evaluated starting from **BACK** of the array to the
+     * front.
      *
      * Rules dictate how each element is converted to markdown.  \
      * They are ran after pre-processes, and together with text-processes.
@@ -32,7 +34,8 @@ export interface HTMLarkdownOptions {
      */
     rules: Rule[]
     /**
-     * The text-processes to use.
+     * The text-processes to use. Evaluated starting from **BACK** of the array
+     * to the front.
      *
      * Text-processes transforms the text in each text-node.  \
      * They are ran after pre-processes, and together with rules.
@@ -43,7 +46,8 @@ export interface HTMLarkdownOptions {
      */
     textProcesses: TextProcess[]
     /**
-     * The post-processes to use.
+     * The post-processes to use. Evaluated starting from **BACK** of the array
+     * to the front.
      *
      * Post-processes transforms the markdown output string produced by the
      * rules/text-processes.  \

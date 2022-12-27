@@ -7,20 +7,17 @@ import { escapeSpecialSpaces } from './escapeSpecialSpaces'
 import { prettifySpaces } from './prettifySpaces'
 
 /**
- * Text-processes are called starting from the FRONT of the array to the back.
+ * Text-processes are evaluated starting from the **BACK** of the array to the
+ * front.
  *
- * This is so the newer text-processes *(added by the user)* that are pushed to
- * the back are ran last \
- * *(as they're probably less important than the default pre-processes)*.
- *
- * _**Note:** This is opposite of rules, which is evaluated starting from the
- * **BACK**._
+ * This is so the newer text-processes *(added by the user)* can be pushed to
+ * the back and prioritised.
  */
 export const textProcesses: TextProcess[] = [
-    escapeMarkdown,
-    escapeHtml,
-    escapeSpecialSpaces,
-    prettifySpaces,
-    addListItemTrailingNewline,
     escapeBlankLines,
+    addListItemTrailingNewline,
+    prettifySpaces,
+    escapeSpecialSpaces,
+    escapeHtml,
+    escapeMarkdown,
 ]

@@ -144,20 +144,22 @@ export class HTMLarkdown {
     /**
      * Adds a new pre-process to the conversion.
      *
-     * By default, the added pre-process evaluated **AFTER** all the other pre-processes.
+     * By default, the added pre-process is prioritised and evaluated
+     * **BEFORE** all the other pre-processes.
      * @param preProcess The pre-process to add
      * @param runFirst Whether to run the pre-process first or last among the pre-processes \
-     * _(default: `false`)_
+     * _(default: `true`)_
      */
-    addPreProcess(preProcess: PreProcess, runFirst: boolean = false): void {
-        if (runFirst) this.options.preProcesses.unshift(preProcess)
-        else this.options.preProcesses.push(preProcess)
+    addPreProcess(preProcess: PreProcess, runFirst: boolean = true): void {
+        if (runFirst) this.options.preProcesses.push(preProcess)
+        else this.options.preProcesses.unshift(preProcess)
     }
 
     /**
      * Adds a new rule to the conversion.
      *
-     * By default, the added rule is prioritised and evaluated **BEFORE** all the other rules.
+     * By default, the added rule is prioritised and evaluated **BEFORE** all
+     * the other rules.
      * @param rule The rule to add
      * @param runFirst Whether to run the rule first or last among the rules \
      * _(default: `true`)_
@@ -170,27 +172,29 @@ export class HTMLarkdown {
     /**
      * Adds a new text-process to the conversion.
      *
-     * By default, the added text-process evaluated **AFTER** all the other text-processes.
+     * By default, the added text-process is prioritised and evaluated
+     * **BEFORE** all the other text-processes.
      * @param textProcess The text-process to add
      * @param runFirst Whether to run the text-process first or last among the text-processes \
-     * _(default: `false`)_
+     * _(default: `true`)_
      */
-    addTextProcess(textProcess: TextProcess, runFirst: boolean = false): void {
-        if (runFirst) this.options.textProcesses.unshift(textProcess)
-        else this.options.textProcesses.push(textProcess)
+    addTextProcess(textProcess: TextProcess, runFirst: boolean = true): void {
+        if (runFirst) this.options.textProcesses.push(textProcess)
+        else this.options.textProcesses.unshift(textProcess)
     }
 
     /**
      * Adds a new post-process to the conversion.
      *
-     * By default, the added post-process evaluated **AFTER** all the other post-processes.
+     * By default, the added post-process is prioritised and evaluated
+     * **BEFORE**  all the other post-processes.
      * @param postProcess The post-process to add
      * @param runFirst Whether to run the post-process first or last among the post-processes \
-     * _(default: `false`)_
+     * _(default: `true`)_
      */
-    addPostProcess(postProcess: PostProcess, runFirst: boolean = false): void {
-        if (runFirst) this.options.postProcesses.unshift(postProcess)
-        else this.options.postProcesses.push(postProcess)
+    addPostProcess(postProcess: PostProcess, runFirst: boolean = true): void {
+        if (runFirst) this.options.postProcesses.push(postProcess)
+        else this.options.postProcesses.unshift(postProcess)
     }
 
     /**
@@ -303,7 +307,7 @@ export class HTMLarkdown {
      * @returns The pre-processed container-element.
      */
     private _preProcess(container: Element): Element {
-        return this.options.preProcesses.reduce(
+        return this.options.preProcesses.reduceRight(
             (container, process) => process(container, this.options),
             container
         )
@@ -318,7 +322,7 @@ export class HTMLarkdown {
      * @returns The processed text.
      */
     private _processText(text: string, textNode: TextNode, parentOptions: PassDownOptions): string {
-        return this.options.textProcesses.reduce(
+        return this.options.textProcesses.reduceRight(
             (text, process) => process(text, textNode, this.options, parentOptions),
             text
         )
@@ -331,7 +335,7 @@ export class HTMLarkdown {
      * @returns The post-processed markdown string.
      */
     private _postProcess(rawMarkdown: string): string {
-        return this.options.postProcesses.reduce(
+        return this.options.postProcesses.reduceRight(
             (rawMarkdown, process) => process(rawMarkdown, this.options),
             rawMarkdown
         )

@@ -9,11 +9,8 @@ import { voidRules } from './voidRules'
 /**
  * Rules are checked starting from the **BACK** of the array to the front.
  *
- * This is so the newer rules *(added by the user)* that are pushed to the back
- * are prioritised.
- *
- * _**Note:** This is opposite of pre/text-processes, which are all evaluated
- * starting from the **FRONT**._
+ * This is so the newer rules *(added by the user)* can be pushed to the back
+ * and prioritised.
  */
 export const rules: Rule[] = [
     ...tableRules,

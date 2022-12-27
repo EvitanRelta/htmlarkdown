@@ -4,17 +4,14 @@ import { collapseWhitespace } from './collapseWhitespace'
 import { removeEmptyElements } from './removeEmptyElements'
 
 /**
- * Pre-processes are called starting from the FRONT of the array to the back.
+ * Pre-processes are evaluated starting from the **BACK** of the array to the
+ * front.
  *
- * This is so the newer pre-processes *(added by the user)* that are pushed to
- * the back are ran last \
- * *(as they're probably less important than the default pre-processes)*.
- *
- * _**Note:** This is opposite of rules, which is evaluated starting from the
- * **BACK**._
+ * This is so the newer pre-processes *(added by the user)* can be pushed to
+ * the back and prioritised.
  */
 export const preProcesses: PreProcess[] = [
-    collapseWhitespace,
-    removeEmptyElements,
     addTrailingLinebreaks,
+    removeEmptyElements,
+    collapseWhitespace,
 ]
