@@ -21,6 +21,10 @@
 </script>
 
 <div class="content">
+    <div class="header">
+        <img alt="logo" src="../assets/title_dark.webp" />
+        <div><a href="https://github.com/EvitanRelta/htmlarkdown">Source on GitHub</a></div>
+    </div>
     <div class="row">
         <div class="column">
             <div class="card">
@@ -39,6 +43,18 @@
 </div>
 
 <style>
+    .header {
+        font-size: small;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .header img {
+        max-height: 10vh;
+    }
     .content * {
         box-sizing: border-box;
     }
