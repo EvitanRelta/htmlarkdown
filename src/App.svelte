@@ -1,14 +1,17 @@
 <script lang="ts">
     import type { ViewUpdate } from '@codemirror/view'
+    import { EditorView } from '@codemirror/view'
+    import { HTMLarkdown } from 'htmlarkdown'
     import _ from 'lodash'
     import Editor from './lib/Editor.svelte'
     import MarkdownDisplay from './lib/MarkdownDisplay.svelte'
 
-    import { EditorView } from '@codemirror/view'
     let markdownOutput = ''
+    const htmlarkdown = new HTMLarkdown()
+
     const updateMarkdownDisplay = EditorView.updateListener.of(
         _.debounce((v: ViewUpdate) => {
-            if (v.docChanged) markdownOutput = v.state.doc.toString()
+            if (v.docChanged) markdownOutput = htmlarkdown.convert(v.state.doc.toString())
         }, 50)
     )
 </script>

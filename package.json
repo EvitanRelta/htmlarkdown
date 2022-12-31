@@ -26,6 +26,7 @@
         "@codemirror/lang-markdown": "^6.0.5",
         "@codemirror/theme-one-dark": "^6.1.0",
         "codemirror": "^6.0.1",
+        "htmlarkdown": "^1.0.1",
         "lodash": "^4.17.21"
     }
 }
