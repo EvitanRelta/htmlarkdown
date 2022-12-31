@@ -1,6 +1,7 @@
 <script lang="ts">
     import { markdown } from '@codemirror/lang-markdown'
     import { syntaxHighlighting } from '@codemirror/language'
+    import { languages } from '@codemirror/language-data'
     import { EditorState } from '@codemirror/state'
     import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
     import { EditorView } from '@codemirror/view'
@@ -17,7 +18,9 @@
     onMount(() => {
         view = new EditorView({
             extensions: [
-                markdown(),
+                markdown({
+                    codeLanguages: languages,
+                }),
                 syntaxHighlighting(oneDarkHighlightStyle),
                 EditorView.theme({
                     '&': { height: '100%' },
