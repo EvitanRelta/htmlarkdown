@@ -6,6 +6,7 @@
     import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
     import { EditorView, keymap } from '@codemirror/view'
     import { onMount } from 'svelte'
+    import initialEditorContents from '../initialEditorContents.html?raw'
 
     export let updateMarkdownDisplay: Extension
     let container: Element
@@ -26,6 +27,9 @@
                 updateMarkdownDisplay,
             ],
             parent: container,
+        })
+        editorView.dispatch({
+            changes: { from: 0, to: editorView.state.doc.length, insert: initialEditorContents },
         })
     })
 </script>

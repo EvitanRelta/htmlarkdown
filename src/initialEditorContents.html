@@ -1,0 +1,54 @@
+<!-- Try enabling "addTrailingLinebreak. -->
+<p>Below are some empty elements:</p>
+<p></p>
+<h1></h1>
+<ul>
+  <li></li>
+</ul>
+
+
+<!-- Try changing "htmlEscapingMode". -->
+<p forcehtml>
+  Add "forcehtml" attribute to force HTML-syntax.
+  <br>\( *w*)/ ~ &quot; I &lt;3 cookie &amp; cream! :&gt; &quot;
+  <br>&lt;div&gt; &amp;amp;
+</p>
+<p>
+  Here's the same paragraph without "forcehtml".
+  <br>\( *w*)/ ~ &quot; I &lt;3 cookie &amp; cream! :&gt; &quot;
+  <br>&lt;div&gt; &amp;amp;
+</p>
+
+
+<!-- Try changing "codeblockTrailingLinebreak". -->
+<pre lang=markdown><code># Markdown-syntax
+</code></pre>
+<pre lang=markdown forcehtml><code># HTML-syntax
+</code></pre>
+
+
+<!-- Try setting "maxPrettyTableWidth" to -1. -->
+<table>
+  <thead>
+    <tr>
+      <th>Person's Name</th><th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Joe</td><td>20</td></tr>
+    <tr><td>Mama</td><td>999999999</td></tr>
+  </tbody>
+</table>
+
+
+<!-- Try setting "elementsNoWhitespaceCollapse" to ["pre", "h2"]. -->
+<h2>   S   P   A   C   E   </h2>
+
+
+<!-- Try disabling "reverseAutolinks" > "images"/"textUrls". -->
+<p><a href="https://www.google.com"><b>www.google.com</b></a></p>
+<p><a href="https://image.src"><img src="https://image.src"></a></p>
+
+<p>========== END ==========</p>
+
+
