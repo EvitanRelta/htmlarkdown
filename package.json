@@ -13,12 +13,19 @@
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.0.0",
         "@tsconfig/svelte": "^3.0.0",
+        "@types/lodash": "^4.14.191",
         "prettier": "^2.8.1",
-        "prettier-plugin-organize-imports": "^3.2.1",
         "svelte": "^3.54.0",
         "svelte-check": "^2.10.0",
         "tslib": "^2.4.1",
         "typescript": "^4.9.3",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@codemirror/lang-html": "^6.4.0",
+        "@codemirror/lang-markdown": "^6.0.5",
+        "@codemirror/theme-one-dark": "^6.1.0",
+        "codemirror": "^6.0.1",
+        "lodash": "^4.17.21"
     }
 }
