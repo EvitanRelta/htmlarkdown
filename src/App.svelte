@@ -1,4 +1,5 @@
 <script lang="ts">
+    import titleImageUrl from '../assets/title_dark.webp'
     import { EditorView } from '@codemirror/view'
     import { HTMLarkdown } from 'htmlarkdown'
     import _ from 'lodash'
@@ -22,7 +23,7 @@
 
 <div class="content">
     <div class="header">
-        <img alt="logo" src="../assets/title_dark.webp" />
+        <img alt="logo" src={titleImageUrl} />
         <div><a href="https://github.com/EvitanRelta/htmlarkdown">Source on GitHub</a></div>
     </div>
     <div class="row">
