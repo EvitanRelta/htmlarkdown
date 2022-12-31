@@ -1,31 +1,40 @@
 <script lang="ts">
-    import type { ViewUpdate } from '@codemirror/view'
     import { EditorView } from '@codemirror/view'
     import { HTMLarkdown } from 'htmlarkdown'
     import _ from 'lodash'
     import Editor from './lib/Editor.svelte'
     import MarkdownDisplay from './lib/MarkdownDisplay.svelte'
+    import Options from './lib/Options.svelte'
 
     let markdownOutput = ''
     const htmlarkdown = new HTMLarkdown()
+    // @ts-expect-error
+    $: window.htmlarkdown = htmlarkdown
 
-    const updateMarkdownDisplay = EditorView.updateListener.of(
-        _.debounce((v: ViewUpdate) => {
-            if (v.docChanged) markdownOutput = htmlarkdown.convert(v.state.doc.toString())
-        }, 50)
-    )
+    let editorView: EditorView
+    const rerender = _.debounce(() => {
+        markdownOutput = htmlarkdown.convert(editorView.state.doc.toString())
+    }, 50)
+    const updateMarkdownDisplay = EditorView.updateListener.of((v) => {
+        if (v.docChanged) rerender()
+    })
 </script>
 
 <div class="content">
-    <div class="column">
-        <div class="card">
-            <Editor {updateMarkdownDisplay} />
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <Editor bind:editorView {updateMarkdownDisplay} />
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <MarkdownDisplay {markdownOutput} />
+            </div>
         </div>
     </div>
-    <div class="column">
-        <div class="card">
-            <MarkdownDisplay {markdownOutput} />
-        </div>
+    <div class="row">
+        <Options {rerender} options={htmlarkdown.options} />
     </div>
 </div>
 
@@ -38,6 +47,18 @@
         float: left;
         width: 50%;
         padding: 0 10px;
+    }
+
+    /* Remove extra left and right margins, due to padding */
+    .row {
+        margin: 0 -5px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: '';
+        display: table;
+        clear: both;
     }
 
     /* Style the counter cards */

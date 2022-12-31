@@ -9,10 +9,10 @@
 
     export let updateMarkdownDisplay: Extension
     let container: Element
-    let view: EditorView
+    export let editorView: EditorView
 
     onMount(() => {
-        view = new EditorView({
+        editorView = new EditorView({
             extensions: [
                 history(),
                 keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),

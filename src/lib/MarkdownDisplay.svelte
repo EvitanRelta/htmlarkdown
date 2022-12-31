@@ -12,7 +12,6 @@
     export let markdownOutput: string
     $: if (view) {
         view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: markdownOutput } })
-        console.log('updated')
     }
 
     onMount(() => {
