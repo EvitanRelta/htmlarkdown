@@ -96,6 +96,7 @@
 
         .card {
             height: 40vh;
+            font-size: medium;
         }
     }
 </style>
