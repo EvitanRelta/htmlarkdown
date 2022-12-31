@@ -1,5 +1,6 @@
 {
-    "name": "demo",
+    "homepage": "https://evitanrelta.github.io/htmlarkdown/",
+    "name": "demo-site",
     "private": true,
     "version": "0.0.0",
     "type": "module",
@@ -7,6 +8,8 @@
         "pretty": "prettier --write .",
         "dev": "vite",
         "build": "vite build",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json"
     },
@@ -14,6 +17,7 @@
         "@sveltejs/vite-plugin-svelte": "^2.0.0",
         "@tsconfig/svelte": "^3.0.0",
         "@types/lodash": "^4.14.191",
+        "gh-pages": "^4.0.0",
         "prettier": "^2.8.1",
         "svelte": "^3.54.0",
         "svelte-check": "^2.10.0",
