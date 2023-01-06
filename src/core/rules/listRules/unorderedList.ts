@@ -4,7 +4,6 @@ import {
     directChildWillBeHtml,
     hasAnyOfAttributes,
     obeyForceHtml,
-    toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
 import { isLooseList, UNORDERED_LIST_BOUNDARY } from './helpers'
@@ -38,13 +37,13 @@ export const unorderedList: Rule = {
             return prefix + trimTrailingNewlines(innerContent) + suffix
         },
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: (element) => ({
         childOptions: {
             ...getChildOptions(element),
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
         },
-        value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
+        value: ['align'],
     }),
 }

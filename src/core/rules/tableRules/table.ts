@@ -1,11 +1,6 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML, ToUseHtmlPredicate } from '../../../types'
-import {
-    childWillBeHtml,
-    hasAnyOfAttributes,
-    obeyForceHtml,
-    toSanitisedHtmlHOF,
-} from '../../../utilities'
+import { childWillBeHtml, hasAnyOfAttributes, obeyForceHtml } from '../../../utilities'
 import { getBlockTrailingNewline } from '../helpers'
 
 const hasInvalidHeaders: ToUseHtmlPredicate = (tableElement) => {
@@ -78,17 +73,13 @@ export const table: RuleWithHTML = {
             return paddedRows[0] + headerSeparator + body + getBlockTrailingNewline(parentOptions)
         },
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: () => ({
         childOptions: {
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
             isInsideBlockElement: true,
         },
-        value: toSanitisedHtmlHOF(
-            element,
-            ['align', 'border', 'width', 'height'],
-            !parentOptions.isInsideBlockElement
-        ),
+        value: ['align', 'border', 'width', 'height'],
     }),
 }

@@ -1,6 +1,6 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../../types'
-import { hasAnyOfAttributes, obeyForceHtml, toSanitisedHtmlHOF } from '../../../utilities'
+import { hasAnyOfAttributes, obeyForceHtml } from '../../../utilities'
 
 export const tableRow: RuleWithHTML = {
     filter: ['tr'],
@@ -12,17 +12,13 @@ export const tableRow: RuleWithHTML = {
         childOptions: { isInsideBlockElement: true },
         value: (innerContent) => innerContent + '\n',
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: () => ({
         childOptions: {
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
             isInsideBlockElement: true,
         },
-        value: toSanitisedHtmlHOF(
-            element,
-            ['align', 'valign', 'width', 'height'],
-            !parentOptions.isInsideBlockElement
-        ),
+        value: ['align', 'valign', 'width', 'height'],
     }),
 }

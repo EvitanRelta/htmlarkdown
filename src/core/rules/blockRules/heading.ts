@@ -1,12 +1,6 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../../types'
-import {
-    blockTagNames,
-    hasAnyOfAttributes,
-    isHeading,
-    obeyForceHtml,
-    toSanitisedHtmlHOF,
-} from '../../../utilities'
+import { blockTagNames, hasAnyOfAttributes, isHeading, obeyForceHtml } from '../../../utilities'
 import { getBlockTrailingNewline } from '../helpers'
 
 const blockTagsExceptHr = blockTagNames.filter((x) => x !== 'HR')
@@ -27,13 +21,13 @@ export const heading: RuleWithHTML = {
             return `${prefix} ${innerContent}` + getBlockTrailingNewline(parentOptions)
         },
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: () => ({
         childOptions: {
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
             isInsideBlockElement: true,
         },
-        value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
+        value: ['align'],
     }),
 }

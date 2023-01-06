@@ -17,7 +17,7 @@ import type {
     TextNode,
     TextProcess,
 } from '../types'
-import { isElement, isTextNode, stringToDom } from '../utilities'
+import { isElement, isTextNode, stringToDom, toSanitisedHtmlHOF } from '../utilities'
 import { isRuleWithHtml, mergeOverwriteArray } from './helpers'
 import { postProcesses } from './postProcesses'
 import { preProcesses } from './preProcesses'
@@ -368,7 +368,7 @@ export class HTMLarkdown {
         const replacement = replacementFunc(node, this.options, parentOptions)
         const isReplacementObj = (
             replacement: ReturnType<ReplacementFunction>
-        ): replacement is ReplacementObj => typeof replacement === 'object'
+        ): replacement is ReplacementObj => _.isPlainObject(replacement)
 
         if (isReplacementObj(replacement)) {
             value = replacement.value
@@ -378,6 +378,10 @@ export class HTMLarkdown {
         }
 
         if (typeof value === 'string') return value
+        if (_.isArray(value)) {
+            const attributes = value
+            value = toSanitisedHtmlHOF(node, attributes, !parentOptions.isInsideBlockElement)
+        }
 
         const innerContent = Array.from(node.childNodes)
             .map((node) => this._convert(node, childOptions))

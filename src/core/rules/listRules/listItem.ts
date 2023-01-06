@@ -4,7 +4,6 @@ import {
     hasAnyOfAttributes,
     indentExceptHtmlCodeblocks,
     obeyForceHtml,
-    toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
 import { getBlockTrailingNewline } from '../helpers'
@@ -48,13 +47,13 @@ export const listItem: Rule = {
             )
         },
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: () => ({
         childOptions: {
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
             isInsideBlockElement: true,
         },
-        value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
+        value: ['align'],
     }),
 }

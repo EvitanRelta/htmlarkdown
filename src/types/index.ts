@@ -4,6 +4,7 @@ export type { Plugin } from './Plugin'
 export type { PostProcess } from './PostProcess'
 export type { PreProcess } from './PreProcess'
 export type {
+    AllowedAttributes as AllowedAttribute,
     ContentAddonFunction,
     FilterAnd,
     FilterOr,

@@ -4,7 +4,6 @@ import {
     directChildWillBeHtml,
     hasAnyOfAttributes,
     obeyForceHtml,
-    toSanitisedHtmlHOF,
     trimTrailingNewlines,
 } from '../../../utilities'
 import { isLooseList, ORDERED_LIST_BOUNDARY } from './helpers'
@@ -54,17 +53,13 @@ export const orderedList: Rule = {
             return prefix + trimTrailingNewlines(innerContent) + suffix
         },
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: (element) => ({
         childOptions: {
             ...getChildOptions(element),
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
         },
-        value: toSanitisedHtmlHOF(
-            element,
-            ['align', 'start', 'type'],
-            !parentOptions.isInsideBlockElement
-        ),
+        value: ['align', 'start', 'type'],
     }),
 }

@@ -55,8 +55,16 @@ export interface ReplacementObj {
      * on this element, and thus there would be no need to pass down any
      * child-options.
      */
-    value: ContentAddonFunction
+    value: AllowedAttributes | ContentAddonFunction
 }
+
+/**
+ * The allowed attributes for HTML-syntax.
+ *
+ * If this is returned by the rule's replacement function, the element will be
+ * converted to HTML-syntax, with only the listed attributes from the element.
+ */
+export type AllowedAttributes = string[]
 
 /**
  * Function to handle how an element is converted to markdown.
@@ -78,7 +86,7 @@ export type ReplacementFunction = (
     element: Element,
     options: HTMLarkdownOptions,
     parentOptions: PassDownOptions
-) => string | ContentAddonFunction | ReplacementObj
+) => string | AllowedAttributes | ContentAddonFunction | ReplacementObj
 
 /** Rule that has the same conversion for both markdown and HTML-in-markdown syntax. */
 export interface RuleWOHTML {

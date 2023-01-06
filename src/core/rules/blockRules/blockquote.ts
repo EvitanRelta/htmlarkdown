@@ -1,11 +1,6 @@
 import { any } from 'predicate-hof'
 import type { RuleWithHTML } from '../../../types'
-import {
-    hasAnyOfAttributes,
-    obeyForceHtml,
-    toSanitisedHtmlHOF,
-    trimTrailingNewlines,
-} from '../../../utilities'
+import { hasAnyOfAttributes, obeyForceHtml, trimTrailingNewlines } from '../../../utilities'
 import { getBlockTrailingNewline } from '../helpers'
 
 export const blockquote: RuleWithHTML = {
@@ -17,13 +12,13 @@ export const blockquote: RuleWithHTML = {
             trimTrailingNewlines(innerContent).replaceAll(/^/gm, '> ') +
             getBlockTrailingNewline(parentOptions),
     }),
-    htmlReplacement: (element, _, parentOptions) => ({
+    htmlReplacement: () => ({
         childOptions: {
             forceHtml: true,
             escapeHtml: true,
             escapeMarkdown: false,
             isInsideBlockElement: true,
         },
-        value: toSanitisedHtmlHOF(element, ['align'], !parentOptions.isInsideBlockElement),
+        value: ['align'],
     }),
 }
