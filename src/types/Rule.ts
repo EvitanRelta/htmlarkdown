@@ -58,13 +58,19 @@ export interface ReplacementObj {
     value: AllowedAttributes | ContentAddonFunction
 }
 
+/** Used the replace an attribute #WIP */
+export interface AttributeReplacement {
+    name: string
+    value: string | ((attributeValue: string | null) => string | null)
+}
+
 /**
  * The allowed attributes for HTML-syntax.
  *
  * If this is returned by the rule's replacement function, the element will be
  * converted to HTML-syntax, with only the listed attributes from the element.
  */
-export type AllowedAttributes = string[]
+export type AllowedAttributes = (string | AttributeReplacement)[]
 
 /**
  * Function to handle how an element is converted to markdown.
