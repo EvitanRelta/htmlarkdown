@@ -6,6 +6,21 @@
   </picture>
 </h1>
 
+<div align="center">
+
+[![Coverage][coverage-badge]][coverage-link]
+[![Version][version-badge]][version-link]
+[![License][license-badge]][license-link]
+
+</div>
+
+[coverage-badge]: https://badgen.net/codecov/c/github/EvitanRelta/htmlarkdown?color=009900
+[coverage-link]: https://codecov.io/gh/EvitanRelta/htmlarkdown
+[version-badge]: https://badgen.net/github/release/EvitanRelta/htmlarkdown
+[version-link]: https://github.com/EvitanRelta/htmlarkdown/releases/latest
+[license-badge]: https://badgen.net/github/license/EvitanRelta/htmlarkdown
+[license-link]: https://badgen.net/github/license/EvitanRelta/htmlarkdown
+
 <br>
 
 HTMLarkdown is a **<ins>HTML-to-Markdown converter</ins>** that's able to output HTML-syntax when required.  
